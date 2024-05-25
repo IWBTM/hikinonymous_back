@@ -1,5 +1,10 @@
 spring:
   application:
     name: cms
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/hikinonymous?serverTimezone=Asia/Seoul
+    username: hikinonymousManager
+    password: hikinonymousqwe123!!
 server:
   port: 8080
