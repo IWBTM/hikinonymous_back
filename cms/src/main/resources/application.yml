@@ -1,10 +1,20 @@
+server:
+  port: 8082
 spring:
   application:
-    name: cms
+    name: api
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/hikinonymous?serverTimezone=Asia/Seoul
     username: hikinonymousManager
     password: hikinonymousqwe123!!
-server:
-  port: 8080
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    show-sql: false
+    properties:
+      hibernate.format_sql: true
