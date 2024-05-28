@@ -5,9 +5,9 @@ public enum HttpResponseStatus {
     SUCCESS(200, "성공"),
     SERVER_ERROR(500, "서버 에러");
     
-    private Integer code;
+    private final Integer code;
 
-    private String message;
+    private final String message;
     
     HttpResponseStatus(Integer code, String message) {
         this.code = code;
