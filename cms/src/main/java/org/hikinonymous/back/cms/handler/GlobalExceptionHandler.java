@@ -1,4 +1,4 @@
-package org.hikinonymous.back.core.handler;
+package org.hikinonymous.back.cms.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
