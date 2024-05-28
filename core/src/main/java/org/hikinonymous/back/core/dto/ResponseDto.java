@@ -6,7 +6,9 @@ import lombok.Data;
 public class ResponseDto {
 
     private int code;
+
     private String message;
+
     private Object data;
 
 }
