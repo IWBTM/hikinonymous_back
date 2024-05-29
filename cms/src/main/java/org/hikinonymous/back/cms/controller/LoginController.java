@@ -2,6 +2,7 @@ package org.hikinonymous.back.cms.controller;
 
 import org.hikinonymous.back.core.dto.LoginDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
+import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,10 @@ public class LoginController {
             @RequestBody LoginDto loginDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-
-        return responseDto;
+        try {
+            return ResponseUtil.success(responseDto);
+        } catch (Exception e) {
+            return ResponseUtil.serverError(responseDto);
+        }
     }
 }

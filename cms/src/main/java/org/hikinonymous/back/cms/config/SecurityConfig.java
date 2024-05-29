@@ -15,22 +15,22 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable) // rest api로 개발 예정이기 때문에 disable
-            .httpBasic(AbstractHttpConfigurer::disable) // security default login disable 인듯 ?
-            .formLogin(AbstractHttpConfigurer::disable) // security default login disable 인듯 ?
-            .authorizeHttpRequests(authorizationManager -> { // 인증이 필요한 URL 지정
+        http.csrf(AbstractHttpConfigurer::disable)
+            .httpBasic(AbstractHttpConfigurer::disable)
+            .formLogin(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(authorizationManager -> {
                 authorizationManager
-                        .requestMatchers("/cms/login/**").permitAll() // 해당 URL은 인증 없이도 접근 허용
-                        .anyRequest() // 그 외의 요청은
-                        .authenticated(); // 인증이 필요한 URL로 지정
+                        .requestMatchers("/cms/login/**").permitAll()
+                        .anyRequest()
+                        .authenticated();
             })
             .logout(logoutConfig -> {
                 logoutConfig
-                        .invalidateHttpSession(true); // logout 후 모든 session 삭제
+                        .invalidateHttpSession(true);
             })
             .sessionManagement(securitySessionManagementConfig -> {
                 securitySessionManagementConfig
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // STATELESS한 정책 설정.
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             });
 
         return http.build();
