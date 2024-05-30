@@ -16,6 +16,16 @@ public class ResponseUtil {
     }
 
     /**
+     * FAILED_AUTHENTICATION
+     * CODE - 300
+     */
+    public static ResponseDto failedAuthentication(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.FAILED_AUTHENTICATION.getCode());
+        responseDto.setMessage(HttpResponseStatus.FAILED_AUTHENTICATION.getMessage());
+        return responseDto;
+    }
+
+    /**
      * VALID_REQUEST_PARAMETER_FORM
      * CODE - 401
      */
