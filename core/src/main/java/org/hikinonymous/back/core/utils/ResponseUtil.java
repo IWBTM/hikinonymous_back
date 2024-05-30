@@ -16,14 +16,35 @@ public class ResponseUtil {
     }
 
     /**
-     * VALID_EMAIL_FORM
+     * VALID_REQUEST_PARAMETER_FORM
      * CODE - 401
      */
-    public static ResponseDto validEmailForm(ResponseDto responseDto) {
-        responseDto.setCode(HttpResponseStatus.VALID_EMAIL_FORM.getCode());
-        responseDto.setMessage(HttpResponseStatus.VALID_EMAIL_FORM.getMessage());
+    public static ResponseDto validRequestParameterForm(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.VALID_REQUEST_PARAMETER_FORM.getCode());
+        responseDto.setMessage(HttpResponseStatus.VALID_REQUEST_PARAMETER_FORM.getMessage());
         return responseDto;
     }
+
+    /**
+     * EMPTY_REQUEST_PARAMETER
+     * CODE - 402
+     */
+    public static ResponseDto emptyRequestParameter(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.EMPTY_REQUEST_PARAMETER.getCode());
+        responseDto.setMessage(HttpResponseStatus.EMPTY_REQUEST_PARAMETER.getMessage());
+        return responseDto;
+    }
+
+    /**
+     * EMPTY_REQUEST_BODY
+     * CODE - 403
+     */
+    public static ResponseDto emptyRequestBody(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.EMPTY_REQUEST_BODY.getCode());
+        responseDto.setMessage(HttpResponseStatus.EMPTY_REQUEST_BODY.getMessage());
+        return responseDto;
+    }
+
 
     /**
      * SERVER_ERROR
