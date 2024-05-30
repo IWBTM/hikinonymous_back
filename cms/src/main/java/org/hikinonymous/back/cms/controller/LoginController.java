@@ -1,5 +1,6 @@
 package org.hikinonymous.back.cms.controller;
 
+import jakarta.validation.Valid;
 import org.hikinonymous.back.core.dto.LoginDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.utils.ResponseUtil;
@@ -14,7 +15,7 @@ public class LoginController {
 
     @PostMapping(value = "proc")
     public ResponseDto proc(
-            @RequestBody LoginDto loginDto
+            @RequestBody @Valid LoginDto loginDto
     ) {
         ResponseDto responseDto = new ResponseDto();
         try {

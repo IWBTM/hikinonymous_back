@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class LoginDto {
 
-    @NotBlank(message = "이메일")
     @Email
+    @NotBlank(message = "이메일")
     private String email;
 
     @NotBlank(message = "비밀번호")

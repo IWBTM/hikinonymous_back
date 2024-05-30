@@ -5,9 +5,10 @@ import lombok.Getter;
 @Getter
 public enum HttpResponseStatus {
     
-    SUCCESS(200, "성공"),
-    BAD_REQUEST(400, "잘못된 접근"),
-    SERVER_ERROR(500, "서버 에러");
+    SUCCESS(200, "성공 했습니다."),
+    BAD_REQUEST(400, "잘못된 접근입니다."),
+    VALID_EMAIL_FORM(401, "요청 파라미터 값의 형식이 올바르지 않습니다."),
+    SERVER_ERROR(500, "서버에서 에러가 발생했습니다.");
     
     private final Integer code;
 
