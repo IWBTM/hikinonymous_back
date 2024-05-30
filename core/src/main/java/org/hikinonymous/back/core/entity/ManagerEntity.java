@@ -91,7 +91,7 @@ public class ManagerEntity {
     private CodeEntity position;
 
     // 마지막 로그인일
-    @Column(nullable = false, length = 14)
+    @Column(length = 14)
     @Comment("마지막 로그인일")
     private String lastLoginDate;
 
