@@ -16,3 +16,25 @@ bootJar {
 jar {
     enabled = true
 }
+
+def querydslSrcDir = 'src/main/generated'
+sourceSets {
+    main {
+        java {
+            srcDirs += [ querydslSrcDir ]
+        }
+    }
+}
+
+compileJava {
+    options.compilerArgs << '-Aquerydsl.generatedAnnotationClass=javax.annotation.Generated'
+}
+
+tasks.withType(JavaCompile) {
+    options.generatedSourceOutputDirectory = file(querydslSrcDir)
+}
+
+// build시 생성 되었던 QClass > clean 시 모두 삭제
+clean {
+    delete file(querydslSrcDir)
+}
