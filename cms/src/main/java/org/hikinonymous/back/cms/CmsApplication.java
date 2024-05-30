@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @EntityScan(basePackages = "org.hikinonymous.back.core.entity")
 @SpringBootApplication
-@ComponentScan(basePackages = {"org.hikinonymous.back.core", "org.hikinonymous.back.core"})
+@ComponentScan(basePackages = {"org.hikinonymous.back.core", "org.hikinonymous.back.cms"})
 public class CmsApplication {
 
     public static void main(String[] args) {

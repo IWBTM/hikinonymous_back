@@ -1,5 +1,8 @@
 package org.hikinonymous.back.core.dto;
 
+import lombok.Getter;
+
+@Getter
 public enum HttpResponseStatus {
     
     SUCCESS(200, "성공"),
@@ -13,14 +16,6 @@ public enum HttpResponseStatus {
     HttpResponseStatus(Integer code, String message) {
         this.code = code;
         this.message = message;
-    }
-    
-    public Integer getCode() {
-        return this.code;
-    }
-
-    public String getMessage() {
-        return this.message;
     }
 
 }
