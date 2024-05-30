@@ -15,7 +15,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Builder
 @Entity(name = "tb_banner")
 @DynamicInsert
-public class Banner {
+public class BannerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +24,11 @@ public class Banner {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pcImage", nullable = false)
-    private FileInfo pcImage;
+    private FileInfoEntity pcImage;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "moImage", nullable = false)
-    private FileInfo moImage;
+    private FileInfoEntity moImage;
 
     @Column(nullable = false, length = 255)
     @Comment("설명")
@@ -37,7 +37,7 @@ public class Banner {
     @Comment("위치")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "position", nullable = false)
-    private Code position;
+    private CodeEntity position;
 
     @Column(nullable = false, length = 1)
     @Comment("사용 여부")
@@ -52,7 +52,7 @@ public class Banner {
     @Comment("등록자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "register", nullable = false)
-    private Member register;
+    private MemberEntity register;
 
     // 등록일
     @Column(nullable = false, length = 14)
@@ -68,7 +68,7 @@ public class Banner {
     @Comment("수정자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "updater")
-    private Member updater;
+    private MemberEntity updater;
 
     // 수정일
     @Column(length = 14)

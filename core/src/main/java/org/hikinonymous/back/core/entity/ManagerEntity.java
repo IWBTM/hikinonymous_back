@@ -15,7 +15,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Builder
 @Entity(name = "tb_manager")
 @DynamicInsert
-public class Manager {
+public class ManagerEntity {
 
     // 관리자 SEQ
     @Id
@@ -59,13 +59,13 @@ public class Manager {
     @Comment("관리자 상태")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "managerStatus", nullable = false)
-    private Code managerStatus;
+    private CodeEntity managerStatus;
 
     // 메뉴 권한
     @Comment("메뉴 권한")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menuAuth", nullable = false)
-    private Code menuAuth;
+    private CodeEntity menuAuth;
 
     // 사용 여부
     @Column(nullable = false, length = 1)
@@ -82,13 +82,13 @@ public class Manager {
     @Comment("부서")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department", nullable = false)
-    private Code department;
+    private CodeEntity department;
 
     // 직책
     @Comment("직책")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "position", nullable = false)
-    private Code position;
+    private CodeEntity position;
 
     // 마지막 로그인일
     @Column(nullable = false, length = 14)

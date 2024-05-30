@@ -12,7 +12,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Builder
 @Entity(name = "tb_file_info")
 @DynamicInsert
-public class FileInfo {
+public class FileInfoEntity {
 
     // 파일 SEQ
     @Id
@@ -24,7 +24,7 @@ public class FileInfo {
     @Comment("디바이스 구분")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "deviceType", nullable = false)
-    private Code deviceType;
+    private CodeEntity deviceType;
 
     // 순서
     @Column(nullable = false)
@@ -35,7 +35,7 @@ public class FileInfo {
     @Comment("유형 구분")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "refType", nullable = false)
-    private Code refType;
+    private CodeEntity refType;
 
     // 파일 경로
     @Column(nullable = false, length = 50)

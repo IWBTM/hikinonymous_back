@@ -13,38 +13,47 @@ import org.hibernate.annotations.DynamicInsert;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "tb_board")
+@Entity(name = "tb_code")
 @DynamicInsert
-public class Board {
+public class CodeEntity {
 
+    // 코드 SEQ
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Comment("게시글 SEQ")
-    private Long boardSeq;
+    @Comment("코드 SEQ")
+    private Long codeSeq;
 
-    @Column(nullable = false, length = 255)
-    @Comment("제목")
-    private String title;
+    // 코드
+    @Column(nullable = false, length = 50)
+    @Comment("코드")
+    private String code;
 
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
-    @Comment("내용")
-    private String content;
+    // 코드 이름
+    @Column(nullable = false, length = 50)
+    @Comment("코드 이름")
+    private String codeNm;
 
-    @Comment("카테고리")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category", nullable = false)
-    private Category category;
+    // 정렬 순서
+    @Column(nullable = false)
+    @Comment("정렬 순서")
+    private Integer sortOrder;
 
+    // 삭제 여부
     @Column(nullable = false, length = 1)
     @Comment("삭제 여부")
     @ColumnDefault(value = "'N'")
     private String delYn;
 
+    // 설명
+    @Column(length = 255)
+    @Comment("설명")
+    private String etc;
+
     // 등록자
     @Comment("등록자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "register", nullable = false)
-    private Member register;
+    private ManagerEntity register;
 
     // 등록일
     @Column(nullable = false, length = 14)
@@ -60,7 +69,7 @@ public class Board {
     @Comment("수정자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "updater")
-    private Member updater;
+    private ManagerEntity updater;
 
     // 수정일
     @Column(length = 14)

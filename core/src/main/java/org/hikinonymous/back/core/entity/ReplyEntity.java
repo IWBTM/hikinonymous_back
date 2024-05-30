@@ -15,7 +15,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Builder
 @Entity(name = "tb_reply")
 @DynamicInsert
-public class Reply {
+public class ReplyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Reply {
     @Comment("게시글")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "board", nullable = false)
-    private Board board;
+    private BoardEntity boardEntity;
 
     @Column(nullable = false, length = 1)
     @Comment("삭제 여부")
@@ -40,7 +40,7 @@ public class Reply {
     @Comment("등록자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "register", nullable = false)
-    private Member register;
+    private MemberEntity register;
 
     // 등록일
     @Column(nullable = false, length = 14)
@@ -56,7 +56,7 @@ public class Reply {
     @Comment("수정자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "updater")
-    private Member updater;
+    private MemberEntity updater;
 
     // 수정일
     @Column(length = 14)

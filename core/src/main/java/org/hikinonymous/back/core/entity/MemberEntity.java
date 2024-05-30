@@ -15,7 +15,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Builder
 @Entity(name = "tb_member")
 @DynamicInsert
-public class Member {
+public class MemberEntity {
 
     // 회원 SEQ
     @Id
@@ -47,7 +47,7 @@ public class Member {
     @Comment("회원 상태")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "memberStatus", nullable = false)
-    private Code memberStatus;
+    private CodeEntity memberStatus;
 
     // 회원 DI (암호화)
     @Column(nullable = false, length = 255)
@@ -63,7 +63,7 @@ public class Member {
     @Comment("가입 경로")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "joinType", nullable = false)
-    private Code joinType;
+    private CodeEntity joinType;
 
     // 약관 동의 여부
     @Column(nullable = false, length = 1)
