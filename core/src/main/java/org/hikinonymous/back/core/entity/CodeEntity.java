@@ -33,6 +33,11 @@ public class CodeEntity {
     @Comment("코드 이름")
     private String codeNm;
 
+    @Comment("상위 코드")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codeMaster", nullable = false)
+    private CodeMasterEntity codeMasterEntity;
+
     // 정렬 순서
     @Column(nullable = false)
     @Comment("정렬 순서")
@@ -49,35 +54,4 @@ public class CodeEntity {
     @Comment("설명")
     private String etc;
 
-    // 등록자
-    @Comment("등록자")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "register", nullable = false)
-    private ManagerEntity register;
-
-    // 등록일
-    @Column(nullable = false, length = 14)
-    @Comment("등록일")
-    private String regDate;
-
-    // 등록자 IP
-    @Column(nullable = false, length = 50)
-    @Comment("등록자 IP")
-    private String registerIp;
-
-    // 수정자
-    @Comment("수정자")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "updater")
-    private ManagerEntity updater;
-
-    // 수정일
-    @Column(length = 14)
-    @Comment("수정일")
-    private String updDate;
-
-    // 수정자 IP
-    @Column(length = 50)
-    @Comment("수정자 IP")
-    private String updaterIp;
 }
