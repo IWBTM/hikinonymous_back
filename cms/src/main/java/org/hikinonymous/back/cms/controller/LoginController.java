@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ServerErrorException;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Slf4j
@@ -38,6 +40,8 @@ public class LoginController {
             String encPwd = CommonUtil.encryptSHA256(loginDto.getPwd());
             ManagerEntity managerEntity = managerService.findByManagerId(encEmail);
             if (Objects.isNull(managerEntity)) return ResponseUtil.failedAuthentication(responseDto); // ID로 찾을 수 없음.
+            responseDto.setData(managerEntity.getLoginFailCnt());
+            if (managerEntity.getLoginFailCnt() > 5) return ResponseUtil.tooManyLoginFailedCnt(responseDto); // 로그인 실패 횟수 5회 이상
             if (managerEntity.getManagerPwd().equals(encPwd)) {
                 managerService.updateSuccessLoginStatus(managerEntity);
                 // JWT ?
@@ -48,7 +52,12 @@ public class LoginController {
                 managerService.updateFailLoginStatus(managerEntity);
                 return ResponseUtil.failedAuthentication(responseDto); // PWD가 다름.
             }
+        } catch (NoSuchElementException e) {
+            return ResponseUtil.failedAuthentication(responseDto);
+        } catch (ServerErrorException e) {
+            return ResponseUtil.serverError(responseDto);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseUtil.serverError(responseDto);
         }
     }

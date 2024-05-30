@@ -8,6 +8,7 @@ public enum HttpResponseStatus {
     SUCCESS(200, "성공 했습니다."),
 
     FAILED_AUTHENTICATION(300, "로그인에 실패 했습니다.\n이메일 혹은 비밀번호를 확인해주세요."),
+    TOO_MANY_LOGIN_FAILED_CNT(301, "로그인 실패 횟수가 5회 이상입니다. \n관리자에게 문의해주세요."),
 
     BAD_REQUEST(400, "잘못된 접근입니다."),
     VALID_REQUEST_PARAMETER_FORM(401, "요청 파라미터 값의 형식이 올바르지 않습니다."),

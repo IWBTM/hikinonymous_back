@@ -2,13 +2,12 @@ package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.entity.ManagerEntity;
-import org.hikinonymous.back.core.repository.codeMaster.CodeMasterRepository;
 import org.hikinonymous.back.core.repository.manager.ManagerRepository;
-import org.hikinonymous.back.core.utils.CommonUtil;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -19,18 +18,21 @@ public class ManagerService {
     private final CodeService codeService;
 
     public ManagerEntity findByManagerId(String email) {
-        return managerRepository.findByManagerId(CommonUtil.encryptAES256(email));
+        return managerRepository.findByManagerId(email).orElseThrow(() ->
+                new NoSuchElementException("Manager: " + email + " not found")
+        );
     }
 
     public void updateSuccessLoginStatus(ManagerEntity managerEntity) {
-        managerEntity.setLastLoginDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+        managerEntity.setLastLoginDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
         managerEntity.setLoginCnt(managerEntity.getLoginCnt() + 1);
+        managerEntity.setLoginFailCnt(0);
         managerEntity.setManagerStatus(codeService.findByCodeAndCodeMaster("ACTIVE", "MANAGER_STATUS"));
         managerRepository.save(managerEntity);
     }
 
     public void updateFailLoginStatus(ManagerEntity managerEntity) {
-        managerEntity.setLoginFailCnt(managerEntity.getLoginCnt() + 1);
+        managerEntity.setLoginFailCnt(managerEntity.getLoginFailCnt() + 1);
         managerRepository.save(managerEntity);
     }
 }

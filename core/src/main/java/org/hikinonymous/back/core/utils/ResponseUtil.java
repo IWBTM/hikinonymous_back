@@ -26,6 +26,16 @@ public class ResponseUtil {
     }
 
     /**
+     * TOO_MANY_LOGIN_FAILED_CNT
+     * CODE - 301
+     */
+    public static ResponseDto tooManyLoginFailedCnt(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.TOO_MANY_LOGIN_FAILED_CNT.getCode());
+        responseDto.setMessage(HttpResponseStatus.TOO_MANY_LOGIN_FAILED_CNT.getMessage());
+        return responseDto;
+    }
+
+    /**
      * VALID_REQUEST_PARAMETER_FORM
      * CODE - 401
      */

@@ -6,6 +6,7 @@ import org.hikinonymous.back.core.entity.CodeMasterEntity;
 import org.hikinonymous.back.core.repository.code.CodeRepository;
 import org.hikinonymous.back.core.repository.codeMaster.CodeMasterRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ServerErrorException;
 
 import java.util.NoSuchElementException;
 
@@ -19,13 +20,13 @@ public class CodeService {
 
     public CodeEntity findByCodeAndCodeMaster(String code, String codeMaster) {
         return codeRepository.findByCodeAndCodeMasterEntity(code, this.findCodeMasterByCodeMaster(codeMaster)).orElseThrow(() ->
-                new NoSuchElementException("Code: " + code + " not found")
+                new ServerErrorException("Code: " + code + " not found", null)
         );
     }
 
     public CodeMasterEntity findCodeMasterByCodeMaster(String code) {
         return codeMasterRepository.findByCodeMaster(code).orElseThrow(() ->
-                new NoSuchElementException("CodeMaster: " + code + " not found")
+                new ServerErrorException("CodeMaster: " + code + " not found", null)
         );
     }
 
