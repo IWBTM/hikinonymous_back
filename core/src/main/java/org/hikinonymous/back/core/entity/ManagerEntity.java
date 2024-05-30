@@ -64,7 +64,7 @@ public class ManagerEntity {
     // 메뉴 권한
     @Comment("메뉴 권한")
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "menuAuth", nullable = false)
+    @JoinColumn(name = "menuAuth")
     private CodeEntity menuAuth;
 
     // 사용 여부
@@ -78,17 +78,11 @@ public class ManagerEntity {
     @ColumnDefault(value = "'N'")
     private String delYn;
 
-    // 부서
-    @Comment("부서")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "department", nullable = false)
-    private CodeEntity department;
-
-    // 직책
-    @Comment("직책")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "position", nullable = false)
-    private CodeEntity position;
+    // 슈퍼 관리자 여부
+    @Comment("슈퍼 관리자")
+    @Column(nullable = false, length = 1)
+    @ColumnDefault(value = "'N'")
+    private String superYn;
 
     // 마지막 로그인일
     @Column(length = 14)
@@ -99,11 +93,6 @@ public class ManagerEntity {
     @Column(length = 14)
     @Comment("마지막 비밀번호 변경일")
     private String lastPwdDate;
-
-    // 등록자
-    @Column(nullable = false)
-    @Comment("등록자")
-    private Long register;
 
     // 등록일
     @Column(nullable = false, length = 14)

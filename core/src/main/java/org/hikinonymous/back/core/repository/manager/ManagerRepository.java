@@ -9,4 +9,5 @@ public interface ManagerRepository extends JpaRepository<ManagerEntity, Long>, M
 
     ManagerEntity findByManagerIdAndManagerPwd(String managerId, String managerPwd);
 
+    ManagerEntity findByManagerId(String managerId);
 }
