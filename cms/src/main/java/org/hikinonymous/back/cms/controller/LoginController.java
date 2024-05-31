@@ -36,6 +36,7 @@ public class LoginController {
     ) {
         ResponseDto responseDto = new ResponseDto();
         try {
+            logger.info("========== TRY LOGIN EMAIL:: " + loginDto.getEmail() + " ==========");
             String encEmail = CommonUtil.encryptAES256(loginDto.getEmail());
             String encPwd = CommonUtil.encryptSHA256(loginDto.getPwd());
             ManagerEntity managerEntity = managerService.findByManagerId(encEmail);
