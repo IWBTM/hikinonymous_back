@@ -1,7 +1,7 @@
-package org.hikinonymous.back.core.config;
+package org.hikinonymous.back.api.config;
 
 import lombok.RequiredArgsConstructor;
-import org.hikinonymous.back.core.interceptor.AuthInterceptor;
+import org.hikinonymous.back.api.interceptor.ApiInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -10,14 +10,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class InterceptorConfig implements WebMvcConfigurer {
 
-    private final AuthInterceptor authInterceptor;
+    private final ApiInterceptor apiInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
         registry
-                .addInterceptor(authInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/cms/login/proc");
+                .addInterceptor(apiInterceptor)
+                .addPathPatterns("/**");
     }
 
 }
