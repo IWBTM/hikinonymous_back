@@ -43,17 +43,17 @@ public class LoginController {
             String encEmail = EncUtil.encryptAES256(loginDto.getEmail());
             String encPwd = EncUtil.encryptSHA256(loginDto.getPwd());
             ManagerEntity managerEntity = managerService.findByManagerId(encEmail);
-            if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundUser(responseDto); // ID로 찾을 수 없음.
+            if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundUser(responseDto);
             responseDto.setData(managerEntity.getLoginFailCnt());
-            if (managerEntity.getLoginFailCnt() > 5) return ResponseUtil.tooManyLoginFailedCnt(responseDto); // 로그인 실패 횟수 5회 이상
+            if (managerEntity.getLoginFailCnt() > 5) return ResponseUtil.tooManyLoginFailedCnt(responseDto);
             if (managerEntity.getManagerPwd().equals(encPwd)) {
                 managerService.updateSuccessLoginStatus(managerEntity);
                 responseDto.setData(JwtUtil.makeJwt(managerEntity.getManagerSeq()));
-                return ResponseUtil.success(responseDto); // 로그인 성공
+                return ResponseUtil.success(responseDto);
             } else {
                 managerService.updateFailLoginStatus(managerEntity);
                 responseDto.setData(managerEntity.getLoginFailCnt());
-                return ResponseUtil.canNotFoundUser(responseDto); // PWD가 다름.
+                return ResponseUtil.canNotFoundUser(responseDto);
             }
         } catch (ServerErrorException e) {
             return ResponseUtil.serverError(responseDto);
