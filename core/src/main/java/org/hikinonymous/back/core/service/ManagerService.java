@@ -1,6 +1,7 @@
 package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.repository.manager.ManagerRepository;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,9 @@ public class ManagerService {
     public void updateFailLoginStatus(ManagerEntity managerEntity) {
         managerEntity.setLoginFailCnt(managerEntity.getLoginFailCnt() + 1);
         managerRepository.save(managerEntity);
+    }
+
+    public ManagerEntity findByManagerSeq(long seq) {
+        return managerRepository.findByManagerSeq(seq);
     }
 }
