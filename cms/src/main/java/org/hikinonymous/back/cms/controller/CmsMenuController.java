@@ -49,7 +49,7 @@ public class CmsMenuController {
             responseDto.setData(cmsMenuEntities.map(userEntity -> (CmsMenuDto) CommonUtil.bindToObjectFromObjObject(userEntity, CmsMenuDto.class)).collect(Collectors.toList()));
             return ResponseUtil.success(responseDto);
         } else {
-            Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.streamAllByManagerSeq(managerDto.getManagerSeq());
+//            Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.streamAllByManagerSeq(managerDto.getManagerSeq());
             return ResponseUtil.success(responseDto);
         }
 
