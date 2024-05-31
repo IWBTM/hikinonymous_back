@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @RestController
@@ -38,12 +40,8 @@ public class CmsMenuController {
         ManagerDto managerDto = (ManagerDto) request.getAttribute("managerDto");
 
         if (managerDto.getSuperYn().equals("Y")) {
-            List<CmsMenuDto> cmsMenuDtoList = new ArrayList<>();
-
-            List<CmsMenuEntity> cmsMenuEntities = cmsMenuService.findAllByDisplayYnIsY("Y");
-            for (CmsMenuEntity cmsMenuEntity: cmsMenuEntities) cmsMenuDtoList.add((CmsMenuDto) CommonUtil.bindToObjectFromObjObject(cmsMenuEntity, CmsMenuDto.class));
-
-            responseDto.setData(cmsMenuDtoList);
+            Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.findAllByDisplayYnIsY("Y");
+            responseDto.setData(cmsMenuEntities.map(userEntity -> (CmsMenuDto) CommonUtil.bindToObjectFromObjObject(userEntity, CmsMenuDto.class)).collect(Collectors.toList()));
             return ResponseUtil.success(responseDto);
         } else {
             return ResponseUtil.success(responseDto);
