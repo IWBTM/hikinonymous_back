@@ -18,9 +18,7 @@ public class ManagerService {
     private final CodeService codeService;
 
     public ManagerEntity findByManagerId(String email) {
-        return managerRepository.findByManagerId(email).orElseThrow(() ->
-                new NoSuchElementException("Manager: " + email + " not found")
-        );
+        return managerRepository.findByManagerId(email);
     }
 
     public void updateSuccessLoginStatus(ManagerEntity managerEntity) {
