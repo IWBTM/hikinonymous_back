@@ -62,11 +62,6 @@ public class CmsMenuEntity {
     @Comment("화면 공개 여부")
     private String displayYn;
 
-    // 아이콘 URL
-    @Column(nullable = false, length = 255)
-    @Comment("아이콘 URL")
-    private String iconUrl;
-
     // 등록자
     @Comment("등록자")
     @ManyToOne(fetch = FetchType.EAGER)

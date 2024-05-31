@@ -9,6 +9,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -60,12 +62,6 @@ public class ManagerEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "managerStatus", nullable = false)
     private CodeEntity managerStatus;
-
-    // 메뉴 권한
-    @Comment("메뉴 권한")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "menuAuth")
-    private CodeEntity menuAuth;
 
     // 사용 여부
     @Column(nullable = false, length = 1)
