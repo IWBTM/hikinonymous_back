@@ -7,7 +7,10 @@ import org.hikinonymous.back.core.dto.CmsMenuDto;
 import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.CmsMenuEntity;
+import org.hikinonymous.back.core.entity.ManagerAuthEntity;
+import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.service.CmsMenuService;
+import org.hikinonymous.back.core.service.ManagerAuthService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
@@ -32,6 +35,8 @@ public class CmsMenuController {
 
     private final CmsMenuService cmsMenuService;
 
+    private final ManagerAuthService managerAuthService;
+
     @GetMapping(value = "list")
     public ResponseDto list(
             HttpServletRequest request
@@ -40,10 +45,11 @@ public class CmsMenuController {
         ManagerDto managerDto = (ManagerDto) request.getAttribute("managerDto");
 
         if (managerDto.getSuperYn().equals("Y")) {
-            Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.findAllByDisplayYnIsY("Y");
+            Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.streamAllByDisplayYn("Y");
             responseDto.setData(cmsMenuEntities.map(userEntity -> (CmsMenuDto) CommonUtil.bindToObjectFromObjObject(userEntity, CmsMenuDto.class)).collect(Collectors.toList()));
             return ResponseUtil.success(responseDto);
         } else {
+            Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.streamAllByManagerSeq(managerDto.getManagerSeq());
             return ResponseUtil.success(responseDto);
         }
 

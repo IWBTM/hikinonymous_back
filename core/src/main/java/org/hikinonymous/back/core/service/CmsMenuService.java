@@ -14,7 +14,12 @@ public class CmsMenuService {
 
     private final CmsMenuRepository cmsMenuRepository;
 
-    public Stream<CmsMenuEntity> findAllByDisplayYnIsY(String displayYn) {
+    public Stream<CmsMenuEntity> streamAllByDisplayYn(String displayYn) {
         return cmsMenuRepository.streamAllByDisplayYn(displayYn);
     }
+
+//    public Stream<CmsMenuEntity> streamAllByManagerSeq(Long managerSeq) {
+//
+//    }
+
 }
