@@ -1,75 +1,29 @@
 package org.hikinonymous.back.core.utils;
 
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
+import org.modelmapper.ModelMapper;
+
+import java.util.Random;
 
 public class CommonUtil {
 
-    private static final String PRIVATE_KEY = "HIKINONYMOUS_PRIVATE_KEY";
-
-    private static final String AES_ALGORITHMS = "AES/CBC/PKCS5Padding";
-
-    private static final String IV = "4VD6SHIOL8KWJER5";
-
     /**
-     * AES256 암호화
+     * 랜덤 문자열 A ~ a ~ 0
      */
-    public static String encryptAES256(String text) {
-        String enc;
-        try {
-            Cipher cipher = Cipher.getInstance(AES_ALGORITHMS);
-            SecretKeySpec keySpec = new SecretKeySpec(PRIVATE_KEY.getBytes(), "AES");
-            IvParameterSpec ivParamSpec = new IvParameterSpec(IV.getBytes());
+    public static String getRandomStr(int length) {
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
 
-            cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivParamSpec);
-            byte[] encrypted = cipher.doFinal(text.getBytes(StandardCharsets.UTF_8));
-            return enc = Base64.getEncoder().encodeToString(encrypted);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        String chars[] = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,1,2,3,4,5,6,7,8,9,0".split(",");
+        for (int i = 0; i < length; i++) sb.append(chars[random.nextInt(chars.length)]);
+        return sb.toString();
     }
 
     /**
-     * AES256 복호화
+     * 객체간 바인딩
      */
-    public static String decryptAES256(String enc) {
-        try {
-            Cipher cipher = Cipher.getInstance(AES_ALGORITHMS);
-            SecretKeySpec keySpec = new SecretKeySpec(PRIVATE_KEY.getBytes(), "AES");
-            IvParameterSpec ivParamSpec = new IvParameterSpec(IV.getBytes());
-
-            cipher.init(Cipher.DECRYPT_MODE, keySpec, ivParamSpec);
-            byte[] decodedBytes = Base64.getDecoder().decode(enc);
-            byte[] decrypted = cipher.doFinal(decodedBytes);
-
-            return new String(decrypted, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * SHA256 단방향 암호화
-     */
-    public static String encryptSHA256(String text) {
-        StringBuffer sb = new StringBuffer();
-        try {
-            MessageDigest sh = MessageDigest.getInstance("SHA-256");
-            sh.update(text.getBytes());
-            byte byteData[] = sh.digest();
-            for (int i = 0; i < byteData.length; i++) sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
-            return sb.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return "";
+    public static Object bindToObjectFromObjObject(Object object, Class classType) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(object, classType);
     }
 
 }

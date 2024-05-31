@@ -24,6 +24,7 @@ public class GlobalExceptionHandler {
         logger.info("====================");
         logger.info("e.getCause():: " + e.getCause());
         logger.info("e.getMessage():: " + e.getMessage());
+        e.printStackTrace();
         logger.info("====================");
         return new ResponseEntity(HttpStatus.OK);
     }
