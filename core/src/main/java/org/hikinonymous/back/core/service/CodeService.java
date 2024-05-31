@@ -8,8 +8,6 @@ import org.hikinonymous.back.core.repository.codeMaster.CodeMasterRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ServerErrorException;
 
-import java.util.NoSuchElementException;
-
 @Service
 @RequiredArgsConstructor
 public class CodeService {

@@ -36,12 +36,22 @@ public class ResponseUtil {
     }
 
     /**
+     * CAN_NOT_FOUND_USER
+     * CODE - 302
+     */
+    public static ResponseDto canNotFoundUser(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.CAN_NOT_FOUND_USER.getCode());
+        responseDto.setMessage(HttpResponseStatus.CAN_NOT_FOUND_USER.getMessage());
+        return responseDto;
+    }
+
+    /**
      * VALID_REQUEST_PARAMETER_FORM
      * CODE - 401
      */
     public static ResponseDto validRequestParameterForm(ResponseDto responseDto) {
-        responseDto.setCode(HttpResponseStatus.VALID_REQUEST_PARAMETER_FORM.getCode());
-        responseDto.setMessage(HttpResponseStatus.VALID_REQUEST_PARAMETER_FORM.getMessage());
+        responseDto.setCode(HttpResponseStatus.INVALID_REQUEST_PARAMETER_FORM.getCode());
+        responseDto.setMessage(HttpResponseStatus.INVALID_REQUEST_PARAMETER_FORM.getMessage());
         return responseDto;
     }
 
