@@ -28,18 +28,18 @@ public class ManagerAuthEntity {
     @Comment("관리자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manager", nullable = false)
-    private ManagerEntity managerEntity;
+    private ManagerEntity manager;
 
     // 메뉴
     @Comment("메뉴")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cmsMenu", nullable = false)
-    private CmsMenuEntity cmsMenuEntity;
+    private CmsMenuEntity cmsMenu;
 
     // 권한
     @Comment("권한")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "code", nullable = false)
-    private CodeEntity codeEntity;
+    private CodeEntity code;
 
 }

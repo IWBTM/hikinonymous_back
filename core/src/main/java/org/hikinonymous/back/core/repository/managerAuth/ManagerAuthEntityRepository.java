@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ManagerAuthEntityRepository extends JpaRepository<ManagerAuthEntity, Long>, ManagerAuthRepositoryCustom {
 
-    List<ManagerAuthEntity> findAllByManagerEntity(ManagerEntity managerEntity);
+    List<ManagerAuthEntity> findAllByManager(ManagerEntity managerEntity);
 
 }
