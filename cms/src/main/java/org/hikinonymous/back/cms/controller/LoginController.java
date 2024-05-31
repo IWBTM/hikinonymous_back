@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerErrorException;
 
-import java.util.HashMap;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Slf4j
@@ -45,7 +43,7 @@ public class LoginController {
             String encEmail = EncUtil.encryptAES256(loginDto.getEmail());
             String encPwd = EncUtil.encryptSHA256(loginDto.getPwd());
             ManagerEntity managerEntity = managerService.findByManagerId(encEmail);
-            if (Objects.isNull(managerEntity)) return ResponseUtil.failedAuthentication(responseDto); // ID로 찾을 수 없음.
+            if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundUser(responseDto); // ID로 찾을 수 없음.
             responseDto.setData(managerEntity.getLoginFailCnt());
             if (managerEntity.getLoginFailCnt() > 5) return ResponseUtil.tooManyLoginFailedCnt(responseDto); // 로그인 실패 횟수 5회 이상
             if (managerEntity.getManagerPwd().equals(encPwd)) {
@@ -54,10 +52,9 @@ public class LoginController {
                 return ResponseUtil.success(responseDto); // 로그인 성공
             } else {
                 managerService.updateFailLoginStatus(managerEntity);
-                return ResponseUtil.failedAuthentication(responseDto); // PWD가 다름.
+                responseDto.setData(managerEntity.getLoginFailCnt());
+                return ResponseUtil.canNotFoundUser(responseDto); // PWD가 다름.
             }
-        } catch (NoSuchElementException e) {
-            return ResponseUtil.failedAuthentication(responseDto);
         } catch (ServerErrorException e) {
             return ResponseUtil.serverError(responseDto);
         } catch (Exception e) {
