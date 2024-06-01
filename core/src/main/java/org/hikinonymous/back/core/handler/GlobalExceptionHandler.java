@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -82,6 +83,16 @@ public class GlobalExceptionHandler {
         logger.info("========== S HttpMessageNotReadableException ==========");
         logger.info("========== E HttpMessageNotReadableException ==========");
         return ResponseUtil.emptyRequestBody(new ResponseDto());
+    }
+
+    /**
+     * 요청 컨텐츠 타입 안 맞음.
+     */
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public ResponseDto handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
+        logger.info("========== S HttpMediaTypeNotSupportedException ==========");
+        logger.info("========== E HttpMediaTypeNotSupportedException ==========");
+        return ResponseUtil.httpMediaTypeNotSupported(new ResponseDto());
     }
 
 }

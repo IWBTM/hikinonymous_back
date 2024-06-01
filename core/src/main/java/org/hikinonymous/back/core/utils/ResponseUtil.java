@@ -36,12 +36,22 @@ public class ResponseUtil {
     }
 
     /**
-     * CAN_NOT_FOUND_USER
+     * CAN_NOT_FOUND_MANAGER
      * CODE - 302
      */
-    public static ResponseDto canNotFoundUser(ResponseDto responseDto) {
-        responseDto.setCode(HttpResponseStatus.CAN_NOT_FOUND_USER.getCode());
-        responseDto.setMessage(HttpResponseStatus.CAN_NOT_FOUND_USER.getMessage());
+    public static ResponseDto canNotFoundManager(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.CAN_NOT_FOUND_MANAGER.getCode());
+        responseDto.setMessage(HttpResponseStatus.CAN_NOT_FOUND_MANAGER.getMessage());
+        return responseDto;
+    }
+
+    /**
+     * CAN_NOT_FOUND_MEMBER
+     * CODE - 303
+     */
+    public static ResponseDto canNotFoundMember(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.CAN_NOT_FOUND_MEMBER.getCode());
+        responseDto.setMessage(HttpResponseStatus.CAN_NOT_FOUND_MEMBER.getMessage());
         return responseDto;
     }
 
@@ -72,6 +82,16 @@ public class ResponseUtil {
     public static ResponseDto emptyRequestBody(ResponseDto responseDto) {
         responseDto.setCode(HttpResponseStatus.EMPTY_REQUEST_BODY.getCode());
         responseDto.setMessage(HttpResponseStatus.EMPTY_REQUEST_BODY.getMessage());
+        return responseDto;
+    }
+
+    /**
+     * HTTP_MEDIA_TYPE_NOT_SUPPORTED
+     * CODE - 490
+     */
+    public static ResponseDto httpMediaTypeNotSupported(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.HTTP_MEDIA_TYPE_NOT_SUPPORTED.getCode());
+        responseDto.setMessage(HttpResponseStatus.HTTP_MEDIA_TYPE_NOT_SUPPORTED.getMessage());
         return responseDto;
     }
 

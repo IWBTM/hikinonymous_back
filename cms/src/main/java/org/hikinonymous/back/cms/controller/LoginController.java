@@ -38,7 +38,7 @@ public class LoginController {
         String encEmail = EncUtil.encryptAES256(loginDto.getEmail());
         String encPwd = EncUtil.encryptSHA256(loginDto.getPwd());
         ManagerEntity managerEntity = managerService.findByManagerId(encEmail);
-        if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundUser(responseDto);
+        if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundManager(responseDto);
         responseDto.setData(managerEntity.getLoginFailCnt());
         if (managerEntity.getLoginFailCnt() > 5) return ResponseUtil.tooManyLoginFailedCnt(responseDto);
         if (managerEntity.getManagerPwd().equals(encPwd)) {
@@ -48,7 +48,7 @@ public class LoginController {
         } else {
             managerService.updateFailLoginStatus(managerEntity);
             responseDto.setData(managerEntity.getLoginFailCnt());
-            return ResponseUtil.canNotFoundUser(responseDto);
+            return ResponseUtil.canNotFoundManager(responseDto);
         }
     }
 }
