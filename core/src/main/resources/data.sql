@@ -29,7 +29,7 @@ INSERT INTO tb_manager
 (managerSeq, managerHp, managerId, managerNm, managerPwd, regDate, registerIp, useYn, managerStatus, superYn)
 VALUES
     (1, 'R719IgEWymmC1fvTQhL9sQ==', 'VIeAmKaUOjQC+NluiKfNFNs4rLriXzxhoVo+acyj7hI=', '/343Z6ndRGyuiCfFsxJeIg==', 'ae91e71b28f1a443e2310875e54e5c6495a9af5dd9a827da933b3a66c9368a3e', DATE_FORMAT(NOW(), 'yyyymmddHHiiss'), '58.140.215.148', 'Y', 1, 'Y'),
-    (2, 'KPXT0vPRUX8nbu+JiA0Xvw==', 'BTgfA0bEHwCSM/EtCNf+1FxDAJlgtPOOxTFJ3CoOez8=', 'dIhFirIYfWIwxpRyuqZBgQ==', 'd310a2a7f77fb8a39a5b09dc405aac0c8ebfb5dc910aa4fca4c953182c1efb9b', DATE_FORMAT(NOW(), 'yyyymmddHHiiss'), '58.140.215.148', 'Y', 1, 'Y');
+    (2, 'KPXT0vPRUX8nbu+JiA0Xvw==', 'BTgfA0bEHwCSM/EtCNf+1FxDAJlgtPOOxTFJ3CoOez8=', 'dIhFirIYfWIwxpRyuqZBgQ==', 'd310a2a7f77fb8a39a5b09dc405aac0c8ebfb5dc910aa4fca4c953182c1efb9b', DATE_FORMAT(NOW(), 'yyyymmddHHiiss'), '58.140.215.148', 'Y', 1, 'N');
 
 INSERT INTO tb_cms_menu
 (cmsMenuSeq, menuCode, menuNm, displayYn, menuLevel, sortOrder, authDir, filePath, etc, registerIp, register, regDate)
@@ -60,8 +60,8 @@ VALUES
     (18, 'TERM_MANAGEMENT', '약관 관리', 'Y', 2, 1, 'term', '/cms/term/term/list', '약관 관리 메뉴', '58.140.215.148', 1, DATE_FORMAT(NOW(), 'yyyyMMddHHiiss'));
 
 INSERT INTO tb_manager_auth
-(cmsMenuEntity, codeEntity, managerEntity)
+(cmsMenu, manager, authTypes)
 VALUES
-    (13, 13, 2),
-    (15, 13, 2),
-    (17, 13, 2);
+    (13, 2, 'R'),
+    (15, 2, 'R'),
+    (17, 2, 'RC');
