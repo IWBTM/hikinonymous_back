@@ -22,7 +22,7 @@ public class CmsMenuRepositoryImpl implements CmsMenuRepositoryCustom {
         QManagerAuthEntity qManagerAuthEntity = QManagerAuthEntity.managerAuthEntity;
 
         List<Tuple> tuples = jpaQueryFactory
-                .select(qCmsMenuEntity, qManagerAuthEntity)
+                .select(qCmsMenuEntity, qManagerAuthEntity.authTypes)
                 .from(qCmsMenuEntity)
                 .join(qManagerAuthEntity).on(qManagerAuthEntity.cmsMenu.eq(qCmsMenuEntity))
                 .where(qManagerAuthEntity.manager.eq(ManagerEntity.builder().managerSeq(managerSeq).build()))
@@ -32,10 +32,10 @@ public class CmsMenuRepositoryImpl implements CmsMenuRepositoryCustom {
         List<CmsMenuDto> cmsMenuDtoList = new ArrayList<>();
         for (Tuple tuple : tuples) {
             CmsMenuEntity cmsMenuEntity = tuple.get(qCmsMenuEntity);
-            ManagerAuthEntity managerAuthEntity = tuple.get(qManagerAuthEntity);
+            String authTypes = tuple.get(qManagerAuthEntity.authTypes);
 
             CmsMenuDto cmsMenuDto = (CmsMenuDto) CommonUtil.bindToObjectFromObjObject(cmsMenuEntity, CmsMenuDto.class);
-            cmsMenuDto.setCrudType((CodeDto) CommonUtil.bindToObjectFromObjObject(managerAuthEntity.getCode(), CodeDto.class));
+            cmsMenuDto.setAuthTypes(authTypes);
             cmsMenuDtoList.add(cmsMenuDto);
         }
         return cmsMenuDtoList;

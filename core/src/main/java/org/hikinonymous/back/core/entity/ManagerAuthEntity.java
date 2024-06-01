@@ -10,6 +10,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,8 +40,7 @@ public class ManagerAuthEntity {
 
     // 권한
     @Comment("권한")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "code", nullable = false)
-    private CodeEntity code;
+    @Column(nullable = false, length = 7)
+    private String authTypes;
 
 }

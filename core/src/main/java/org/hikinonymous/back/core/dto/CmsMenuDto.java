@@ -19,6 +19,6 @@ public class CmsMenuDto {
 
     private Long sortOrder;
 
-    private CodeDto crudType;
+    private String authTypes;
 
 }
