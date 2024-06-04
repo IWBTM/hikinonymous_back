@@ -8,7 +8,6 @@ import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.CmsMenuEntity;
 import org.hikinonymous.back.core.service.CmsMenuService;
-import org.hikinonymous.back.core.service.ManagerAuthService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,8 +28,6 @@ public class CmsMenuController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final CmsMenuService cmsMenuService;
-
-    private final ManagerAuthService managerAuthService;
 
     @GetMapping(value = "list")
     public ResponseDto list(
