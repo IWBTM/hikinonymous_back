@@ -24,10 +24,11 @@ public class CmsInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader("AccessToken");
-        if (StringUtils.isBlank(token)) throw new AuthenticationException();
+        String authorization = request.getHeader("Authorization");
+        if (StringUtils.isBlank(authorization)) throw new AuthenticationException();
 
-        long seq = JwtUtil.decJwt(token);
+        String token = authorization.substring(authorization.indexOf("Bearer") + 6);
+        long seq = JwtUtil.decJwt(token.trim());
         if (seq == 0) throw new AuthenticationException();
 
         ManagerEntity managerEntity = managerService.findByManagerSeq(seq);
