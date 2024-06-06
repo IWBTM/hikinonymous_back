@@ -39,8 +39,7 @@ public class CmsMenuController {
             description = "관리자의 권한을 토대로 관리자 메뉴 리스트를 조회한다."
     )
     @ApiResponse(
-            responseCode = "200",
-            description = "회원가입에 성공하였습니다."
+            description = "응답 에러 코드 DOC 참고"
     )
     @GetMapping(value = "list")
     public ResponseDto list(

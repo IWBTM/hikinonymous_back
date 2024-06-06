@@ -17,7 +17,7 @@ public class ResponseDto {
 
     @Schema(
             description = "응답 상태 메시지",
-            example = "성공 했습니다."
+            example = "성공  하였습니다."
     )
     private String message;
 
