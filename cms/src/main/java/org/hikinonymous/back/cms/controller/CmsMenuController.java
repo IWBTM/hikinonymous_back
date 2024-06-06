@@ -1,5 +1,8 @@
 package org.hikinonymous.back.cms.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Tag(name = "CMS MENU", description = "CMS MENU API DOC")
 @Slf4j
 @RestController
 @RequestMapping(value = "/cms/menu/")
@@ -30,6 +34,14 @@ public class CmsMenuController {
 
     private final CmsMenuService cmsMenuService;
 
+    @Operation(
+            summary = "관리자 메뉴 리스트 조회",
+            description = "관리자의 권한을 토대로 관리자 메뉴 리스트를 조회한다."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "회원가입에 성공하였습니다."
+    )
     @GetMapping(value = "list")
     public ResponseDto list(
             HttpServletRequest request
