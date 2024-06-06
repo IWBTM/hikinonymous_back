@@ -28,7 +28,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addInterceptor(cmsInterceptor)
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/cms/login/proc");
+                .excludePathPatterns("/cms/login/proc", "/swagger-ui/**");
     }
 
 }
