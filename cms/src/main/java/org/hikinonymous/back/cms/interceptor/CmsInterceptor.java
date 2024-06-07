@@ -25,7 +25,7 @@ public class CmsInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String authorization = request.getHeader("Authorization");
-        if (StringUtils.isBlank(authorization)) throw new AuthenticationException();
+        if (StringUtils.isBlank(authorization)) throw new Exception();
 
         String token = authorization.substring(authorization.indexOf("Bearer") + 6);
         long seq = JwtUtil.decJwt(token.trim());
