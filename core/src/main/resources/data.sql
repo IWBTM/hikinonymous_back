@@ -61,7 +61,7 @@ VALUES
     ('CODE_MANAGEMENT', '코드 관리', 'Y', 2, 1, 'code', '/cms/code/code/list', '코드 관리 메뉴', '58.140.215.148', 1, DATE_FORMAT(NOW(), 'yyyyMMddHHiiss')),
 
     ('TERM_MANAGEMENT', '약관 관리', 'Y', 1, 7, 'term', '', '약관 관리 메뉴', '58.140.215.148', 1, DATE_FORMAT(NOW(), 'yyyyMMddHHiiss')),
-    ('TERM_MANAGEMENT', '이용 약관 관리', 'Y', 2, 1, 'term', '/cms/term/term/list', '약관 관리 메뉴', '58.140.215.148', 1, DATE_FORMAT(NOW(), 'yyyyMMddHHiiss'))
+    ('TERM_MANAGEMENT', '이용 약관 관리', 'Y', 2, 1, 'term', '/cms/term/term/list', '약관 관리 메뉴', '58.140.215.148', 1, DATE_FORMAT(NOW(), 'yyyyMMddHHiiss')),
     ('PRIVACY_MANAGEMENT', '개인 정보 보호 관리', 'Y', 2, 1, 'term', '/cms/term/privacy/list', '개인 정보 보호 관리 메뉴', '58.140.215.148', 1, DATE_FORMAT(NOW(), 'yyyyMMddHHiiss'));
 
 INSERT INTO tb_manager_auth
