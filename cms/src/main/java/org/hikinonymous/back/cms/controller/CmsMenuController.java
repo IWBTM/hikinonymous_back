@@ -33,17 +33,10 @@ public class CmsMenuController {
 
     private final CmsMenuService cmsMenuService;
 
-    @Operation(
-            summary = "관리자 메뉴 리스트 조회",
-            description = "관리자의 권한을 토대로 관리자 메뉴 리스트를 조회한다."
-    )
-    @ApiResponse(
-            description = "응답 에러 코드 DOC 참고"
-    )
+    @Operation(summary = "관리자 메뉴 리스트 조회", description = "관리자의 권한을 토대로 관리자 메뉴 리스트를 조회한다.")
+    @ApiResponse(description = "응답 에러 코드 DOC 참고")
     @GetMapping(value = "list")
-    public ResponseDto list(
-            HttpServletRequest request
-    ) {
+    public ResponseDto list(HttpServletRequest request) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto managerDto = (ManagerDto) request.getAttribute("managerDto");
 

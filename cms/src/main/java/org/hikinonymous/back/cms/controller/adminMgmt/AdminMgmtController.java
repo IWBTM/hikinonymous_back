@@ -10,8 +10,10 @@ import org.hikinonymous.back.core.dto.CmsMenuDto;
 import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.CmsMenuEntity;
-import org.hikinonymous.back.core.service.CmsMenuService;
+import org.hikinonymous.back.core.entity.ManagerEntity;
+import org.hikinonymous.back.core.service.ManagerService;
 import org.hikinonymous.back.core.utils.CommonUtil;
+import org.hikinonymous.back.core.utils.EncUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +27,13 @@ import java.util.stream.Stream;
 @Tag(name = "ADMIN MANAGEMENT MENU", description = "ADMIN MANAGEMENT MENU API DOC")
 @Slf4j
 @RestController
-@RequestMapping(value = "/cms/admin/admin")
+@RequestMapping(value = "/cms/admin/admin/")
 @RequiredArgsConstructor
 public class AdminMgmtController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final CmsMenuService cmsMenuService;
+    private final ManagerService managerService;
 
     @Operation(
             summary = "관리자 리스트 조회",
@@ -48,8 +50,13 @@ public class AdminMgmtController {
         ManagerDto managerDto = (ManagerDto) request.getAttribute("managerDto");
 
         if (managerDto.getSuperYn().equals("Y")) {
-            Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.streamAllByDisplayYn("Y");
-            responseDto.setData(cmsMenuEntities.map(userEntity -> (CmsMenuDto) CommonUtil.bindToObjectFromObjObject(userEntity, CmsMenuDto.class)).collect(Collectors.toList()));
+            Stream<ManagerEntity> managerEntities = managerService.streamAllBySuperYn("N");
+            responseDto.setData(managerEntities.map(managerEntity -> {
+                managerEntity.setManagerId(EncUtil.decryptAES256(managerEntity.getManagerId()));
+                managerEntity.setManagerNm(EncUtil.decryptAES256(managerEntity.getManagerNm()));
+                managerEntity.setManagerHp(EncUtil.decryptAES256(managerEntity.getManagerHp()));
+                return (ManagerDto) CommonUtil.bindToObjectFromObjObject(managerEntity, ManagerDto.class);
+            }).collect(Collectors.toList()));
             return ResponseUtil.success(responseDto);
         }
         return ResponseUtil.success(responseDto);

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +38,9 @@ public class ManagerService {
 
     public ManagerEntity findByManagerSeq(long seq) {
         return managerRepository.findByManagerSeq(seq);
+    }
+
+    public Stream<ManagerEntity> streamAllBySuperYn(String superYn) {
+        return managerRepository.streamAllBySuperYn(superYn);
     }
 }
