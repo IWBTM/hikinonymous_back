@@ -22,4 +22,8 @@ public class ManagerDto implements Serializable {
 
     private String lastPwdDate;
 
+    private String lastLoginDate;
+
+    private String loginFailCnt;
+
 }

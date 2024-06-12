@@ -5,6 +5,7 @@ import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.repository.manager.ManagerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,6 +41,7 @@ public class ManagerService {
         return managerRepository.findByManagerSeq(seq);
     }
 
+    @Transactional
     public Stream<ManagerEntity> streamAllBySuperYn(String superYn) {
         return managerRepository.streamAllBySuperYn(superYn);
     }
