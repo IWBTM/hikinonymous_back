@@ -6,10 +6,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hikinonymous.back.core.dto.CmsMenuDto;
 import org.hikinonymous.back.core.dto.ManagerDto;
+import org.hikinonymous.back.core.dto.ManagerSimpleDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
-import org.hikinonymous.back.core.entity.CmsMenuEntity;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.service.ManagerService;
 import org.hikinonymous.back.core.utils.CommonUtil;
@@ -49,16 +48,13 @@ public class AdminMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto managerDto = (ManagerDto) request.getAttribute("managerDto");
 
-        if (managerDto.getSuperYn().equals("Y")) {
-            Stream<ManagerEntity> managerEntities = managerService.streamAllBySuperYn("N");
-            responseDto.setData(managerEntities.map(managerEntity -> {
-                managerEntity.setManagerId(EncUtil.decryptAES256(managerEntity.getManagerId()));
-                managerEntity.setManagerNm(EncUtil.decryptAES256(managerEntity.getManagerNm()));
-                managerEntity.setManagerHp(EncUtil.decryptAES256(managerEntity.getManagerHp()));
-                return (ManagerDto) CommonUtil.bindToObjectFromObjObject(managerEntity, ManagerDto.class);
-            }).collect(Collectors.toList()));
-            return ResponseUtil.success(responseDto);
-        }
+        Stream<ManagerEntity> managerEntities = managerService.streamAllBySuperYn("N");
+        responseDto.setData(managerEntities.map(managerEntity -> {
+            managerEntity.setManagerId(EncUtil.decryptAES256(managerEntity.getManagerId()));
+            managerEntity.setManagerNm(EncUtil.decryptAES256(managerEntity.getManagerNm()));
+            managerEntity.setManagerHp(EncUtil.decryptAES256(managerEntity.getManagerHp()));
+            return (ManagerSimpleDto) CommonUtil.bindToObjectFromObjObject(managerEntity, ManagerSimpleDto.class);
+        }).collect(Collectors.toList()));
         return ResponseUtil.success(responseDto);
     }
 }

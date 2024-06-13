@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

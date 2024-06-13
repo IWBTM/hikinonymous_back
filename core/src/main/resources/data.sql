@@ -1,29 +1,29 @@
 INSERT INTO tb_code_master
-(codeMasterSeq, codeMaster, codeMasterNm, delYn)
+(codeMaster, codeMasterNm, delYn)
 VALUES
-    (1, 'MANAGER_STATUS', '관리자 상태', 'N'),
-    (2, 'MEMBER_STATUS', '회원 상태', 'N'),
-    (3, 'JOIN_TYPE', '가입 경로', 'N'),
-    (4, 'CRUD_TYPE', '기능', 'N');
+    ('MANAGER_STATUS', '관리자 상태', 'N'),
+    ('MEMBER_STATUS', '회원 상태', 'N'),
+    ('JOIN_TYPE', '가입 경로', 'N'),
+    ('CRUD_TYPE', '기능', 'N');
 
 INSERT INTO tb_code
-(codeSeq, codeMaster, code, codeNm, delYn, etc, sortOrder)
+(codeMaster, code, codeNm, delYn, etc, sortOrder)
 VALUES
-    (1, 1, 'ACTIVE', '활성화', 'N', '', 1),
-    (2, 1, 'UN_ACTIVE', '비활성화', 'N', '', 2),
-    (3, 1, 'STOP', '정지', 'N', '', 3),
-    (4, 2, 'ACTIVE', '활성화', 'N', '', 4),
-    (5, 2, 'UN_ACTIVE', '비활성화', 'N', '', 5),
-    (6, 2, 'WITHDRAWAL', '탈퇴', 'N', '', 6),
-    (7, 3, 'EMAIL', '이메일', 'N', '', 7),
-    (8, 3, 'KAKAO', '카카오', 'N', '', 8),
-    (9, 3, 'NAVER', '네이버', 'N', '', 9),
-    (10, 3, 'GOOGLE', '구글', 'N', '', 10),
-    (11, 3, 'FACEBOOK', '페이스북', 'N', '', 11),
-    (12, 4, 'C', '생성', 'N', '', 12),
-    (13, 4, 'R', '읽기', 'N', '', 13),
-    (14, 4, 'U', '수정', 'N', '', 14),
-    (15, 4, 'D', '삭제', 'N', '', 15);
+    ('MANAGER_STATUS', 'ACTIVE', '활성화', 'N', '', 1),
+    ('MANAGER_STATUS', 'UN_ACTIVE', '비활성화', 'N', '', 2),
+    ('MANAGER_STATUS', 'STOP', '정지', 'N', '', 3),
+    ('MEMBER_STATUS', 'ACTIVE', '활성화', 'N', '', 1),
+    ('MEMBER_STATUS', 'UN_ACTIVE', '비활성화', 'N', '', 2),
+    ('MEMBER_STATUS', 'WITHDRAWAL', '탈퇴', 'N', '', 3),
+    ('JOIN_TYPE', 'EMAIL', '이메일', 'N', '', 1),
+    ('JOIN_TYPE', 'KAKAO', '카카오', 'N', '', 2),
+    ('JOIN_TYPE', 'NAVER', '네이버', 'N', '', 3),
+    ('JOIN_TYPE', 'GOOGLE', '구글', 'N', '', 4),
+    ('JOIN_TYPE', 'FACEBOOK', '페이스북', 'N', '', 5),
+    ('CRUD_TYPE', 'C', '생성', 'N', '', 1),
+    ('CRUD_TYPE', 'R', '읽기', 'N', '', 2),
+    ('CRUD_TYPE', 'U', '수정', 'N', '', 3),
+    ('CRUD_TYPE', 'D', '삭제', 'N', '', 4);
 
 INSERT INTO tb_manager
 (managerSeq, managerHp, managerId, managerNm, managerPwd, regDate, registerIp, useYn, managerStatus, superYn)

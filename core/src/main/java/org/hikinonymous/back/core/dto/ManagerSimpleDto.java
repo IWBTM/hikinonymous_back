@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class ManagerDto implements Serializable {
+public class ManagerSimpleDto implements Serializable {
 
     private Long managerSeq;
 
@@ -15,15 +15,7 @@ public class ManagerDto implements Serializable {
 
     private String managerNm;
 
-    private List<CmsMenuEntity> cmsMenuEntities;
-
-    private String superYn;
-
-    private String lastPwdDate;
-
     private String lastLoginDate;
-
-    private String loginFailCnt;
 
     private String managerStatus;
 

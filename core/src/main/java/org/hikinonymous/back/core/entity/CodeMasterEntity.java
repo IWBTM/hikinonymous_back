@@ -17,13 +17,8 @@ import org.hibernate.annotations.DynamicInsert;
 @DynamicInsert
 public class CodeMasterEntity {
 
-    // 코드 SEQ
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Comment("코드 마스터 SEQ")
-    private Long codeMasterSeq;
-
     // 코드
+    @Id
     @Column(nullable = false, length = 50)
     @Comment("코드")
     private String codeMaster;
