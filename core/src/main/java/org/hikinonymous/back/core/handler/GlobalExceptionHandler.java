@@ -1,6 +1,5 @@
 package org.hikinonymous.back.core.handler;
 
-import org.hikinonymous.back.core.dto.HttpResponseStatus;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import javax.naming.AuthenticationException;
 import java.util.NoSuchElementException;
@@ -93,6 +93,16 @@ public class GlobalExceptionHandler {
         logger.info("========== S HttpMediaTypeNotSupportedException ==========");
         logger.info("========== E HttpMediaTypeNotSupportedException ==========");
         return ResponseUtil.httpMediaTypeNotSupported(new ResponseDto());
+    }
+
+    /**
+     * 요청 컨텐츠 타입 안 맞음.
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseDto handleNoResourceFoundException(NoResourceFoundException e) {
+        logger.info("========== S NoResourceFoundException ==========");
+        logger.info("========== E NoResourceFoundException ==========");
+        return ResponseUtil.badRequest(new ResponseDto());
     }
 
 }
