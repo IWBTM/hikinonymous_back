@@ -52,8 +52,11 @@ public class AdminMgmtController {
         responseDto.setData(managerEntities.map(managerEntity -> {
             managerEntity.setManagerId(EncUtil.decryptAES256(managerEntity.getManagerId()));
             managerEntity.setManagerNm(EncUtil.decryptAES256(managerEntity.getManagerNm()));
-            managerEntity.setManagerHp(EncUtil.decryptAES256(managerEntity.getManagerHp()));
-            return (ManagerSimpleDto) CommonUtil.bindToObjectFromObjObject(managerEntity, ManagerSimpleDto.class);
+            ManagerSimpleDto managerSimpleDto = (ManagerSimpleDto) CommonUtil.bindToObjectFromObjObject(managerEntity, ManagerSimpleDto.class);
+            managerSimpleDto.setManagerStatus(managerEntity.getManagerStatus().getCodeNm());
+            managerSimpleDto.setRegDate(CommonUtil.getDayByStrDate(managerSimpleDto.getRegDate()));
+            managerSimpleDto.setLastLoginDate(CommonUtil.getDayByStrDate(managerSimpleDto.getLastLoginDate()));
+            return managerSimpleDto;
         }).collect(Collectors.toList()));
         return ResponseUtil.success(responseDto);
     }
