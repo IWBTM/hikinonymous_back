@@ -1,10 +1,8 @@
 package org.hikinonymous.back.core.dto;
 
 import lombok.Data;
-import org.hikinonymous.back.core.entity.CmsMenuEntity;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 public class ManagerDto implements Serializable {
@@ -15,13 +13,13 @@ public class ManagerDto implements Serializable {
 
     private String managerNm;
 
-    private List<CmsMenuEntity> cmsMenuEntities;
-
     private String superYn;
 
     private String lastPwdDate;
 
     private String lastLoginDate;
+
+    private Integer loginCnt;
 
     private String loginFailCnt;
 
