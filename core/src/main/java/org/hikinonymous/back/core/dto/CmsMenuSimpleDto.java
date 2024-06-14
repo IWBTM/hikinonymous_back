@@ -1,0 +1,20 @@
+package org.hikinonymous.back.core.dto;
+
+import lombok.Data;
+
+@Data
+public class CmsMenuSimpleDto {
+
+    private Long cmsMenuSeq;
+
+    private String menuCode;
+
+    private String menuNm;
+
+    private Long menuLevel;
+
+    private String authDir;
+
+    private Long sortOrder;
+
+}

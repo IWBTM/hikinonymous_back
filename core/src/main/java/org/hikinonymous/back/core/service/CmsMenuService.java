@@ -26,4 +26,8 @@ public class CmsMenuService {
         return cmsMenuRepository.findAllByManagerSeq(managerSeq);
     }
 
+    @Transactional
+    public Stream<CmsMenuEntity> streamAllByDelYn(String delYn) {
+        return cmsMenuRepository.streamAllByDelYn(delYn);
+    }
 }
