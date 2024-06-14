@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -63,6 +64,12 @@ public class CmsMenuEntity {
     @Column(nullable = false, length = 1)
     @Comment("화면 공개 여부")
     private String displayYn;
+
+    // 삭제 여부
+    @Column(nullable = false, length = 1)
+    @ColumnDefault(value = "N")
+    @Comment("삭제 여부")
+    private String delYn;
 
     // 등록자
     @Comment("등록자")
