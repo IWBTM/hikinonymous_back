@@ -1,4 +1,4 @@
-package org.hikinonymous.back.cms.controller;
+package org.hikinonymous.back.cms.controller.cmsMenu;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
