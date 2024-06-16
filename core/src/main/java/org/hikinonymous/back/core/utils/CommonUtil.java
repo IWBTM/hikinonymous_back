@@ -3,6 +3,8 @@ package org.hikinonymous.back.core.utils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.hikinonymous.back.core.dto.CommonDto;
+import org.hikinonymous.back.core.dto.ManagerDto;
+import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.modelmapper.ModelMapper;
 
 import java.util.Random;
@@ -42,16 +44,27 @@ public class CommonUtil {
     }
 
     /**
-     * CommonDto set 등록자 IP
+     * CommonDto set 등록자 정보
      */
-    public static void setClientIp(HttpServletRequest request, CommonDto commonDto) {
+    public static void setClientInfo(HttpServletRequest request, CommonDto commonDto, ManagerDto manager) {
+        String ip = getClientIp(request);
+
+        commonDto.setRegister(ManagerEntity.builder().managerSeq(manager.getManagerSeq()).build());
+        commonDto.setRegisterIp(ip);
+        commonDto.setUpdater(ManagerEntity.builder().managerSeq(manager.getManagerSeq()).build());
+        commonDto.setUpdaterIp(ip);
+    }
+
+    /**
+     * Servlet Request Get IP
+     */
+    public static String getClientIp(HttpServletRequest request) {
         String ip = request.getHeader("X-FORWARDED-FOR");
         if (ip == null || ip.length() == 0) ip = request.getHeader("Proxy-Client-IP");
         if (ip == null || ip.length() == 0) ip = request.getHeader("WL-Proxy-Client-IP");
         if (ip == null || ip.length() == 0) ip = request.getRemoteAddr() ;
 
-        commonDto.setRegisterIp(ip);
-        commonDto.setUpdaterIp(ip);
+        return ip;
     }
 
 }

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.CmsMenuDto;
@@ -18,10 +19,7 @@ import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -79,7 +77,29 @@ public class MenuMgmtController {
 
         CmsMenuEntity cmsMenuEntity = cmsMenuService.findByCmsMenuSeq(seq);
         if (Objects.isNull(cmsMenuEntity)) return ResponseUtil.canNotFoundManager(responseDto);
-        responseDto.setData((CmsMenuDto) CommonUtil.bindToObjectFromObjObject(cmsMenuEntity,  CmsMenuDto.class));
+        responseDto.setData(CommonUtil.bindToObjectFromObjObject(cmsMenuEntity,  CmsMenuDto.class));
+        return ResponseUtil.success(responseDto);
+    }
+
+    @Operation(
+            summary = "관리자 메뉴 저장",
+            description = "관리자 메뉴 정보를 저장한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "proc")
+    public ResponseDto proc(
+            HttpServletRequest request,
+            @RequestBody @Valid CmsMenuDto cmsMenuDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        if (Objects.isNull(cmsMenuDto)) return ResponseUtil.emptyRequestParameter(responseDto);
+
+        CommonUtil.setClientInfo(request, cmsMenuDto, manager);
+        cmsMenuService.proc(cmsMenuDto);
         return ResponseUtil.success(responseDto);
     }
 }

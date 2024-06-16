@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ServerErrorException;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 
@@ -36,5 +37,24 @@ public class CmsMenuService {
         return cmsMenuRepository.findByCmsMenuSeq(seq).orElseThrow(() ->
                 new ServerErrorException("Cms Menu Seq: " + seq + " not found", null)
         );
+    }
+
+    @Transactional
+    public void proc(CmsMenuDto cmsMenuDto) {
+        CmsMenuEntity cmsMenuEntity = cmsMenuRepository.findByCmsMenuSeq(cmsMenuDto.getCmsMenuSeq()).orElseGet(() ->
+                new CmsMenuEntity()
+        );
+
+        cmsMenuEntity.setMenuNm(cmsMenuDto.getMenuNm());
+        cmsMenuEntity.setMenuCode(cmsMenuDto.getMenuCode());
+        cmsMenuEntity.setMenuLevel(cmsMenuDto.getMenuLevel());
+        cmsMenuEntity.setFilePath(cmsMenuDto.getFilePath());
+        cmsMenuEntity.setAuthDir(cmsMenuDto.getAuthDir());
+        cmsMenuEntity.setDisplayYn(cmsMenuDto.getDisplayYn());
+        cmsMenuEntity.setEtc(cmsMenuDto.getEtc());
+        cmsMenuEntity.setSortOrder(cmsMenuDto.getSortOrder());
+
+        if (Objects.isNull(cmsMenuDto.getCmsMenuSeq())) cmsMenuEntity.setRegisterIp(cmsMenuDto.getRegisterIp());
+        else cmsMenuEntity.setUpdaterIp(cmsMenuDto.getUpdaterIp());
     }
 }

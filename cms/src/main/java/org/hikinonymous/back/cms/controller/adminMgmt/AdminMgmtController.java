@@ -115,7 +115,7 @@ public class AdminMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestParameter(responseDto);
 
-        CommonUtil.setClientIp(request, managerDto);
+        CommonUtil.setClientInfo(request, managerDto, manager);
         managerService.proc(managerDto);
         return ResponseUtil.success(responseDto);
     }
@@ -137,7 +137,7 @@ public class AdminMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestParameter(responseDto);
 
-        CommonUtil.setClientIp(request, managerDto);
+        CommonUtil.setClientInfo(request, managerDto, manager);
         managerService.updatePwd(managerDto);
         return ResponseUtil.success(responseDto);
     }
@@ -159,7 +159,7 @@ public class AdminMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestParameter(responseDto);
 
-        CommonUtil.setClientIp(request, managerDto);
+        CommonUtil.setClientInfo(request, managerDto, manager);
         managerService.updateDelYn(managerDto);
         return ResponseUtil.success(responseDto);
     }

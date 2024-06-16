@@ -8,7 +8,7 @@ import lombok.Data;
         description = "관리자 메뉴 DTO"
 )
 @Data
-public class CmsMenuDto {
+public class CmsMenuDto extends CommonDto {
 
     @Schema(
             description = "관리자 메뉴 SEQ"
@@ -25,6 +25,10 @@ public class CmsMenuDto {
     private String authDir;
 
     private String filePath;
+
+    private String etc;
+
+    private String displayYn;
 
     private Long sortOrder;
 
