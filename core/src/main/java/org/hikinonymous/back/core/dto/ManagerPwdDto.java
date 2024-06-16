@@ -14,6 +14,7 @@ public class ManagerPwdDto extends CommonDto {
     @Schema(
             description = "관리자 SEQ"
     )
+    @NotBlank(message = "관리자 SEQ")
     private Long managerSeq;
 
     @Schema(
