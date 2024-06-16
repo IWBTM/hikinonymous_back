@@ -56,8 +56,8 @@ public class ManagerService {
 
     @Transactional
     public void proc(ManagerDto managerDto) {
-        ManagerEntity managerEntity = managerRepository.findByManagerSeq(managerDto.getManagerSeq()).orElseThrow(() ->
-                new NoSuchElementException()
+        ManagerEntity managerEntity = managerRepository.findByManagerSeq(managerDto.getManagerSeq()).orElseGet(() ->
+            new ManagerEntity()
         );
 
         managerEntity.setManagerId(EncUtil.encryptAES256(managerDto.getManagerId()));
@@ -69,5 +69,26 @@ public class ManagerService {
         if (!Objects.isNull(managerDto.getManagerStatusSeq())) {
             managerEntity.setManagerStatus(codeService.findByCodeSeq(managerDto.getManagerStatusSeq()));
         }
+        managerRepository.save(managerEntity);
+    }
+
+    @Transactional
+    public void updatePwd(ManagerDto managerDto) {
+        ManagerEntity managerEntity = managerRepository.findByManagerSeq(managerDto.getManagerSeq()).orElseThrow(() ->
+                new NoSuchElementException("Manager Seq: " + managerDto.getManagerSeq() + " not found")
+        );
+
+        managerEntity.setManagerPwd(EncUtil.encryptSHA256(managerDto.getManagerPwd()));
+        managerRepository.save(managerEntity);
+    }
+
+    @Transactional
+    public void updateDelYn(ManagerDto managerDto) {
+        ManagerEntity managerEntity = managerRepository.findByManagerSeq(managerDto.getManagerSeq()).orElseThrow(() ->
+                new NoSuchElementException("Manager Seq: " + managerDto.getManagerSeq() + " not found")
+        );
+
+        managerEntity.setDelYn(EncUtil.encryptSHA256(managerDto.getDelYn()));
+        managerRepository.save(managerEntity);
     }
 }

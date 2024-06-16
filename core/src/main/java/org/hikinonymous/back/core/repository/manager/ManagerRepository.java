@@ -18,4 +18,5 @@ public interface ManagerRepository extends JpaRepository<ManagerEntity, Long>, M
     Optional<ManagerEntity> findByManagerSeq(long seq);
 
     Stream<ManagerEntity> streamAllBySuperYn(String superYn);
+
 }

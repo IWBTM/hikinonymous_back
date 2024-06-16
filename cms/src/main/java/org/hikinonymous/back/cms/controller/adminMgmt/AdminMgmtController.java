@@ -121,4 +121,48 @@ public class AdminMgmtController {
         managerService.proc(managerDto);
         return ResponseUtil.success(responseDto);
     }
+
+    @Operation(
+            summary = "관리자 비밀번호 저장",
+            description = "관리자 비밀번호를 저장한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "updatePwd")
+    public ResponseDto updatePwd(
+            HttpServletRequest request,
+            @RequestBody @Valid ManagerDto managerDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestParameter(responseDto);
+
+        CommonUtil.setClientIp(request, managerDto);
+        managerService.updatePwd(managerDto);
+        return ResponseUtil.success(responseDto);
+    }
+
+    @Operation(
+            summary = "관리자 삭제 여부 수정",
+            description = "관리자 삭제 여부를 수정한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "updateDelYn")
+    public ResponseDto updateDelYn(
+            HttpServletRequest request,
+            @RequestBody @Valid ManagerDto managerDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestParameter(responseDto);
+
+        CommonUtil.setClientIp(request, managerDto);
+        managerService.updateDelYn(managerDto);
+        return ResponseUtil.success(responseDto);
+    }
 }
