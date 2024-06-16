@@ -26,12 +26,6 @@ public class ManagerDto extends CommonDto {
     private String managerId;
 
     @Schema(
-            description = "관리자 비밀번호"
-    )
-    @NotBlank(message = "관리자 비밀번호")
-    private String managerPwd;
-
-    @Schema(
             description = "관리자 이름"
     )
     @NotBlank(message = "관리자 이름")
@@ -74,11 +68,5 @@ public class ManagerDto extends CommonDto {
     )
     @NotBlank(message = "사용 여부")
     private String useYn;
-
-    @Schema(
-            description = "삭제 여부"
-    )
-    @NotBlank(message = "삭제 여부")
-    private String delYn;
 
 }

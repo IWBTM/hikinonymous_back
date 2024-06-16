@@ -10,9 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hikinonymous.back.core.dto.ManagerDto;
-import org.hikinonymous.back.core.dto.ManagerSimpleDto;
-import org.hikinonymous.back.core.dto.ResponseDto;
+import org.hikinonymous.back.core.dto.*;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.service.ManagerService;
 import org.hikinonymous.back.core.utils.CommonUtil;
@@ -132,7 +130,7 @@ public class AdminMgmtController {
     @PostMapping(value = "updatePwd")
     public ResponseDto updatePwd(
             HttpServletRequest request,
-            @RequestBody @Valid ManagerDto managerDto
+            @RequestBody @Valid ManagerPwdDto managerDto
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
@@ -154,7 +152,7 @@ public class AdminMgmtController {
     @PostMapping(value = "updateDelYn")
     public ResponseDto updateDelYn(
             HttpServletRequest request,
-            @RequestBody @Valid ManagerDto managerDto
+            @RequestBody @Valid ManagerDelYnDto managerDto
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");

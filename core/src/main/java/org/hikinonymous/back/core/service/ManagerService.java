@@ -1,7 +1,9 @@
 package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hikinonymous.back.core.dto.ManagerDelYnDto;
 import org.hikinonymous.back.core.dto.ManagerDto;
+import org.hikinonymous.back.core.dto.ManagerPwdDto;
 import org.hikinonymous.back.core.entity.CodeEntity;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.repository.manager.ManagerRepository;
@@ -73,7 +75,7 @@ public class ManagerService {
     }
 
     @Transactional
-    public void updatePwd(ManagerDto managerDto) {
+    public void updatePwd(ManagerPwdDto managerDto) {
         ManagerEntity managerEntity = managerRepository.findByManagerSeq(managerDto.getManagerSeq()).orElseThrow(() ->
                 new NoSuchElementException("Manager Seq: " + managerDto.getManagerSeq() + " not found")
         );
@@ -83,7 +85,7 @@ public class ManagerService {
     }
 
     @Transactional
-    public void updateDelYn(ManagerDto managerDto) {
+    public void updateDelYn(ManagerDelYnDto managerDto) {
         ManagerEntity managerEntity = managerRepository.findByManagerSeq(managerDto.getManagerSeq()).orElseThrow(() ->
                 new NoSuchElementException("Manager Seq: " + managerDto.getManagerSeq() + " not found")
         );
