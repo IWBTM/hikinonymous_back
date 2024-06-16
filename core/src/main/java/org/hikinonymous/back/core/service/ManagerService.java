@@ -2,8 +2,11 @@ package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.ManagerDto;
+import org.hikinonymous.back.core.entity.CodeEntity;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.repository.manager.ManagerRepository;
+import org.hikinonymous.back.core.utils.CommonUtil;
+import org.hikinonymous.back.core.utils.EncUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ServerErrorException;
@@ -11,6 +14,8 @@ import org.springframework.web.server.ServerErrorException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -47,5 +52,22 @@ public class ManagerService {
     @Transactional
     public Stream<ManagerEntity> streamAllBySuperYn(String superYn) {
         return managerRepository.streamAllBySuperYn(superYn);
+    }
+
+    @Transactional
+    public void proc(ManagerDto managerDto) {
+        ManagerEntity managerEntity = managerRepository.findByManagerSeq(managerDto.getManagerSeq()).orElseThrow(() ->
+                new NoSuchElementException()
+        );
+
+        managerEntity.setManagerId(EncUtil.encryptAES256(managerDto.getManagerId()));
+        managerEntity.setManagerNm(EncUtil.encryptAES256(managerDto.getManagerNm()));
+        managerEntity.setManagerHp(EncUtil.encryptAES256(managerDto.getManagerHp()));
+
+        managerEntity.setUseYn(managerDto.getUseYn());
+
+        if (!Objects.isNull(managerDto.getManagerStatusSeq())) {
+            managerEntity.setManagerStatus(codeService.findByCodeSeq(managerDto.getManagerStatusSeq()));
+        }
     }
 }

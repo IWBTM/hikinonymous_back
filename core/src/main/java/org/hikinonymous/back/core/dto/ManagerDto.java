@@ -1,18 +1,46 @@
 package org.hikinonymous.back.core.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.io.Serializable;
 
+@Schema(
+        description = "관리자 DTO"
+)
 @Data
-public class ManagerDto implements Serializable {
+public class ManagerDto extends CommonDto {
 
+    @Schema(
+            description = "관리자 SEQ"
+    )
     private Long managerSeq;
 
+    @Schema(
+            description = "관리자 이메일"
+    )
+    @Email
+    @NotBlank(message = "관리자 이메일")
     private String managerId;
 
+    @Schema(
+            description = "관리자 이름"
+    )
+    @NotBlank(message = "관리자 이름")
     private String managerNm;
 
+    @Schema(
+            description = "관리자 연락처"
+    )
+    @NotBlank(message = "관리자 연락처")
+    private String managerHp;
+
+    @Schema(
+            description = "슈퍼 관리자 여부"
+    )
+    @NotBlank(message = "슈퍼 관리자 여부")
     private String superYn;
 
     private String lastPwdDate;
@@ -23,10 +51,22 @@ public class ManagerDto implements Serializable {
 
     private String loginFailCnt;
 
+    @Schema(
+            description = "관리자 상태"
+    )
+    @NotBlank(message = "관리자 상태")
     private String managerStatus;
 
-    private String useYn;
+    @Schema(
+            description = "관리자 상태 SEQ"
+    )
+    @NotBlank(message = "관리자 상태 SEQ")
+    private Long managerStatusSeq;
 
-    private String regDate;
+    @Schema(
+            description = "사용 여부"
+    )
+    @NotBlank(message = "사용 여부")
+    private String useYn;
 
 }

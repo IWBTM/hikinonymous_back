@@ -1,10 +1,19 @@
 package org.hikinonymous.back.core.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+@Schema(
+        description = "관리자 메뉴 DTO"
+)
 @Data
 public class CmsMenuDto {
 
+    @Schema(
+            description = "관리자 메뉴 SEQ"
+    )
+    @NotBlank(message = "SEQ")
     private Long cmsMenuSeq;
 
     private String menuCode;

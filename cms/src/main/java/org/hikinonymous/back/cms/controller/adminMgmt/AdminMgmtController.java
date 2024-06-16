@@ -1,9 +1,13 @@
 package org.hikinonymous.back.cms.controller.adminMgmt;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.ManagerDto;
@@ -16,10 +20,7 @@ import org.hikinonymous.back.core.utils.EncUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -76,7 +77,10 @@ public class AdminMgmtController {
     @GetMapping(value = "view")
     public ResponseDto view(
             HttpServletRequest request,
-            @PathVariable Long seq
+            @PathVariable @Parameter(
+                    name = "seq",
+                    description = "관리자 SEQ"
+            ) Long seq
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
@@ -103,26 +107,18 @@ public class AdminMgmtController {
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @GetMapping(value = "proc")
+    @PostMapping(value = "proc")
     public ResponseDto proc(
             HttpServletRequest request,
-            @PathVariable Long seq
+            @RequestBody @Valid ManagerDto managerDto
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestParameter(responseDto);
 
-        ManagerEntity managerEntity = managerService.findByManagerSeq(seq);
-        if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundManager(responseDto);
-        ManagerDto managerDto = (ManagerDto) CommonUtil.bindToObjectFromObjObject(managerEntity, ManagerDto.class);
-        managerDto.setManagerStatus(managerEntity.getManagerStatus().getCodeNm());
-
-        managerDto.setManagerId(EncUtil.decryptAES256(managerDto.getManagerId()));
-        managerDto.setManagerNm(EncUtil.decryptAES256(managerDto.getManagerNm()));
-
-        managerDto.setRegDate(CommonUtil.getDayByStrDate(managerDto.getRegDate()));
-        managerDto.setLastLoginDate(CommonUtil.getDayByStrDate(managerDto.getLastLoginDate()));
-
-        responseDto.setData(managerDto);
+        CommonUtil.setClientIp(request, managerDto);
+        managerService.proc(managerDto);
         return ResponseUtil.success(responseDto);
     }
 }

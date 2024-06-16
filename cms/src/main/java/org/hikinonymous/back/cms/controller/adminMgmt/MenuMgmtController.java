@@ -1,6 +1,7 @@
 package org.hikinonymous.back.cms.controller.adminMgmt;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,8 +60,8 @@ public class MenuMgmtController {
     }
 
     @Operation(
-            summary = "관리자 상세 조회",
-            description = "관리자를 상세 조회한다."
+            summary = "관리자 메뉴 상세 조회",
+            description = "관리자 메뉴를 상세 조회한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -68,7 +69,10 @@ public class MenuMgmtController {
     @GetMapping(value = "view")
     public ResponseDto view(
             HttpServletRequest request,
-            @PathVariable Long seq
+            @PathVariable @Parameter(
+                    name = "seq",
+                    description = "관리자 메뉴 SEQ"
+            ) Long seq
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");

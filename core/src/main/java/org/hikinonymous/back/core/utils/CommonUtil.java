@@ -1,6 +1,8 @@
 package org.hikinonymous.back.core.utils;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
+import org.hikinonymous.back.core.dto.CommonDto;
 import org.modelmapper.ModelMapper;
 
 import java.util.Random;
@@ -37,6 +39,19 @@ public class CommonUtil {
         String month = date.substring(4, 6);
         String day = date.substring(6, 8);
         return year + "-" + month + '-' + day;
+    }
+
+    /**
+     * CommonDto set 등록자 IP
+     */
+    public static void setClientIp(HttpServletRequest request, CommonDto commonDto) {
+        String ip = request.getHeader("X-FORWARDED-FOR");
+        if (ip == null || ip.length() == 0) ip = request.getHeader("Proxy-Client-IP");
+        if (ip == null || ip.length() == 0) ip = request.getHeader("WL-Proxy-Client-IP");
+        if (ip == null || ip.length() == 0) ip = request.getRemoteAddr() ;
+
+        commonDto.setRegisterIp(ip);
+        commonDto.setUpdaterIp(ip);
     }
 
 }

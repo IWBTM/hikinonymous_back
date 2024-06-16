@@ -12,4 +12,5 @@ public interface CodeRepository extends JpaRepository<CodeEntity, Long>, CodeRep
 
     Optional<CodeEntity> findByCodeAndCodeMasterEntity(String code, CodeMasterEntity codeMasterEntity);
 
+    Optional<CodeEntity> findByCodeSeq(Long codeSeq);
 }

@@ -28,4 +28,9 @@ public class CodeService {
         );
     }
 
+    public CodeEntity findByCodeSeq(Long codeSeq) {
+        return codeRepository.findByCodeSeq(codeSeq).orElseThrow(() ->
+                new ServerErrorException("Code Seq: " + codeSeq + " not found", null)
+        );
+    }
 }
