@@ -6,10 +6,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hikinonymous.back.core.dto.CmsMenuDto;
 import org.hikinonymous.back.core.dto.CmsMenuSimpleDto;
 import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.CmsMenuEntity;
+import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.service.CmsMenuService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -70,18 +73,9 @@ public class MenuMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-//        ManagerEntity managerEntity = cmsMenuService.findByManagerSeq(seq);
-//        if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundManager(responseDto);
-//        ManagerDto managerDto = (ManagerDto) CommonUtil.bindToObjectFromObjObject(managerEntity, ManagerDto.class);
-//        managerDto.setManagerStatus(managerEntity.getManagerStatus().getCodeNm());
-//
-//        managerDto.setManagerId(EncUtil.decryptAES256(managerDto.getManagerId()));
-//        managerDto.setManagerNm(EncUtil.decryptAES256(managerDto.getManagerNm()));
-//
-//        managerDto.setRegDate(CommonUtil.getDayByStrDate(managerDto.getRegDate()));
-//        managerDto.setLastLoginDate(CommonUtil.getDayByStrDate(managerDto.getLastLoginDate()));
-//
-//        responseDto.setData(managerDto);
+        CmsMenuEntity cmsMenuEntity = cmsMenuService.findByCmsMenuSeq(seq);
+        if (Objects.isNull(cmsMenuEntity)) return ResponseUtil.canNotFoundManager(responseDto);
+        responseDto.setData((CmsMenuDto) CommonUtil.bindToObjectFromObjObject(cmsMenuEntity,  CmsMenuDto.class));
         return ResponseUtil.success(responseDto);
     }
 }

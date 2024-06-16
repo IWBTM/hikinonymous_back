@@ -95,4 +95,34 @@ public class AdminMgmtController {
         responseDto.setData(managerDto);
         return ResponseUtil.success(responseDto);
     }
+
+    @Operation(
+            summary = "관리자 저장",
+            description = "관리자 정보를 저장한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @GetMapping(value = "proc")
+    public ResponseDto proc(
+            HttpServletRequest request,
+            @PathVariable Long seq
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+
+        ManagerEntity managerEntity = managerService.findByManagerSeq(seq);
+        if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundManager(responseDto);
+        ManagerDto managerDto = (ManagerDto) CommonUtil.bindToObjectFromObjObject(managerEntity, ManagerDto.class);
+        managerDto.setManagerStatus(managerEntity.getManagerStatus().getCodeNm());
+
+        managerDto.setManagerId(EncUtil.decryptAES256(managerDto.getManagerId()));
+        managerDto.setManagerNm(EncUtil.decryptAES256(managerDto.getManagerNm()));
+
+        managerDto.setRegDate(CommonUtil.getDayByStrDate(managerDto.getRegDate()));
+        managerDto.setLastLoginDate(CommonUtil.getDayByStrDate(managerDto.getLastLoginDate()));
+
+        responseDto.setData(managerDto);
+        return ResponseUtil.success(responseDto);
+    }
 }

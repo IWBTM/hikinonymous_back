@@ -6,6 +6,7 @@ import org.hikinonymous.back.core.entity.CmsMenuEntity;
 import org.hikinonymous.back.core.repository.cmsMenu.CmsMenuRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ServerErrorException;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -29,5 +30,11 @@ public class CmsMenuService {
     @Transactional
     public Stream<CmsMenuEntity> streamAllByDelYn(String delYn) {
         return cmsMenuRepository.streamAllByDelYn(delYn);
+    }
+
+    public CmsMenuEntity findByCmsMenuSeq(Long seq) {
+        return cmsMenuRepository.findByCmsMenuSeq(seq).orElseThrow(() ->
+                new ServerErrorException("Cms Menu Seq: " + seq + " not found", null)
+        );
     }
 }

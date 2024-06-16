@@ -6,6 +6,7 @@ import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.repository.manager.ManagerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ServerErrorException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,7 +39,9 @@ public class ManagerService {
     }
 
     public ManagerEntity findByManagerSeq(long seq) {
-        return managerRepository.findByManagerSeq(seq);
+        return managerRepository.findByManagerSeq(seq).orElseThrow(() ->
+                new ServerErrorException("Manger Seq: " + seq + " not found", null)
+        );
     }
 
     @Transactional
