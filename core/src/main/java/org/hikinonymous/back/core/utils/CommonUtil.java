@@ -1,5 +1,6 @@
 package org.hikinonymous.back.core.utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 
 import java.util.Random;
@@ -24,6 +25,18 @@ public class CommonUtil {
     public static Object bindToObjectFromObjObject(Object object, Class classType) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(object, classType);
+    }
+
+    /**
+     * 총 14자리의 날짜를 입력받아
+     * 포맷 후 리턴 yyyy.MM.dd HH:mm:ss
+     */
+    public static String getDayByStrDate(String date) {
+        if (StringUtils.isBlank(date) || date.length() < 14) return "-";
+        String year = date.substring(0, 4);
+        String month = date.substring(4, 6);
+        String day = date.substring(6, 8);
+        return year + "-" + month + '-' + day;
     }
 
 }

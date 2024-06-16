@@ -38,14 +38,14 @@ public class CmsMenuController {
     @GetMapping(value = "list")
     public ResponseDto list(HttpServletRequest request) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto managerDto = (ManagerDto) request.getAttribute("managerDto");
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        if (managerDto.getSuperYn().equals("Y")) {
+        if (manager.getSuperYn().equals("Y")) {
             Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.streamAllByDisplayYn("Y");
             responseDto.setData(cmsMenuEntities.map(userEntity -> (CmsMenuDto) CommonUtil.bindToObjectFromObjObject(userEntity, CmsMenuDto.class)).collect(Collectors.toList()));
             return ResponseUtil.success(responseDto);
         } else {
-            responseDto.setData(cmsMenuService.findAllByManagerSeq(managerDto.getManagerSeq()));
+            responseDto.setData(cmsMenuService.findAllByManagerSeq(manager.getManagerSeq()));
             return ResponseUtil.success(responseDto);
         }
 

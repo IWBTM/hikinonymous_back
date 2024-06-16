@@ -12,4 +12,6 @@ public interface CmsMenuRepository extends JpaRepository<CmsMenuEntity, Long>, C
 
     Stream<CmsMenuEntity> streamAllByDisplayYn(String displayYn);
 
+    Stream<CmsMenuEntity> streamAllByDelYn(String delYn);
+
 }

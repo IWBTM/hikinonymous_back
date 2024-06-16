@@ -1,6 +1,6 @@
 package org.hikinonymous.back.core.utils;
 
-import org.hikinonymous.back.core.dto.HttpResponseStatus;
+import org.hikinonymous.back.core.enums.HttpResponseStatus;
 import org.hikinonymous.back.core.dto.ResponseDto;
 
 public class ResponseUtil {
@@ -52,6 +52,16 @@ public class ResponseUtil {
     public static ResponseDto canNotFoundMember(ResponseDto responseDto) {
         responseDto.setCode(HttpResponseStatus.CAN_NOT_FOUND_MEMBER.getCode());
         responseDto.setMessage(HttpResponseStatus.CAN_NOT_FOUND_MEMBER.getMessage());
+        return responseDto;
+    }
+
+    /**
+     * BAD_REQUEST
+     * CODE - 400
+     */
+    public static ResponseDto badRequest(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.BAD_REQUEST.getCode());
+        responseDto.setMessage(HttpResponseStatus.BAD_REQUEST.getMessage());
         return responseDto;
     }
 

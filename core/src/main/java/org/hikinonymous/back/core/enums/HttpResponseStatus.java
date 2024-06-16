@@ -1,4 +1,4 @@
-package org.hikinonymous.back.core.dto;
+package org.hikinonymous.back.core.enums;
 
 import lombok.Getter;
 
