@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -100,6 +101,27 @@ public class MenuMgmtController {
 
         CommonUtil.setClientInfo(request, cmsMenuDto, manager);
         cmsMenuService.proc(cmsMenuDto);
+        return ResponseUtil.success(responseDto);
+    }
+
+    @Operation(
+            summary = "관리자 메뉴 순서 저장",
+            description = "관리자 메뉴 순서를 저장한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "updateOrderSort")
+    public ResponseDto updateOrderSort(
+            HttpServletRequest request,
+            @RequestBody @Valid List<CmsMenuDto> cmsMenuDtoList
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        if (Objects.isNull(cmsMenuDtoList) || cmsMenuDtoList.isEmpty()) return ResponseUtil.emptyRequestParameter(responseDto);
+
+        cmsMenuService.updateOrderSort(request, cmsMenuDtoList, manager);
         return ResponseUtil.success(responseDto);
     }
 }

@@ -1,14 +1,18 @@
 package org.hikinonymous.back.core.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.CmsMenuDto;
+import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.entity.CmsMenuEntity;
 import org.hikinonymous.back.core.repository.cmsMenu.CmsMenuRepository;
+import org.hikinonymous.back.core.utils.CommonUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ServerErrorException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -56,5 +60,18 @@ public class CmsMenuService {
 
         if (Objects.isNull(cmsMenuDto.getCmsMenuSeq())) cmsMenuEntity.setRegisterIp(cmsMenuDto.getRegisterIp());
         else cmsMenuEntity.setUpdaterIp(cmsMenuDto.getUpdaterIp());
+    }
+
+    @Transactional
+    public void updateOrderSort(HttpServletRequest request, List<CmsMenuDto> cmsMenuDtoList, ManagerDto manager) {
+        for (CmsMenuDto cmsMenuDto: cmsMenuDtoList) {
+            CommonUtil.setClientInfo(request, cmsMenuDto, manager);
+            CmsMenuEntity cmsMenuEntity = cmsMenuRepository.findByCmsMenuSeq(cmsMenuDto.getCmsMenuSeq()).orElseThrow(() ->
+                    new NoSuchElementException("Cms Menu Seq: " + cmsMenuDto.getCmsMenuSeq() + " not found")
+            );
+
+            cmsMenuEntity.setSortOrder(cmsMenuDto.getSortOrder());
+            cmsMenuRepository.save(cmsMenuEntity);
+        }
     }
 }
