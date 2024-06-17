@@ -13,33 +13,23 @@ import java.io.Serializable;
 @Data
 public class ManagerDto extends CommonDto {
 
-    @Schema(
-            description = "관리자 SEQ"
-    )
+    @Schema(description = "관리자 SEQ")
     private Long managerSeq;
 
-    @Schema(
-            description = "관리자 이메일"
-    )
+    @Schema(description = "관리자 이메일")
     @Email
     @NotBlank(message = "관리자 이메일")
     private String managerId;
 
-    @Schema(
-            description = "관리자 이름"
-    )
+    @Schema(description = "관리자 이름")
     @NotBlank(message = "관리자 이름")
     private String managerNm;
 
-    @Schema(
-            description = "관리자 연락처"
-    )
+    @Schema(description = "관리자 연락처")
     @NotBlank(message = "관리자 연락처")
     private String managerHp;
 
-    @Schema(
-            description = "슈퍼 관리자 여부"
-    )
+    @Schema(description = "슈퍼 관리자 여부")
     @NotBlank(message = "슈퍼 관리자 여부")
     private String superYn;
 
@@ -51,21 +41,15 @@ public class ManagerDto extends CommonDto {
 
     private String loginFailCnt;
 
-    @Schema(
-            description = "관리자 상태"
-    )
+    @Schema(description = "관리자 상태")
     @NotBlank(message = "관리자 상태")
     private String managerStatus;
 
-    @Schema(
-            description = "관리자 상태 SEQ"
-    )
+    @Schema(description = "관리자 상태 SEQ")
     @NotBlank(message = "관리자 상태 SEQ")
     private Long managerStatusSeq;
 
-    @Schema(
-            description = "사용 여부"
-    )
+    @Schema(description = "사용 여부")
     @NotBlank(message = "사용 여부")
     private String useYn;
 
