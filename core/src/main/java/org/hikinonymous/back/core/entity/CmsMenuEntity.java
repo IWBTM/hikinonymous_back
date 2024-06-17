@@ -67,7 +67,7 @@ public class CmsMenuEntity {
 
     // 삭제 여부
     @Column(nullable = false, length = 1)
-    @ColumnDefault(value = "N")
+    @ColumnDefault(value = "'N'")
     @Comment("삭제 여부")
     private String delYn;
 

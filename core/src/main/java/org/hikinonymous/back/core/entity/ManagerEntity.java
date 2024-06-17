@@ -90,7 +90,7 @@ public class ManagerEntity {
     @Comment("마지막 비밀번호 변경일")
     private String lastPwdDate;
 
-    // 등록일
+        // 등록일
     @Column(nullable = false, length = 14)
     @Comment("등록일")
     private String regDate;
