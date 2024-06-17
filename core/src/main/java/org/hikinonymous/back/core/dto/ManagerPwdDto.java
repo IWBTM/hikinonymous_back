@@ -11,15 +11,11 @@ import lombok.Data;
 @Data
 public class ManagerPwdDto extends CommonDto {
 
-    @Schema(
-            description = "관리자 SEQ"
-    )
+    @Schema(description = "관리자 SEQ")
     @NotBlank(message = "관리자 SEQ")
     private Long managerSeq;
 
-    @Schema(
-            description = "관리자 비밀번호"
-    )
+    @Schema(description = "관리자 비밀번호")
     @NotBlank(message = "관리자 비밀번호")
     private String managerPwd;
 

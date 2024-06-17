@@ -11,16 +11,12 @@ import lombok.Data;
 @Data
 public class LoginDto {
 
-    @Schema(
-            description = "이메일"
-    )
+    @Schema(description = "이메일")
     @Email
     @NotBlank(message = "이메일")
     private String email;
 
-    @Schema(
-            description = "비밀번호"
-    )
+    @Schema(description = "비밀번호")
     @NotBlank(message = "비밀번호")
     private String pwd;
 

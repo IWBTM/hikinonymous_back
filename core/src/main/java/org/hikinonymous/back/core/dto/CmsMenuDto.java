@@ -10,10 +10,8 @@ import lombok.Data;
 @Data
 public class CmsMenuDto extends CommonDto {
 
-    @Schema(
-            description = "관리자 메뉴 SEQ"
-    )
-    @NotBlank(message = "SEQ")
+    @Schema(description = "관리자 메뉴 SEQ")
+    @NotBlank(message = "cmsMenuSeq")
     private Long cmsMenuSeq;
 
     private String menuCode;

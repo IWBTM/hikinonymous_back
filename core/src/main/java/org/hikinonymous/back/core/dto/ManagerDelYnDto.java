@@ -11,15 +11,11 @@ import lombok.Data;
 @Data
 public class ManagerDelYnDto extends CommonDto {
 
-    @Schema(
-            description = "관리자 SEQ"
-    )
+    @Schema(description = "관리자 SEQ")
     @NotBlank(message = "관리자 SEQ")
     private Long managerSeq;
 
-    @Schema(
-            description = "삭제 여부"
-    )
+    @Schema(description = "삭제 여부")
     @NotBlank(message = "삭제 여부")
     private String delYn;
 
