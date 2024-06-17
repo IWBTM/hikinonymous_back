@@ -40,7 +40,7 @@ public class ManagerAuthEntity {
 
     // 권한
     @Comment("권한")
-    @Column(nullable = false, length = 7)
+    @Column(nullable = false, length = 4)
     private String authTypes;
 
 }
