@@ -5,7 +5,8 @@ VALUES
     ('MEMBER_STATUS', '회원 상태', 'N'),
     ('JOIN_TYPE', '가입 경로', 'N'),
     ('CRUD_TYPE', '기능', 'N'),
-    ('BOARD_TYPE', '게시글 타입', 'N');
+    ('BOARD_TYPE', '게시글 타입', 'N'),
+    ('SERVICE_BOARD_TYPE', '서비스 게시글 타입', 'N');
 
 INSERT INTO tb_code
 (codeMaster, code, codeNm, delYn, etc, sortOrder)
@@ -27,9 +28,9 @@ VALUES
     ('CRUD_TYPE', 'D', '삭제', 'N', '', 4),
 
     ('BOARD_TYPE', 'BOARD', '게시글', 'N', '', 1),
-    ('BOARD_TYPE', 'FAQ', 'FAQ', 'N', '', 2),
-    ('BOARD_TYPE', 'NOTICE', '공지사항', 'N', '', 3),
-    ('BOARD_TYPE', 'INQUIRY', '문의', 'N', '', 4);
+    ('SERVICE_BOARD_TYPE', 'FAQ', 'FAQ', 'N', '', 1),
+    ('SERVICE_BOARD_TYPE', 'NOTICE', '공지사항', 'N', '', 2),
+    ('SERVICE_BOARD_TYPE', 'INQUIRY', '문의', 'N', '', 3);
 
 INSERT INTO tb_manager
 (managerSeq, managerHp, managerId, managerNm, managerPwd, regDate, registerIp, useYn, managerStatus, superYn)
