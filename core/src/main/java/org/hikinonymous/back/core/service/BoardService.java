@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
-public class ManagerService {
+public class BoardService {
 
     private final ManagerRepository managerRepository;
 

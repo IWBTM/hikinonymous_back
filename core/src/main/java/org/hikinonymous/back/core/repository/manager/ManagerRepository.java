@@ -1,6 +1,5 @@
 package org.hikinonymous.back.core.repository.manager;
 
-import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
