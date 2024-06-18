@@ -76,6 +76,7 @@ public class BoardMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
+        responseDto.setData((BoardDto) CommonUtil.bindToObjectFromObjObject(boardService.findById(seq), BoardDto.class));
         return ResponseUtil.success(responseDto);
     }
 
