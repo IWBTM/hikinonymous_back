@@ -33,7 +33,12 @@ public class BoardEntity {
     @Comment("카테고리")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category", nullable = false)
-    private CategoryEntity categoryEntity;
+    private CategoryEntity category;
+
+    @Comment("게시글 타입")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "boardType", nullable = false)
+    private CodeEntity boardType;
 
     @Column(nullable = false, length = 1)
     @Comment("삭제 여부")

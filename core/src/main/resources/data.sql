@@ -48,9 +48,6 @@ VALUES
     ('FRONT_MENU_MANAGEMENT', '사용자 메뉴 관리', 'Y', 2, 1, 'site', '/cms/site/frontMenu/list', '사용자 메뉴 관리', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('BANNER_MANAGEMENT', '배너 관리', 'Y', 2, 2, 'site', '/cms/site/banner/list', '배너 메뉴 관리', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('POPUP_MANAGEMENT', '팝업 관리', 'Y', 2, 3, 'site', '/cms/site/popup/list', '팝업 관리', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
-    ('INQUIRY_MANAGEMENT', '문의 관리', 'Y', 2, 4, 'site', '/cms/site/inquiry/list', '문의 관리', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
-    ('FAQ_MANAGEMENT', 'FAQ 관리', 'Y', 2, 5, 'site', '/cms/site/faq/list', 'FAQ 관리', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
-    ('NOTICE_MANAGEMENT', '공지사항 관리', 'Y', 2, 6, 'site', '/cms/site/notice/list', '공지사항 관리', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('MEMBER_MANAGEMENT', '회원 관리', 'Y', 1, 3, 'member', '', '회원 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('MEMBER_MANAGEMENT', '회원 관리', 'Y', 2, 1, 'member', '/cms/member/member/list', '회원 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('DROP_MEMBER_MANAGEMENT', '탈퇴 회원 관리', 'Y', 2, 2, 'member', '/cms/member/dropMember/list', '탈퇴 회원 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
@@ -62,7 +59,11 @@ VALUES
     ('CODE_MANAGEMENT', '코드 관리', 'Y', 2, 1, 'code', '/cms/code/code/list', '코드 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('TERM_MANAGEMENT', '약관 관리', 'Y', 1, 7, 'term', '', '약관 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('TERM_MANAGEMENT', '이용 약관 관리', 'Y', 2, 1, 'term', '/cms/term/term/list', '약관 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
-    ('PRIVACY_MANAGEMENT', '개인 정보 보호 관리', 'Y', 2, 2, 'term', '/cms/term/privacy/list', '개인 정보 보호 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S'));
+    ('PRIVACY_MANAGEMENT', '개인 정보 보호 관리', 'Y', 2, 2, 'term', '/cms/term/privacy/list', '개인 정보 보호 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
+    ('SERVICE_MANAGEMENT', '서비스 관리', 'Y', 1, 8, 'service', '', '서비스 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
+    ('INQUIRY_MANAGEMENT', '문의 관리', 'Y', 2, 1, 'service', '/cms/service/inquiry/list', '문의 관리', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
+    ('FAQ_MANAGEMENT', 'FAQ 관리', 'Y', 2, 2, 'service', '/cms/service/faq/list', 'FAQ 관리', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
+    ('NOTICE_MANAGEMENT', '공지사항 관리', 'Y', 2, 3, 'service', '/cms/service/notice/list', '공지사항 관리', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S'));
 
 INSERT INTO tb_manager_auth
 (cmsMenu, manager, authTypes)
