@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.*;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Tag(name = "BOARD MANAGEMENT MENU", description = "BOARD MANAGEMENT MENU API DOC")
 @Slf4j
@@ -66,7 +68,7 @@ public class BoardMgmtController {
             HttpServletRequest request,
             @PathVariable @Parameter(
                     name = "seq",
-                    description = "관리자 SEQ"
+                    description = "게시글 SEQ"
             ) Long seq,
             @PathVariable @Parameter(
                     name = "boardType",
@@ -77,6 +79,28 @@ public class BoardMgmtController {
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
         responseDto.setData((BoardDto) CommonUtil.bindToObjectFromObjObject(boardService.findById(seq), BoardDto.class));
+        return ResponseUtil.success(responseDto);
+    }
+
+    @Operation(
+            summary = "게시글 상세 조회",
+            description = "게시글을 상세 조회한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @GetMapping(value = "{boardType}/updateDelYn")
+    public ResponseDto updateDelYn(
+            HttpServletRequest request,
+            @RequestBody @Valid BoardDto boardDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        if (Objects.isNull(boardDto)) return ResponseUtil.emptyRequestParameter(responseDto);
+
+        CommonUtil.setClientInfo(request, boardDto, manager);
+        boardService.updateDelYn(boardDto);
         return ResponseUtil.success(responseDto);
     }
 

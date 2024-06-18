@@ -9,7 +9,7 @@ import org.hikinonymous.back.core.entity.CodeEntity;
 import org.hikinonymous.back.core.entity.MemberEntity;
 
 @Data
-public class BoardDto {
+public class BoardDto extends CommonDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,27 +33,5 @@ public class BoardDto {
     @Comment("삭제 여부")
     @ColumnDefault(value = "'N'")
     private String delYn;
-
-    // 등록자
-    @Comment("등록자")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "register", nullable = false)
-    private MemberEntity register;
-
-    // 등록일
-    @Column(nullable = false, length = 14)
-    @Comment("등록일")
-    private String regDate;
-
-    // 수정자
-    @Comment("수정자")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "updater")
-    private MemberEntity updater;
-
-    // 수정일
-    @Column(length = 14)
-    @Comment("수정일")
-    private String updDate;
 
 }

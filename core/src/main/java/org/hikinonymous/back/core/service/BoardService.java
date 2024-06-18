@@ -1,6 +1,7 @@
 package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hikinonymous.back.core.dto.BoardDto;
 import org.hikinonymous.back.core.entity.BoardEntity;
 import org.hikinonymous.back.core.entity.CodeEntity;
 import org.hikinonymous.back.core.repository.board.BoardRepository;
@@ -25,5 +26,13 @@ public class BoardService {
         return boardRepository.findById(seq).orElseThrow(() ->
                 new NoSuchElementException("Board Seq: " + seq + " not found")
         );
+    }
+
+    public void updateDelYn(BoardDto boardDto) {
+        BoardEntity boardEntity = this.findById(boardDto.getBoardSeq());
+        if (boardEntity.getDelYn().equals("Y")) boardEntity.setDelYn("N");
+        else boardEntity.setDelYn("Y");
+
+        boardRepository.save(boardEntity);
     }
 }
