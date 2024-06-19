@@ -83,8 +83,8 @@ public class BoardMgmtController {
     }
 
     @Operation(
-            summary = "게시글 상세 조회",
-            description = "게시글을 상세 조회한다."
+            summary = "게시글 삭제 여부 수정",
+            description = "게시글 삭제 여부를 수정한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
