@@ -13,14 +13,14 @@ import org.hibernate.annotations.DynamicInsert;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "tb_board")
+@Entity(name = "tb_service_board")
 @DynamicInsert
 public class ServiceBoardEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("게시글 SEQ")
-    private Long boardSeq;
+    private Long serviceBoardSeq;
 
     @Column(nullable = false, length = 255)
     @Comment("제목")
@@ -30,20 +30,24 @@ public class ServiceBoardEntity {
     @Comment("내용")
     private String content;
 
-    @Comment("카테고리")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category", nullable = false)
-    private CategoryEntity category;
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    @Comment("요약")
+    private String summary;
 
-    @Comment("게시글 타입")
+    @Comment("서비스 게시글 타입")
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "boardType", nullable = false)
-    private CodeEntity boardType;
+    @JoinColumn(name = "serviceBoardType", nullable = false)
+    private CodeEntity serviceBoardType;
 
     @Column(nullable = false, length = 1)
     @Comment("삭제 여부")
     @ColumnDefault(value = "'N'")
     private String delYn;
+
+    @Column(nullable = false, length = 1)
+    @Comment("사용 여부")
+    @ColumnDefault(value = "'N'")
+    private String useYn;
 
     // 등록자
     @Comment("등록자")
