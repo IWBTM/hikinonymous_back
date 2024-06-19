@@ -69,11 +69,7 @@ public class BoardMgmtController {
             @PathVariable @Parameter(
                     name = "seq",
                     description = "게시글 SEQ"
-            ) Long seq,
-            @PathVariable @Parameter(
-                    name = "boardType",
-                    description = "게시글 타입"
-            ) String boardType
+            ) Long seq
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");

@@ -69,7 +69,7 @@ public class MemberEntity {
     @Column(nullable = false, length = 1)
     @Comment("약관 동의 여부")
     @ColumnDefault(value = "'Y'")
-    private String privacy;
+    private String privacyYn;
 
     // 신고 횟수
     @Column(nullable = false)
@@ -80,7 +80,7 @@ public class MemberEntity {
     @Column(nullable = false, length = 1)
     @Comment("이메일 수신 동의 여부")
     @ColumnDefault(value = "'Y'")
-    private String receiveAdsEmail;
+    private String receiveAdsEmailYn;
 
     // 마지막 로그인일
     @Column(nullable = false, length = 14)

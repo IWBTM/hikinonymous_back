@@ -13,7 +13,8 @@ import org.hikinonymous.back.core.dto.BoardSimpleDto;
 import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.BoardEntity;
-import org.hikinonymous.back.core.service.BoardService;
+import org.hikinonymous.back.core.entity.MemberEntity;
+import org.hikinonymous.back.core.service.MemberService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class MemberMgmtController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final BoardService boardService;
+    private final MemberService memberService;
 
     @Operation(
             summary = "회원 리스트 조회",
@@ -41,20 +42,20 @@ public class MemberMgmtController {
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @GetMapping(value = "{boardType}/list")
+    @GetMapping(value = "{memberStatus}/list")
     public ResponseDto list(
             HttpServletRequest request,
             @PathVariable @Parameter(
-                    name = "boardType",
+                    name = "memberStatus",
                     description = "회원 타입"
-            ) String boardType
+            ) String memberStatus
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        List<BoardEntity> boardEntities = boardService.findAllByBoardType(boardType);
-        responseDto.setData(boardEntities.stream().map(boardEntity ->
-            (BoardSimpleDto) CommonUtil.bindToObjectFromObjObject(boardEntity, BoardSimpleDto.class)
+        List<MemberEntity> memberEntities = memberService.findAllByMemberStatus(memberStatus);
+        responseDto.setData(memberEntities.stream().map(memberEntity ->
+            (BoardSimpleDto) CommonUtil.bindToObjectFromObjObject(memberEntity, BoardSimpleDto.class)
         ));
         return ResponseUtil.success(responseDto);
     }
@@ -66,44 +67,18 @@ public class MemberMgmtController {
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @GetMapping(value = "{boardType}/view")
+    @GetMapping(value = "{memberStatus}/view")
     public ResponseDto view(
             HttpServletRequest request,
             @PathVariable @Parameter(
                     name = "seq",
                     description = "회원 SEQ"
-            ) Long seq,
-            @PathVariable @Parameter(
-                    name = "boardType",
-                    description = "회원 타입"
-            ) String boardType
+            ) Long seq
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        responseDto.setData((BoardDto) CommonUtil.bindToObjectFromObjObject(boardService.findById(seq), BoardDto.class));
-        return ResponseUtil.success(responseDto);
-    }
-
-    @Operation(
-            summary = "회원 삭제 여부 수정",
-            description = "회원 삭제 여부를 수정한다."
-    )
-    @ApiResponse(
-            description = "응답 에러 코드 DOC 참고"
-    )
-    @GetMapping(value = "{boardType}/updateDelYn")
-    public ResponseDto updateDelYn(
-            HttpServletRequest request,
-            @RequestBody @Valid BoardDto boardDto
-    ) {
-        ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
-        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        if (Objects.isNull(boardDto)) return ResponseUtil.emptyRequestParameter(responseDto);
-
-        CommonUtil.setClientInfo(request, boardDto, manager);
-        boardService.updateDelYn(boardDto);
+        responseDto.setData((BoardDto) CommonUtil.bindToObjectFromObjObject(memberService.findById(seq), BoardDto.class));
         return ResponseUtil.success(responseDto);
     }
 
