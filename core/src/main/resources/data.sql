@@ -16,7 +16,7 @@ VALUES
     ('MANAGER_STATUS', 'STOP', '정지', 'N', '', 3),
     ('MEMBER_STATUS', 'ACTIVE', '활성화', 'N', '', 1),
     ('MEMBER_STATUS', 'UN_ACTIVE', '비활성화', 'N', '', 2),
-    ('MEMBER_STATUS', 'WITHDRAWAL', '탈퇴', 'N', '', 3),
+    ('MEMBER_STATUS', 'DROP', '탈퇴', 'N', '', 3),
     ('JOIN_TYPE', 'EMAIL', '이메일', 'N', '', 1),
     ('JOIN_TYPE', 'KAKAO', '카카오', 'N', '', 2),
     ('JOIN_TYPE', 'NAVER', '네이버', 'N', '', 3),
