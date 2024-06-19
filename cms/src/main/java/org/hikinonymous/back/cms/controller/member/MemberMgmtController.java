@@ -8,10 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hikinonymous.back.core.dto.BoardDto;
-import org.hikinonymous.back.core.dto.BoardSimpleDto;
-import org.hikinonymous.back.core.dto.ManagerDto;
-import org.hikinonymous.back.core.dto.ResponseDto;
+import org.hikinonymous.back.core.dto.*;
 import org.hikinonymous.back.core.entity.BoardEntity;
 import org.hikinonymous.back.core.entity.MemberEntity;
 import org.hikinonymous.back.core.service.MemberService;
@@ -55,7 +52,7 @@ public class MemberMgmtController {
 
         List<MemberEntity> memberEntities = memberService.findAllByMemberStatus(memberStatus);
         responseDto.setData(memberEntities.stream().map(memberEntity ->
-            (BoardSimpleDto) CommonUtil.bindToObjectFromObjObject(memberEntity, BoardSimpleDto.class)
+            CommonUtil.bindToObjectFromObjObject(memberEntity, MemberSimpleDto.class)
         ));
         return ResponseUtil.success(responseDto);
     }
@@ -78,7 +75,8 @@ public class MemberMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        responseDto.setData((BoardDto) CommonUtil.bindToObjectFromObjObject(memberService.findById(seq), BoardDto.class));
+        // BoardDto -> MemberDto 수정
+        responseDto.setData(CommonUtil.bindToObjectFromObjObject(memberService.findById(seq), BoardDto.class));
         return ResponseUtil.success(responseDto);
     }
 
