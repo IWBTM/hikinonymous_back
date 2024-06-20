@@ -14,4 +14,16 @@ public class SearchDto {
 
     private int pageNum;
 
+    private int pageSize;
+
+    private String searchCondition1;
+
+    private String searchCondition2;
+
+    private String searchCondition3;
+
+    private String searchCondition4;
+
+    private String searchCondition5;
+
 }
