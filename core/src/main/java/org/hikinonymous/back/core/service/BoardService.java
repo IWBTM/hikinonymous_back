@@ -3,7 +3,6 @@ package org.hikinonymous.back.core.service;
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.BoardDto;
 import org.hikinonymous.back.core.entity.BoardEntity;
-import org.hikinonymous.back.core.entity.CodeEntity;
 import org.hikinonymous.back.core.repository.board.BoardRepository;
 import org.springframework.stereotype.Service;
 

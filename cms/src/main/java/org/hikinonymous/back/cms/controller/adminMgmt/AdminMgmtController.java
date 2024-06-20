@@ -72,7 +72,7 @@ public class AdminMgmtController {
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @GetMapping(value = "view")
+    @GetMapping(value = "view/{seq}")
     public ResponseDto view(
             HttpServletRequest request,
             @PathVariable @Parameter(

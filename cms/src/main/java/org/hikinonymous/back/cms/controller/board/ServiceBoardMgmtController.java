@@ -65,7 +65,7 @@ public class ServiceBoardMgmtController {
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @GetMapping(value = "{serviceBoardType}/view")
+    @GetMapping(value = "{serviceBoardType}/view/{seq}")
     public ResponseDto view(
             HttpServletRequest request,
             @PathVariable @Parameter(

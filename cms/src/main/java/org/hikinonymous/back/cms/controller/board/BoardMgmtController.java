@@ -63,7 +63,7 @@ public class BoardMgmtController {
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @GetMapping(value = "{boardType}/view")
+    @GetMapping(value = "{boardType}/view/{seq}")
     public ResponseDto view(
             HttpServletRequest request,
             @PathVariable @Parameter(
@@ -85,7 +85,7 @@ public class BoardMgmtController {
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @GetMapping(value = "{boardType}/updateDelYn")
+    @PostMapping(value = "{boardType}/updateDelYn")
     public ResponseDto updateDelYn(
             HttpServletRequest request,
             @RequestBody @Valid BoardDto boardDto

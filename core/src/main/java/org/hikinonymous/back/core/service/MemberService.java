@@ -32,4 +32,8 @@ public class MemberService {
         memberEntity.setMemberStatus(codeService.findByCodeSeq(memberDto.getMemberSeq()));
     }
 
+    public void updateReportCnt(MemberDto memberDto) {
+        MemberEntity memberEntity = this.findById(memberDto.getMemberSeq());
+        memberEntity.setReportCnt(memberDto.getReportCnt());
+    }
 }

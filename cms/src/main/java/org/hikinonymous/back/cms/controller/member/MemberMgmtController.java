@@ -64,7 +64,7 @@ public class MemberMgmtController {
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @GetMapping(value = "{memberStatus}/view")
+    @GetMapping(value = "{memberStatus}/view/{seq}")
     public ResponseDto view(
             HttpServletRequest request,
             @PathVariable @Parameter(
@@ -80,13 +80,35 @@ public class MemberMgmtController {
     }
 
     @Operation(
+            summary = "회원 신고 횟수 초기화",
+            description = "회원의 신고 횟수를 초기화한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "{memberStatus}/updateReportCnt")
+    public ResponseDto updateReportCnt(
+            HttpServletRequest request,
+            @RequestBody @Valid MemberDto memberDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        if (Objects.isNull(memberDto)) return ResponseUtil.emptyRequestBody(responseDto);
+
+        CommonUtil.setClientInfo(request, memberDto, manager);
+        memberService.updateReportCnt(memberDto);
+        return ResponseUtil.success(responseDto);
+    }
+
+    @Operation(
             summary = "회원 상태 저장",
             description = "회원 상태를 저장한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @GetMapping(value = "{memberStatus}/updateMemberStatus")
+    @PostMapping(value = "{memberStatus}/updateMemberStatus")
     public ResponseDto updateMemberStatus(
             HttpServletRequest request,
             @RequestBody @Valid MemberDto memberDto
