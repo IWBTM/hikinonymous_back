@@ -34,7 +34,7 @@ public class CmsInterceptor implements HandlerInterceptor {
         ManagerEntity managerEntity = managerService.findByManagerSeq(seq);
         if (Objects.isNull(managerEntity)) throw new AuthenticationException();
 
-        ManagerDto manager = (ManagerDto) CommonUtil.bindToObjectFromObjObject(managerEntity, ManagerDto.class);
+        ManagerDto manager = (ManagerDto) CommonUtil.bindToObjectFromObject(managerEntity, ManagerDto.class);
         request.setAttribute("manager", manager);
         return true;
     }

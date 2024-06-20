@@ -53,7 +53,7 @@ public class MenuMgmtController {
 
         Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.streamAllByDelYn("N");
         responseDto.setData(cmsMenuEntities.map(cmsMenuEntity ->
-            (CmsMenuSimpleDto) CommonUtil.bindToObjectFromObjObject(cmsMenuEntity, CmsMenuSimpleDto.class)
+            (CmsMenuSimpleDto) CommonUtil.bindToObjectFromObject(cmsMenuEntity, CmsMenuSimpleDto.class)
         ).collect(Collectors.toList()));
         return ResponseUtil.success(responseDto);
     }
@@ -78,7 +78,7 @@ public class MenuMgmtController {
 
         CmsMenuEntity cmsMenuEntity = cmsMenuService.findByCmsMenuSeq(seq);
         if (Objects.isNull(cmsMenuEntity)) return ResponseUtil.canNotFoundManager(responseDto);
-        responseDto.setData(CommonUtil.bindToObjectFromObjObject(cmsMenuEntity,  CmsMenuDto.class));
+        responseDto.setData(CommonUtil.bindToObjectFromObject(cmsMenuEntity,  CmsMenuDto.class));
         return ResponseUtil.success(responseDto);
     }
 

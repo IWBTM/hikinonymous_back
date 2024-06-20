@@ -53,7 +53,7 @@ public class ServiceBoardMgmtController {
 
         List<ServiceBoardEntity> serviceBoardEntities = serviceBoardService.findAllByServiceBoardType(serviceBoardType);
         responseDto.setData(serviceBoardEntities.stream().map(boardEntity ->
-            CommonUtil.bindToObjectFromObjObject(boardEntity, ServiceBoardSimpleDto.class)
+            CommonUtil.bindToObjectFromObject(boardEntity, ServiceBoardSimpleDto.class)
         ));
         return ResponseUtil.success(responseDto);
     }
@@ -80,7 +80,7 @@ public class ServiceBoardMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        responseDto.setData(CommonUtil.bindToObjectFromObjObject(serviceBoardService.findById(seq), ServiceBoardDto.class));
+        responseDto.setData(CommonUtil.bindToObjectFromObject(serviceBoardService.findById(seq), ServiceBoardDto.class));
         return ResponseUtil.success(responseDto);
     }
 

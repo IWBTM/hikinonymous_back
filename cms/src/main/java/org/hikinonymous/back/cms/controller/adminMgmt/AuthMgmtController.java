@@ -49,7 +49,7 @@ public class AuthMgmtController {
 
         List<ManagerAuthEntity> managerAuthEntities = managerAuthService.findAll();
         responseDto.setData(managerAuthEntities.stream().map(managerAuthEntity ->
-            (ManagerAuthDto) CommonUtil.bindToObjectFromObjObject(managerAuthEntity, ManagerAuthDto.class)
+            (ManagerAuthDto) CommonUtil.bindToObjectFromObject(managerAuthEntity, ManagerAuthDto.class)
         ).collect(Collectors.toList()));
         return ResponseUtil.success(responseDto);
     }

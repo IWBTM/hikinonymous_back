@@ -33,7 +33,7 @@ public class CmsMenuRepositoryImpl implements CmsMenuRepositoryCustom {
             CmsMenuEntity cmsMenuEntity = tuple.get(qCmsMenuEntity);
             String authTypes = tuple.get(qManagerAuthEntity.authTypes);
 
-            CmsMenuDto cmsMenuDto = (CmsMenuDto) CommonUtil.bindToObjectFromObjObject(cmsMenuEntity, CmsMenuDto.class);
+            CmsMenuDto cmsMenuDto = (CmsMenuDto) CommonUtil.bindToObjectFromObject(cmsMenuEntity, CmsMenuDto.class);
             cmsMenuDto.setAuthTypes(authTypes);
             cmsMenuDtoList.add(cmsMenuDto);
         }

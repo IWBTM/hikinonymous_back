@@ -52,7 +52,7 @@ public class MemberMgmtController {
 
         List<MemberEntity> memberEntities = memberService.findAllByMemberStatus(memberStatus);
         responseDto.setData(memberEntities.stream().map(memberEntity ->
-            CommonUtil.bindToObjectFromObjObject(memberEntity, MemberSimpleDto.class)
+            CommonUtil.bindToObjectFromObject(memberEntity, MemberSimpleDto.class)
         ));
         return ResponseUtil.success(responseDto);
     }
@@ -75,7 +75,7 @@ public class MemberMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        responseDto.setData(CommonUtil.bindToObjectFromObjObject(memberService.findById(seq), MemberDto.class));
+        responseDto.setData(CommonUtil.bindToObjectFromObject(memberService.findById(seq), MemberDto.class));
         return ResponseUtil.success(responseDto);
     }
 

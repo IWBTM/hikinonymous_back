@@ -26,7 +26,7 @@ public class CommonUtil {
     /**
      * 객체간 바인딩
      */
-    public static Object bindToObjectFromObjObject(Object object, Class classType) {
+    public static Object bindToObjectFromObject(Object object, Class classType) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(object, classType);
     }

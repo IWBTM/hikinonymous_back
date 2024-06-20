@@ -27,7 +27,7 @@ public class ManagerAuthService {
                 new ManagerAuthEntity()
         );
 
-        managerAuthEntity = (ManagerAuthEntity) CommonUtil.bindToObjectFromObjObject(managerAuthDto, ManagerAuthEntity.class);
+        managerAuthEntity = (ManagerAuthEntity) CommonUtil.bindToObjectFromObject(managerAuthDto, ManagerAuthEntity.class);
         managerAuthEntityRepository.save(managerAuthEntity);
     }
 }

@@ -30,7 +30,7 @@ public class ServiceBoardService {
 
     public void proc(ServiceBoardDto serviceBoardDto) {
         ServiceBoardEntity serviceBoardEntity = this.findById(serviceBoardDto.getServiceBoardSeq());
-        serviceBoardEntity = (ServiceBoardEntity) CommonUtil.bindToObjectFromObjObject(serviceBoardDto, ServiceBoardEntity.class);
+        serviceBoardEntity = (ServiceBoardEntity) CommonUtil.bindToObjectFromObject(serviceBoardDto, ServiceBoardEntity.class);
         serviceBoardRepository.save(serviceBoardEntity);
     }
 }

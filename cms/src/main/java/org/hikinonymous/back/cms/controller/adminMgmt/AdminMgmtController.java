@@ -51,7 +51,7 @@ public class AdminMgmtController {
 
         Stream<ManagerEntity> managerEntities = managerService.streamAllBySuperYn("N");
         responseDto.setData(managerEntities.map(managerEntity -> {
-            ManagerSimpleDto managerSimpleDto = (ManagerSimpleDto) CommonUtil.bindToObjectFromObjObject(managerEntity, ManagerSimpleDto.class);
+            ManagerSimpleDto managerSimpleDto = (ManagerSimpleDto) CommonUtil.bindToObjectFromObject(managerEntity, ManagerSimpleDto.class);
             managerSimpleDto.setManagerStatus(managerEntity.getManagerStatus().getCodeNm());
 
             managerSimpleDto.setManagerId(EncUtil.decryptAES256(managerSimpleDto.getManagerId()));
@@ -85,7 +85,7 @@ public class AdminMgmtController {
 
         ManagerEntity managerEntity = managerService.findByManagerSeq(seq);
         if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundManager(responseDto);
-        ManagerDto managerDto = (ManagerDto) CommonUtil.bindToObjectFromObjObject(managerEntity, ManagerDto.class);
+        ManagerDto managerDto = (ManagerDto) CommonUtil.bindToObjectFromObject(managerEntity, ManagerDto.class);
         managerDto.setManagerStatus(managerEntity.getManagerStatus().getCodeNm());
 
         managerDto.setManagerId(EncUtil.decryptAES256(managerDto.getManagerId()));
