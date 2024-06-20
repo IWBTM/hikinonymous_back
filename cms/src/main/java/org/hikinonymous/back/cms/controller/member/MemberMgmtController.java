@@ -79,4 +79,26 @@ public class MemberMgmtController {
         return ResponseUtil.success(responseDto);
     }
 
+    @Operation(
+            summary = "회원 상태 저장",
+            description = "회원 상태를 저장한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @GetMapping(value = "{memberStatus}/updateMemberStatus")
+    public ResponseDto updateMemberStatus(
+            HttpServletRequest request,
+            @RequestBody @Valid MemberDto memberDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        if (Objects.isNull(memberDto)) return ResponseUtil.emptyRequestBody(responseDto);
+
+        CommonUtil.setClientInfo(request, memberDto, manager);
+        memberService.updateMemberStatus(memberDto);
+        return ResponseUtil.success(responseDto);
+    }
+
 }

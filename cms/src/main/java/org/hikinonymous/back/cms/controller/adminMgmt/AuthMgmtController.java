@@ -69,7 +69,7 @@ public class AuthMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        if (Objects.isNull(managerAuthDto)) return ResponseUtil.emptyRequestParameter(responseDto);
+        if (Objects.isNull(managerAuthDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
         CommonUtil.setClientInfo(request, managerAuthDto, manager);
         managerAuthService.proc(managerAuthDto);

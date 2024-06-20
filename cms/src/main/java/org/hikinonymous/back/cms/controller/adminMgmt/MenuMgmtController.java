@@ -97,7 +97,7 @@ public class MenuMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        if (Objects.isNull(cmsMenuDto)) return ResponseUtil.emptyRequestParameter(responseDto);
+        if (Objects.isNull(cmsMenuDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
         CommonUtil.setClientInfo(request, cmsMenuDto, manager);
         cmsMenuService.proc(cmsMenuDto);
@@ -119,7 +119,7 @@ public class MenuMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        if (Objects.isNull(cmsMenuDtoList) || cmsMenuDtoList.isEmpty()) return ResponseUtil.emptyRequestParameter(responseDto);
+        if (Objects.isNull(cmsMenuDtoList) || cmsMenuDtoList.isEmpty()) return ResponseUtil.emptyRequestBody(responseDto);
 
         cmsMenuService.updateOrderSort(request, cmsMenuDtoList, manager);
         return ResponseUtil.success(responseDto);

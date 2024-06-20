@@ -93,7 +93,7 @@ public class BoardMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        if (Objects.isNull(boardDto)) return ResponseUtil.emptyRequestParameter(responseDto);
+        if (Objects.isNull(boardDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
         CommonUtil.setClientInfo(request, boardDto, manager);
         boardService.updateDelYn(boardDto);

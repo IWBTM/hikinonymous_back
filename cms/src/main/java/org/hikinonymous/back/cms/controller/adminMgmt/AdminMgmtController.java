@@ -113,7 +113,7 @@ public class AdminMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestParameter(responseDto);
+        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
         CommonUtil.setClientInfo(request, managerDto, manager);
         managerService.proc(managerDto);
@@ -135,7 +135,7 @@ public class AdminMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestParameter(responseDto);
+        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
         CommonUtil.setClientInfo(request, managerDto, manager);
         managerService.updatePwd(managerDto);
@@ -157,7 +157,7 @@ public class AdminMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestParameter(responseDto);
+        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
         CommonUtil.setClientInfo(request, managerDto, manager);
         managerService.updateDelYn(managerDto);

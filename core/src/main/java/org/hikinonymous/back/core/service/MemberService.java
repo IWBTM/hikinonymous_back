@@ -1,6 +1,7 @@
 package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hikinonymous.back.core.dto.MemberDto;
 import org.hikinonymous.back.core.entity.MemberEntity;
 import org.hikinonymous.back.core.repository.member.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,11 @@ public class MemberService {
         return memberRepository.findById(seq).orElseThrow(() ->
                 new NoSuchElementException("Member Seq: " + seq + " not found")
         );
+    }
+
+    public void updateMemberStatus(MemberDto memberDto) {
+        MemberEntity memberEntity = this.findById(memberDto.getMemberSeq());
+        memberEntity.setMemberStatus(codeService.findByCodeSeq(memberDto.getMemberSeq()));
     }
 
 }
