@@ -14,6 +14,8 @@ public class SearchDto {
 
     private int pageNum;
 
+    private int pageIndex;
+
     private int pageSize;
 
     private String searchCondition1;
@@ -25,5 +27,11 @@ public class SearchDto {
     private String searchCondition4;
 
     private String searchCondition5;
+
+    private String sortCondition1;
+
+    private String sortCondition2;
+
+    private String sortCondition3;
 
 }
