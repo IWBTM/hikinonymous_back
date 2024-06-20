@@ -1,6 +1,8 @@
 package org.hikinonymous.back.core.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
@@ -8,30 +10,26 @@ import org.hikinonymous.back.core.entity.CategoryEntity;
 import org.hikinonymous.back.core.entity.CodeEntity;
 import org.hikinonymous.back.core.entity.MemberEntity;
 
+@Schema(
+        description = "게시글 DTO"
+)
 @Data
 public class BoardDto extends CommonDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Comment("게시글 SEQ")
+    @Schema(description = "게시글 SEQ")
     private Long boardSeq;
 
-    @Column(nullable = false, length = 255)
-    @Comment("제목")
+    @Schema(description = "제목")
     private String title;
 
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
-    @Comment("내용")
+    @Schema(description = "내용")
     private String content;
 
-    @Comment("카테고리")
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category", nullable = false)
+    @Schema(description = "카테고리")
     private CategoryEntity category;
 
-    @Column(nullable = false, length = 1)
-    @Comment("삭제 여부")
-    @ColumnDefault(value = "'N'")
+    @Schema(description = "삭제 여부")
+    @NotBlank(message = "삭제 여부")
     private String delYn;
 
 }
