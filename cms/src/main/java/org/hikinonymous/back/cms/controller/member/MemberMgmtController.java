@@ -75,8 +75,7 @@ public class MemberMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        // BoardDto -> MemberDto 수정
-        responseDto.setData(CommonUtil.bindToObjectFromObjObject(memberService.findById(seq), BoardDto.class));
+        responseDto.setData(CommonUtil.bindToObjectFromObjObject(memberService.findById(seq), MemberDto.class));
         return ResponseUtil.success(responseDto);
     }
 
