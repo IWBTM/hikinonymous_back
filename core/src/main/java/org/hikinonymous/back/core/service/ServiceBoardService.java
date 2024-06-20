@@ -1,8 +1,10 @@
 package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hikinonymous.back.core.dto.ServiceBoardDto;
 import org.hikinonymous.back.core.entity.ServiceBoardEntity;
 import org.hikinonymous.back.core.repository.serviceBoard.ServiceBoardRepository;
+import org.hikinonymous.back.core.utils.CommonUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,4 +28,9 @@ public class ServiceBoardService {
         );
     }
 
+    public void proc(ServiceBoardDto serviceBoardDto) {
+        ServiceBoardEntity serviceBoardEntity = this.findById(serviceBoardDto.getServiceBoardSeq());
+        serviceBoardEntity = (ServiceBoardEntity) CommonUtil.bindToObjectFromObjObject(serviceBoardDto, ServiceBoardEntity.class);
+        serviceBoardRepository.save(serviceBoardEntity);
+    }
 }

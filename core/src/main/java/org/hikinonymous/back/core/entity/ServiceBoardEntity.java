@@ -34,6 +34,22 @@ public class ServiceBoardEntity {
     @Comment("요약")
     private String summary;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pcThumbImage", nullable = false)
+    private FileInfoEntity pcThumbImage;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "moThumbImage", nullable = false)
+    private FileInfoEntity moThumbImage;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pcMainImage", nullable = false)
+    private FileInfoEntity pcMainImage;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "moMainImage", nullable = false)
+    private FileInfoEntity moMainImage;
+
     @Comment("서비스 게시글 타입")
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "serviceBoardType", nullable = false)

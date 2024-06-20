@@ -84,4 +84,26 @@ public class ServiceBoardMgmtController {
         return ResponseUtil.success(responseDto);
     }
 
+    @Operation(
+            summary = "서비스 게시글 저장",
+            description = "서비스 게시글을 저장한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @GetMapping(value = "{serviceBoardType}/proc")
+    public ResponseDto proc(
+            HttpServletRequest request,
+            @RequestBody @Valid ServiceBoardDto serviceBoardDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        if (Objects.isNull(serviceBoardDto)) return ResponseUtil.emptyRequestBody(responseDto);
+
+        CommonUtil.setClientInfo(request, serviceBoardDto, manager);
+        serviceBoardService.proc(serviceBoardDto);
+        return ResponseUtil.success(responseDto);
+    }
+
 }
