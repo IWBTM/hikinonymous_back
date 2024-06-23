@@ -2,7 +2,6 @@ package org.hikinonymous.back.core.dto;
 
 import lombok.Data;
 import org.hikinonymous.back.core.entity.FileInfoEntity;
-import org.hikinonymous.back.core.entity.MemberEntity;
 
 @Data
 public class ServiceBoardSimpleDto extends CommonDto {
@@ -20,9 +19,5 @@ public class ServiceBoardSimpleDto extends CommonDto {
     private String delYn;
 
     private String useYn;
-
-    private MemberEntity register;
-
-    private String regDate;
 
 }

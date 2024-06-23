@@ -14,8 +14,4 @@ public class BoardSimpleDto extends CommonDto {
 
     private String delYn;
 
-    private MemberEntity register;
-
-    private String regDate;
-
 }

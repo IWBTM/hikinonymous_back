@@ -7,6 +7,10 @@ import org.hikinonymous.back.core.dto.ManagerPwdDto;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.repository.manager.ManagerRepository;
 import org.hikinonymous.back.core.utils.EncUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ServerErrorException;
@@ -89,5 +93,9 @@ public class ManagerService {
 
         managerEntity.setDelYn(EncUtil.encryptSHA256(managerDto.getDelYn()));
         managerRepository.save(managerEntity);
+    }
+
+    public Page<ManagerEntity> paging(Pageable pageable) {
+        return managerRepository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
     }
 }

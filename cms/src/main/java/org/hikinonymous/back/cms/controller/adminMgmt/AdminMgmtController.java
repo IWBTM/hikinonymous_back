@@ -18,6 +18,8 @@ import org.hikinonymous.back.core.utils.EncUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,13 +47,15 @@ public class AdminMgmtController {
     )
     @GetMapping(value = "list")
     public ResponseDto list(
-            HttpServletRequest request
+            HttpServletRequest request,
+            @PageableDefault Pageable pageable
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        Stream<ManagerEntity> managerEntities = managerService.streamAllBySuperYn("N");
-        responseDto.setData(managerEntities.map(managerEntity -> {
+        Page<ManagerEntity> managerPages = managerService.paging(pageable);
+
+        Page<ManagerSimpleDto> managerSimpleDtoPages = managerPages.map(managerEntity -> {
             ManagerSimpleDto managerSimpleDto = (ManagerSimpleDto) CommonUtil.bindToObjectFromObject(managerEntity, ManagerSimpleDto.class);
             managerSimpleDto.setManagerStatus(managerEntity.getManagerStatus().getCodeNm());
 
@@ -62,7 +66,9 @@ public class AdminMgmtController {
             managerSimpleDto.setLastLoginDate(CommonUtil.getDayByStrDate(managerSimpleDto.getLastLoginDate()));
 
             return managerSimpleDto;
-        }).collect(Collectors.toList()));
+        });
+
+        responseDto.setData(managerSimpleDtoPages);
         return ResponseUtil.success(responseDto);
     }
 
