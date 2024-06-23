@@ -16,6 +16,9 @@ import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,15 +45,17 @@ public class AuthMgmtController {
     )
     @GetMapping(value = "list")
     public ResponseDto list(
-            HttpServletRequest request
+            HttpServletRequest request,
+            @PageableDefault Pageable pageable
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        List<ManagerAuthEntity> managerAuthEntities = managerAuthService.findAll();
-        responseDto.setData(managerAuthEntities.stream().map(managerAuthEntity ->
+        Page<ManagerAuthEntity> managerAuthEntityPages = managerAuthService.findAll(pageable);
+        Page<ManagerAuthDto> managerAuthDtoPages = managerAuthEntityPages.map(managerAuthEntity ->
             (ManagerAuthDto) CommonUtil.bindToObjectFromObject(managerAuthEntity, ManagerAuthDto.class)
-        ).collect(Collectors.toList()));
+        );
+        responseDto.setData(managerAuthEntityPages);;
         return ResponseUtil.success(responseDto);
     }
 

@@ -19,6 +19,9 @@ import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,15 +49,17 @@ public class MenuMgmtController {
     )
     @GetMapping(value = "list")
     public ResponseDto list(
-            HttpServletRequest request
+            HttpServletRequest request,
+            @PageableDefault Pageable pageable
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.streamAllByDelYn("N");
-        responseDto.setData(cmsMenuEntities.map(cmsMenuEntity ->
+        Page<CmsMenuEntity> cmsMenuEntityPages = cmsMenuService.paging(pageable);
+        Page<CmsMenuSimpleDto> cmsMenuSimpleDtoPages = cmsMenuEntityPages.map(cmsMenuEntity ->
             (CmsMenuSimpleDto) CommonUtil.bindToObjectFromObject(cmsMenuEntity, CmsMenuSimpleDto.class)
-        ).collect(Collectors.toList()));
+        );
+        responseDto.setData(cmsMenuSimpleDtoPages);
         return ResponseUtil.success(responseDto);
     }
 

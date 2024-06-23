@@ -5,6 +5,9 @@ import org.hikinonymous.back.core.dto.ManagerAuthDto;
 import org.hikinonymous.back.core.entity.ManagerAuthEntity;
 import org.hikinonymous.back.core.repository.managerAuth.ManagerAuthEntityRepository;
 import org.hikinonymous.back.core.utils.CommonUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +21,8 @@ public class ManagerAuthService {
 
     private final ManagerService managerService;
 
-    public List<ManagerAuthEntity> findAll() {
-        return managerAuthEntityRepository.findAll();
+    public Page<ManagerAuthEntity> findAll(Pageable pageable) {
+        return managerAuthEntityRepository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
     }
 
     public void proc(ManagerAuthDto managerAuthDto) {

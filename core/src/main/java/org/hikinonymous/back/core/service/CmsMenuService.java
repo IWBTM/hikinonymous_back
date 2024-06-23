@@ -7,6 +7,9 @@ import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.entity.CmsMenuEntity;
 import org.hikinonymous.back.core.repository.cmsMenu.CmsMenuRepository;
 import org.hikinonymous.back.core.utils.CommonUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ServerErrorException;
@@ -73,5 +76,9 @@ public class CmsMenuService {
             cmsMenuEntity.setSortOrder(cmsMenuDto.getSortOrder());
             cmsMenuRepository.save(cmsMenuEntity);
         }
+    }
+
+    public Page<CmsMenuEntity> paging(Pageable pageable) {
+        return cmsMenuRepository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
     }
 }
