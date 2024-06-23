@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.BoardDto;
 import org.hikinonymous.back.core.entity.BoardEntity;
 import org.hikinonymous.back.core.repository.board.BoardRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +20,8 @@ public class BoardService {
 
     private final CodeService codeService;
 
-    public List<BoardEntity> findAllByBoardType(String boardType) {
-        return boardRepository.findAllByBoardType(codeService.findByCodeAndCodeMaster("BOARD_TYPE", boardType));
+    public Page<BoardEntity> findAllByBoardType(String boardType, Pageable pageable) {
+        return boardRepository.findAllByBoardType(codeService.findByCodeAndCodeMaster(boardType, "BOARD_TYPE"), PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
     }
 
     public BoardEntity findById(Long seq) {

@@ -15,6 +15,9 @@ import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,7 +44,8 @@ public class BoardMgmtController {
     @GetMapping(value = "{boardType}/list")
     public ResponseDto list(
             HttpServletRequest request,
-            @PathVariable @Parameter(
+            @PageableDefault Pageable pageable,
+            @PathVariable(name = "boardType") @Parameter(
                     name = "boardType",
                     description = "게시글 타입"
             ) String boardType
@@ -49,8 +53,8 @@ public class BoardMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        List<BoardEntity> boardEntities = boardService.findAllByBoardType(boardType);
-        responseDto.setData(boardEntities.stream().map(boardEntity ->
+        Page<BoardEntity> boardEntityPages = boardService.findAllByBoardType(boardType, pageable);
+        responseDto.setData(boardEntityPages.stream().map(boardEntity ->
             (BoardSimpleDto) CommonUtil.bindToObjectFromObject(boardEntity, BoardSimpleDto.class)
         ));
         return ResponseUtil.success(responseDto);
