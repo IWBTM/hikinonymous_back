@@ -43,7 +43,7 @@ public class ServiceBoardMgmtController {
     @GetMapping(value = "{serviceBoardType}/list")
     public ResponseDto list(
             HttpServletRequest request,
-            @PathVariable @Parameter(
+            @PathVariable(name = "serviceBoardType") @Parameter(
                     name = "serviceBoardType",
                     description = "서비스 게시글 타입"
             ) String serviceBoardType
@@ -68,11 +68,11 @@ public class ServiceBoardMgmtController {
     @GetMapping(value = "{serviceBoardType}/view/{seq}")
     public ResponseDto view(
             HttpServletRequest request,
-            @PathVariable @Parameter(
+            @PathVariable(name = "seq") @Parameter(
                     name = "seq",
                     description = "서비스 게시글 SEQ"
             ) Long seq,
-            @PathVariable @Parameter(
+            @PathVariable(name = "serviceBoardType") @Parameter(
                     name = "boardType",
                     description = "게시글 타입"
             ) String serviceBoardType

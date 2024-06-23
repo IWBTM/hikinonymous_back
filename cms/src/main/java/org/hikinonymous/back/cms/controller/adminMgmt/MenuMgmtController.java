@@ -73,7 +73,7 @@ public class MenuMgmtController {
     @GetMapping(value = "view/{seq}")
     public ResponseDto view(
             HttpServletRequest request,
-            @PathVariable @Parameter(
+            @PathVariable(name = "seq") @Parameter(
                     name = "seq",
                     description = "관리자 메뉴 SEQ"
             ) Long seq

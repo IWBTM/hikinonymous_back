@@ -42,7 +42,7 @@ public class MemberMgmtController {
     @GetMapping(value = "{memberStatus}/list")
     public ResponseDto list(
             HttpServletRequest request,
-            @PathVariable @Parameter(
+            @PathVariable(name = "memberStatus") @Parameter(
                     name = "memberStatus",
                     description = "회원 타입"
             ) String memberStatus
@@ -67,7 +67,7 @@ public class MemberMgmtController {
     @GetMapping(value = "{memberStatus}/view/{seq}")
     public ResponseDto view(
             HttpServletRequest request,
-            @PathVariable @Parameter(
+            @PathVariable(name = "seq") @Parameter(
                     name = "seq",
                     description = "회원 SEQ"
             ) Long seq

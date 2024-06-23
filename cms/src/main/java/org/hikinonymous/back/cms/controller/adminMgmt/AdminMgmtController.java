@@ -82,7 +82,7 @@ public class AdminMgmtController {
     @GetMapping(value = "view/{seq}")
     public ResponseDto view(
             HttpServletRequest request,
-            @PathVariable @Parameter(
+            @PathVariable(name = "seq") @Parameter(
                     name = "seq",
                     description = "관리자 SEQ"
             ) Long seq

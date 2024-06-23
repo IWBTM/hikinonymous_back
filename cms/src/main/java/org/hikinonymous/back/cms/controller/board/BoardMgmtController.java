@@ -70,7 +70,7 @@ public class BoardMgmtController {
     @GetMapping(value = "{boardType}/view/{seq}")
     public ResponseDto view(
             HttpServletRequest request,
-            @PathVariable @Parameter(
+            @PathVariable(name = "seq") @Parameter(
                     name = "seq",
                     description = "게시글 SEQ"
             ) Long seq
