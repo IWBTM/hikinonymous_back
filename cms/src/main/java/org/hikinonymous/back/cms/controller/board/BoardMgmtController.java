@@ -55,7 +55,7 @@ public class BoardMgmtController {
 
         Page<BoardEntity> boardEntityPages = boardService.findAllByBoardType(boardType, pageable);
         responseDto.setData(boardEntityPages.stream().map(boardEntity ->
-            (BoardSimpleDto) CommonUtil.bindToObjectFromObject(boardEntity, BoardSimpleDto.class)
+            CommonUtil.bindToObjectFromObject(boardEntity, BoardSimpleDto.class)
         ));
         return ResponseUtil.success(responseDto);
     }
@@ -78,7 +78,7 @@ public class BoardMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        responseDto.setData((BoardDto) CommonUtil.bindToObjectFromObject(boardService.findById(seq), BoardDto.class));
+        responseDto.setData(CommonUtil.bindToObjectFromObject(boardService.findById(seq), BoardDto.class));
         return ResponseUtil.success(responseDto);
     }
 

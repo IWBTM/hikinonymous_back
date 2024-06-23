@@ -5,6 +5,9 @@ import org.hikinonymous.back.core.dto.ServiceBoardDto;
 import org.hikinonymous.back.core.entity.ServiceBoardEntity;
 import org.hikinonymous.back.core.repository.serviceBoard.ServiceBoardRepository;
 import org.hikinonymous.back.core.utils.CommonUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +21,8 @@ public class ServiceBoardService {
 
     private final CodeService codeService;
 
-    public List<ServiceBoardEntity> findAllByServiceBoardType(String serviceBoardType) {
-        return serviceBoardRepository.findAllByServiceBoardType(codeService.findByCodeAndCodeMaster("SERVICE_BOARD_TYPE", serviceBoardType));
+    public Page<ServiceBoardEntity> findAllByServiceBoardType(String serviceBoardType, Pageable pageable) {
+        return serviceBoardRepository.findAllByServiceBoardType(codeService.findByCodeAndCodeMaster("SERVICE_BOARD_TYPE", serviceBoardType), PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
     }
 
     public ServiceBoardEntity findById(Long seq) {

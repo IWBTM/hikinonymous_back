@@ -16,6 +16,9 @@ import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +45,7 @@ public class MemberMgmtController {
     @GetMapping(value = "{memberStatus}/list")
     public ResponseDto list(
             HttpServletRequest request,
+            @PageableDefault Pageable pageable,
             @PathVariable(name = "memberStatus") @Parameter(
                     name = "memberStatus",
                     description = "회원 타입"
@@ -50,8 +54,8 @@ public class MemberMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        List<MemberEntity> memberEntities = memberService.findAllByMemberStatus(memberStatus);
-        responseDto.setData(memberEntities.stream().map(memberEntity ->
+        Page<MemberEntity> memberEntityPages = memberService.findAllByMemberStatus(memberStatus, pageable);
+        responseDto.setData(memberEntityPages.stream().map(memberEntity ->
             CommonUtil.bindToObjectFromObject(memberEntity, MemberSimpleDto.class)
         ));
         return ResponseUtil.success(responseDto);
