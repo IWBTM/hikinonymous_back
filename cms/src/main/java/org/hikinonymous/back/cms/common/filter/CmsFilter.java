@@ -1,4 +1,4 @@
-package org.hikinonymous.back.cms.filter;
+package org.hikinonymous.back.cms.common.filter;
 
 import jakarta.servlet.*;
 import org.slf4j.Logger;

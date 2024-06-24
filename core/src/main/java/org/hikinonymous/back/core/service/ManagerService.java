@@ -53,11 +53,6 @@ public class ManagerService {
     }
 
     @Transactional
-    public Stream<ManagerEntity> streamAllBySuperYn(String superYn) {
-        return managerRepository.streamAllBySuperYn(superYn);
-    }
-
-    @Transactional
     public void proc(ManagerDto managerDto) {
         ManagerEntity managerEntity = managerRepository.findByManagerSeq(managerDto.getManagerSeq()).orElseGet(() ->
             new ManagerEntity()

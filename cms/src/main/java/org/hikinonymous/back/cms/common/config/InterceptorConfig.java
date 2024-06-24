@@ -1,7 +1,7 @@
-package org.hikinonymous.back.cms.config;
+package org.hikinonymous.back.cms.common.config;
 
 import lombok.RequiredArgsConstructor;
-import org.hikinonymous.back.cms.interceptor.CmsInterceptor;
+import org.hikinonymous.back.cms.common.interceptor.CmsInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

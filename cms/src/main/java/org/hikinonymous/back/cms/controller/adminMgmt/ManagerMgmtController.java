@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.*;
 import org.hikinonymous.back.core.entity.ManagerEntity;
+import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.service.ManagerService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.EncUtil;
@@ -34,9 +35,13 @@ public class ManagerMgmtController {
 
     private final ManagerService managerService;
 
+    private final ManagerLogService managerLogService;
+
+    private final String MENU_NAME = "관리자";
+
     @Operation(
-            summary = "관리자 리스트 조회",
-            description = "관리자 리스트를 조회한다."
+            summary = MENU_NAME + " 리스트 조회",
+            description = MENU_NAME + " 리스트를 조회한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -48,6 +53,9 @@ public class ManagerMgmtController {
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
 
         Page<ManagerEntity> managerPages = managerService.paging(pageable);
 
@@ -69,8 +77,8 @@ public class ManagerMgmtController {
     }
 
     @Operation(
-            summary = "관리자 상세 조회",
-            description = "관리자를 상세 조회한다."
+            summary = MENU_NAME + " 상세 조회",
+            description = MENU_NAME + "를 상세 조회한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -80,11 +88,14 @@ public class ManagerMgmtController {
             HttpServletRequest request,
             @PathVariable(name = "seq") @Parameter(
                     name = "seq",
-                    description = "관리자 SEQ"
+                    description = MENU_NAME + " SEQ"
             ) Long seq
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
 
         ManagerEntity managerEntity = managerService.findByManagerSeq(seq);
         if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundManager(responseDto);
@@ -118,14 +129,20 @@ public class ManagerMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
+        String behaviorType;
+        if (Objects.isNull(managerDto.getManagerSeq())) behaviorType = "C";
+        else behaviorType = "U";
+
+        managerLogService.proc(request, MENU_NAME + " 정보", behaviorType,  manager);
+
         CommonUtil.setClientInfo(request, managerDto, manager);
         managerService.proc(managerDto);
         return ResponseUtil.success(responseDto);
     }
 
     @Operation(
-            summary = "관리자 비밀번호 저장",
-            description = "관리자 비밀번호를 저장한다."
+            summary = MENU_NAME + " 비밀번호 저장",
+            description = MENU_NAME + " 비밀번호를 저장한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -140,14 +157,16 @@ public class ManagerMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
+        managerLogService.proc(request, MENU_NAME + " 비밀번호", "U",  manager);
+
         CommonUtil.setClientInfo(request, managerDto, manager);
         managerService.updatePwd(managerDto);
         return ResponseUtil.success(responseDto);
     }
 
     @Operation(
-            summary = "관리자 삭제 여부 수정",
-            description = "관리자 삭제 여부를 수정한다."
+            summary = MENU_NAME + " 삭제 여부 수정",
+            description = MENU_NAME + " 삭제 여부를 수정한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -161,6 +180,8 @@ public class ManagerMgmtController {
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestBody(responseDto);
+
+        managerLogService.proc(request, MENU_NAME + " 삭제 여부", "U",  manager);
 
         CommonUtil.setClientInfo(request, managerDto, manager);
         managerService.updateDelYn(managerDto);

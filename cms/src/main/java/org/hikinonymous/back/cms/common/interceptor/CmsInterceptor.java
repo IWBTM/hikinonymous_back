@@ -1,4 +1,4 @@
-package org.hikinonymous.back.cms.interceptor;
+package org.hikinonymous.back.cms.common.interceptor;
 
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
