@@ -42,7 +42,7 @@ INSERT INTO tb_cms_menu
 (menuCode, menuNm, displayYn, menuLevel, sortOrder, authDir, filePath, etc, delYn, registerIp, register, regDate)
 VALUES
     ('ADMIN_MANAGEMENT', '관리자 관리', 'Y', 1, 1, 'admin', '', '관리자 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
-    ('ADMIN_MANAGEMENT', '관리자 관리', 'Y', 2, 1, 'admin', '/cms/admin/admin/list', '관리자 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
+    ('MANAGER_MANAGEMENT', '관리자 관리', 'Y', 2, 1, 'admin', '/cms/admin/manager/list', '관리자 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('CMS_MENU_MANAGEMENT', '관리자 메뉴 관리', 'Y', 2, 2, 'admin', '/cms/admin/menu/list', '관리자 메뉴 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('ADMIN_AUTH_MANAGEMENT', '관리자 권한 관리', 'Y', 2, 3, 'admin', '/cms/admin/auth/list', '관리자 권한 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('SITE_MANAGEMENT', '사이트 관리', 'Y', 1, 2, 'site', '', '사이트 관리 메뉴', 'N', '58.140.215.148', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
