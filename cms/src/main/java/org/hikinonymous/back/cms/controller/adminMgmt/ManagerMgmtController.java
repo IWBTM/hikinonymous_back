@@ -2,8 +2,6 @@ package org.hikinonymous.back.cms.controller.adminMgmt;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,7 +28,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping(value = "/cms/admin/manager/")
 @RequiredArgsConstructor
-public class AdminMgmtController {
+public class ManagerMgmtController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
