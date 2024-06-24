@@ -24,13 +24,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-@Tag(name = "ADMIN MANAGEMENT MENU", description = "ADMIN MANAGEMENT MENU API DOC")
+@Tag(name = "MANAGER MANAGEMENT MENU", description = "MANAGER MANAGEMENT MENU API DOC")
 @Slf4j
 @RestController
-@RequestMapping(value = "/cms/admin/admin/")
+@RequestMapping(value = "/cms/admin/manager/")
 @RequiredArgsConstructor
 public class AdminMgmtController {
 
