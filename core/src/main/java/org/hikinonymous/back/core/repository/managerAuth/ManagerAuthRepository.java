@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ManagerAuthEntityRepository extends JpaRepository<ManagerAuthEntity, Long>, ManagerAuthRepositoryCustom {
+public interface ManagerAuthRepository extends JpaRepository<ManagerAuthEntity, Long>, ManagerAuthRepositoryCustom {
 
     List<ManagerAuthEntity> findAllByManager(ManagerEntity managerEntity);
 
