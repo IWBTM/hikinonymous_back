@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.*;
-import org.hikinonymous.back.core.entity.BoardEntity;
 import org.hikinonymous.back.core.entity.MemberEntity;
 import org.hikinonymous.back.core.service.MemberService;
 import org.hikinonymous.back.core.utils.CommonUtil;
@@ -21,7 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @Tag(name = "MEMBER MANAGEMENT MENU", description = "MEMBER MANAGEMENT MENU API DOC")

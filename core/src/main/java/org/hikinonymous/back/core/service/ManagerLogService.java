@@ -18,6 +18,7 @@ public class ManagerLogService {
 
     @Transactional
     public void proc(HttpServletRequest request, String content, String behaviorType, ManagerDto managerDto) {
+        // package 인식 오류
         ManagerLogDto managerLogDto = new ManagerLogDto();
         managerLogDto.setContent(content);
         managerLogDto.setBehaviorType(behaviorType);
