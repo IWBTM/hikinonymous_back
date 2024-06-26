@@ -132,7 +132,6 @@ public class ManagerMgmtController {
         String behaviorType;
         if (Objects.isNull(managerDto.getManagerSeq())) behaviorType = "C";
         else behaviorType = "U";
-
         managerLogService.proc(request, MENU_NAME + " 정보", behaviorType,  manager);
 
         CommonUtil.setClientInfo(request, managerDto, manager);
