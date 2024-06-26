@@ -40,9 +40,13 @@ public class MenuMgmtController {
 
     private final CmsMenuService cmsMenuService;
 
+    private final ManagerLogService managerLogService;
+
+    private final String MENU_NAME = "관리자 메뉴";
+
     @Operation(
-            summary = "관리자 메뉴 리스트 조회",
-            description = "관리자 메뉴 리스트를 조회한다."
+            summary = MENU_NAME + " 리스트 조회",
+            description = MENU_NAME + " 리스트를 조회한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -55,6 +59,9 @@ public class MenuMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
+
         Page<CmsMenuEntity> cmsMenuEntityPages = cmsMenuService.paging(pageable);
         Page<CmsMenuSimpleDto> cmsMenuSimpleDtoPages = cmsMenuEntityPages.map(cmsMenuEntity ->
             (CmsMenuSimpleDto) CommonUtil.bindToObjectFromObject(cmsMenuEntity, CmsMenuSimpleDto.class)
@@ -64,8 +71,8 @@ public class MenuMgmtController {
     }
 
     @Operation(
-            summary = "관리자 메뉴 상세 조회",
-            description = "관리자 메뉴를 상세 조회한다."
+            summary = MENU_NAME + " 상세 조회",
+            description = MENU_NAME + "를 상세 조회한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -81,6 +88,9 @@ public class MenuMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
+
         CmsMenuEntity cmsMenuEntity = cmsMenuService.findByCmsMenuSeq(seq);
         if (Objects.isNull(cmsMenuEntity)) return ResponseUtil.canNotFoundManager(responseDto);
         responseDto.setData(CommonUtil.bindToObjectFromObject(cmsMenuEntity,  CmsMenuDto.class));
@@ -88,8 +98,8 @@ public class MenuMgmtController {
     }
 
     @Operation(
-            summary = "관리자 메뉴 저장",
-            description = "관리자 메뉴 정보를 저장한다."
+            summary = MENU_NAME + " 저장",
+            description = MENU_NAME + " 정보를 저장한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -102,6 +112,12 @@ public class MenuMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+
+        String behaviorType;
+        if (Objects.isNull(cmsMenuDto.getCmsMenuSeq())) behaviorType = "C";
+        else behaviorType = "U";
+        managerLogService.proc(request, MENU_NAME + " 정보", behaviorType,  manager);
+
         if (Objects.isNull(cmsMenuDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
         CommonUtil.setClientInfo(request, cmsMenuDto, manager);
@@ -110,8 +126,8 @@ public class MenuMgmtController {
     }
 
     @Operation(
-            summary = "관리자 메뉴 순서 저장",
-            description = "관리자 메뉴 순서를 저장한다."
+            summary = MENU_NAME + " 순서 저장",
+            description = MENU_NAME + " 순서를 저장한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -124,6 +140,9 @@ public class MenuMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+
+        managerLogService.proc(request, MENU_NAME + "정렬 순서", "U",  manager);
+
         if (Objects.isNull(cmsMenuDtoList) || cmsMenuDtoList.isEmpty()) return ResponseUtil.emptyRequestBody(responseDto);
 
         cmsMenuService.updateOrderSort(request, cmsMenuDtoList, manager);
