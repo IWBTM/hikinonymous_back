@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.*;
 import org.hikinonymous.back.core.entity.BoardEntity;
 import org.hikinonymous.back.core.service.BoardService;
+import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
@@ -34,9 +35,13 @@ public class BoardMgmtController {
 
     private final BoardService boardService;
 
+    private final ManagerLogService managerLogService;
+
+    private final String MENU_NAME = "게시글";
+
     @Operation(
-            summary = "게시글 리스트 조회",
-            description = "게시글 리스트를 조회한다."
+            summary = MENU_NAME + " 리스트 조회",
+            description = MENU_NAME + " 리스트를 조회한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -47,11 +52,14 @@ public class BoardMgmtController {
             @PageableDefault Pageable pageable,
             @PathVariable(name = "boardType") @Parameter(
                     name = "boardType",
-                    description = "게시글 타입"
+                    description = MENU_NAME + " 타입"
             ) String boardType
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
 
         Page<BoardEntity> boardEntityPages = boardService.findAllByBoardType(boardType, pageable);
         responseDto.setData(boardEntityPages.stream().map(boardEntity ->
@@ -61,8 +69,8 @@ public class BoardMgmtController {
     }
 
     @Operation(
-            summary = "게시글 상세 조회",
-            description = "게시글을 상세 조회한다."
+            summary = MENU_NAME + " 상세 조회",
+            description = MENU_NAME + "을 상세 조회한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -72,19 +80,22 @@ public class BoardMgmtController {
             HttpServletRequest request,
             @PathVariable(name = "seq") @Parameter(
                     name = "seq",
-                    description = "게시글 SEQ"
+                    description = MENU_NAME + " SEQ"
             ) Long seq
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
 
         responseDto.setData(CommonUtil.bindToObjectFromObject(boardService.findById(seq), BoardDto.class));
         return ResponseUtil.success(responseDto);
     }
 
     @Operation(
-            summary = "게시글 삭제 여부 수정",
-            description = "게시글 삭제 여부를 수정한다."
+            summary = MENU_NAME + " 삭제 여부 수정",
+            description = MENU_NAME + " 삭제 여부를 수정한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -97,6 +108,8 @@ public class BoardMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 삭제 여부", "U",  manager);
+
         if (Objects.isNull(boardDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
         CommonUtil.setClientInfo(request, boardDto, manager);

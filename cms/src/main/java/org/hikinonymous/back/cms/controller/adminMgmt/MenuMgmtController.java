@@ -15,6 +15,7 @@ import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.CmsMenuEntity;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.service.CmsMenuService;
+import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
