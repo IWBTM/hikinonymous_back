@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.*;
 import org.hikinonymous.back.core.entity.MemberEntity;
+import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.service.MemberService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
@@ -33,9 +34,13 @@ public class MemberMgmtController {
 
     private final MemberService memberService;
 
+    private final ManagerLogService managerLogService;
+
+    private final String MENU_NAME = "회원";
+
     @Operation(
-            summary = "회원 리스트 조회",
-            description = "회원 리스트를 조회한다."
+            summary = MENU_NAME + " 리스트 조회",
+            description = MENU_NAME + " 리스트를 조회한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -46,11 +51,14 @@ public class MemberMgmtController {
             @PageableDefault Pageable pageable,
             @PathVariable(name = "memberStatus") @Parameter(
                     name = "memberStatus",
-                    description = "회원 타입"
+                    description = MENU_NAME + " 타입"
             ) String memberStatus
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
 
         Page<MemberEntity> memberEntityPages = memberService.findAllByMemberStatus(memberStatus, pageable);
         responseDto.setData(memberEntityPages.stream().map(memberEntity ->
@@ -60,8 +68,8 @@ public class MemberMgmtController {
     }
 
     @Operation(
-            summary = "회원 상세 조회",
-            description = "회원을 상세 조회한다."
+            summary = MENU_NAME + " 상세 조회",
+            description = MENU_NAME + "을 상세 조회한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -71,7 +79,7 @@ public class MemberMgmtController {
             HttpServletRequest request,
             @PathVariable(name = "seq") @Parameter(
                     name = "seq",
-                    description = "회원 SEQ"
+                    description = MENU_NAME + " SEQ"
             ) Long seq
     ) {
         ResponseDto responseDto = new ResponseDto();
@@ -82,8 +90,8 @@ public class MemberMgmtController {
     }
 
     @Operation(
-            summary = "회원 신고 횟수 초기화",
-            description = "회원의 신고 횟수를 초기화한다."
+            summary = MENU_NAME + " 신고 횟수 초기화",
+            description = MENU_NAME + "의 신고 횟수를 초기화한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -104,8 +112,8 @@ public class MemberMgmtController {
     }
 
     @Operation(
-            summary = "회원 상태 저장",
-            description = "회원 상태를 저장한다."
+            summary = MENU_NAME + " 상태 저장",
+            description = MENU_NAME + " 상태를 저장한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
