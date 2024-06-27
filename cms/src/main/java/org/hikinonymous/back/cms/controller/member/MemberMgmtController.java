@@ -85,6 +85,9 @@ public class MemberMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
+
         responseDto.setData(CommonUtil.bindToObjectFromObject(memberService.findById(seq), MemberDto.class));
         return ResponseUtil.success(responseDto);
     }
