@@ -12,6 +12,7 @@ import org.hikinonymous.back.core.dto.*;
 import org.hikinonymous.back.core.entity.BoardEntity;
 import org.hikinonymous.back.core.entity.ServiceBoardEntity;
 import org.hikinonymous.back.core.service.BoardService;
+import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.service.ServiceBoardService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
@@ -36,9 +37,13 @@ public class ServiceBoardMgmtController {
 
     private final ServiceBoardService serviceBoardService;
 
+    private final ManagerLogService managerLogService;
+
+    private final String MENU_NAME = "게시글";
+
     @Operation(
-            summary = "서비스 게시글 리스트 조회",
-            description = "서비스 게시글 리스트를 조회한다."
+            summary = MENU_NAME + " 리스트 조회",
+            description = MENU_NAME + " 리스트를 조회한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -49,11 +54,14 @@ public class ServiceBoardMgmtController {
             @PageableDefault Pageable pageable,
             @PathVariable(name = "serviceBoardType") @Parameter(
                     name = "serviceBoardType",
-                    description = "서비스 게시글 타입"
+                    description = MENU_NAME + " 타입"
             ) String serviceBoardType
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
 
         Page<ServiceBoardEntity> serviceBoardEntityPages = serviceBoardService.findAllByServiceBoardType(serviceBoardType, pageable);
         responseDto.setData(serviceBoardEntityPages.stream().map(boardEntity ->
@@ -63,8 +71,8 @@ public class ServiceBoardMgmtController {
     }
 
     @Operation(
-            summary = "서비스 게시글 상세 조회",
-            description = "서비스 게시글을 상세 조회한다."
+            summary = MENU_NAME + " 상세 조회",
+            description = MENU_NAME + "을 상세 조회한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -74,23 +82,26 @@ public class ServiceBoardMgmtController {
             HttpServletRequest request,
             @PathVariable(name = "seq") @Parameter(
                     name = "seq",
-                    description = "서비스 게시글 SEQ"
+                    description = MENU_NAME + " SEQ"
             ) Long seq,
             @PathVariable(name = "serviceBoardType") @Parameter(
-                    name = "boardType",
-                    description = "게시글 타입"
+                    name = "serviceBoardType",
+                    description = MENU_NAME + " 타입"
             ) String serviceBoardType
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
 
         responseDto.setData(CommonUtil.bindToObjectFromObject(serviceBoardService.findById(seq), ServiceBoardDto.class));
         return ResponseUtil.success(responseDto);
     }
 
     @Operation(
-            summary = "서비스 게시글 저장",
-            description = "서비스 게시글을 저장한다."
+            summary = MENU_NAME + " 저장",
+            description = MENU_NAME + "을 저장한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
@@ -103,6 +114,12 @@ public class ServiceBoardMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+
+        String behaviorType;
+        if (Objects.isNull(serviceBoardDto.getServiceBoardSeq())) behaviorType = "C";
+        else behaviorType = "U";
+        managerLogService.proc(request, MENU_NAME + " 정보", behaviorType,  manager);
+
         if (Objects.isNull(serviceBoardDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
         CommonUtil.setClientInfo(request, serviceBoardDto, manager);
