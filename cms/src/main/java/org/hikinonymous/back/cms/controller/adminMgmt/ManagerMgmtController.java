@@ -113,8 +113,8 @@ public class ManagerMgmtController {
     }
 
     @Operation(
-            summary = "관리자 저장",
-            description = "관리자 정보를 저장한다."
+            summary = MENU_NAME + " 저장",
+            description = MENU_NAME + " 정보를 저장한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"

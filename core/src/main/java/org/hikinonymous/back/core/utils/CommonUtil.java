@@ -44,6 +44,21 @@ public class CommonUtil {
     }
 
     /**
+     * 총 14자리의 날짜를 입력받아
+     * 포맷 후 리턴 yyyy.MM.dd HH:mm:ss
+     */
+    public static String getDayWithMinuitByStrDate(String date) {
+        if (StringUtils.isBlank(date) || date.length() < 14) return "-";
+        String year = date.substring(0, 4);
+        String month = date.substring(4, 6);
+        String day = date.substring(6, 8);
+
+        String hour = date.substring(8, 10);
+        String minuit = date.substring(10, 12);
+        return year + "-" + month + '-' + day + " " + hour + ":" + minuit;
+    }
+
+    /**
      * CommonDto set 등록자 정보
      */
     public static void setClientInfo(HttpServletRequest request, CommonDto commonDto, ManagerDto manager) {

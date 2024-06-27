@@ -1,10 +1,8 @@
 package org.hikinonymous.back.core.dto;
 
 import lombok.Data;
-import org.hikinonymous.back.core.entity.CmsMenuEntity;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 public class ManagerSimpleDto implements Serializable {

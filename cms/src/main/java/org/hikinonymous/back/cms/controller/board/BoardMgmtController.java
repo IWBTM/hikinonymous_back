@@ -21,7 +21,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @Tag(name = "BOARD MANAGEMENT MENU", description = "BOARD MANAGEMENT MENU API DOC")

@@ -13,7 +13,6 @@ import org.hikinonymous.back.core.dto.CmsMenuSimpleDto;
 import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.CmsMenuEntity;
-import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.service.CmsMenuService;
 import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.utils.CommonUtil;
@@ -27,8 +26,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Tag(name = "ADMIN MENU MANAGEMENT", description = "ADMIN MENU MANAGEMENT API DOC")
 @Slf4j

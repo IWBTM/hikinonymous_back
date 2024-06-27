@@ -7,6 +7,8 @@ import org.hikinonymous.back.core.dto.ManagerLogDto;
 import org.hikinonymous.back.core.entity.ManagerLogEntity;
 import org.hikinonymous.back.core.repository.managerLog.ManagerLogRepository;
 import org.hikinonymous.back.core.utils.CommonUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,8 @@ public class ManagerLogService {
 
     private final ManagerLogRepository managerLogRepository;
 
+    private final ManagerService managerService;
+
     @Transactional
     public void proc(HttpServletRequest request, String content, String behaviorType, ManagerDto managerDto) {
         // package 인식 오류
@@ -24,6 +28,10 @@ public class ManagerLogService {
         managerLogDto.setBehaviorType(behaviorType);
         CommonUtil.setClientInfo(request, managerLogDto, managerDto);
         managerLogRepository.save((ManagerLogEntity) CommonUtil.bindToObjectFromObject(managerLogDto, ManagerLogEntity.class));
+    }
+
+    public Page<ManagerLogEntity> pagingByRegister(Pageable pageable, Long managerSeq) {
+        return managerLogRepository.findAllByRegister(pageable, managerService.findByManagerSeq(managerSeq));
     }
 
 }
