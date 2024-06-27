@@ -2,7 +2,6 @@ package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.ReplyDto;
-import org.hikinonymous.back.core.entity.BoardEntity;
 import org.hikinonymous.back.core.entity.ReplyEntity;
 import org.hikinonymous.back.core.repository.reply.ReplyRepository;
 import org.springframework.data.domain.Page;

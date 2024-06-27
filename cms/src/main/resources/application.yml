@@ -5,7 +5,7 @@ spring:
     name: cms
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://58.140.215.148:3306/hikinonymous?serverTimezone=Asia/Seoul 외부
+    url: jdbc:mariadb://127.0.0.1:3306/hikinonymous?serverTimezone=Asia/Seoul 외부
     username: hikinonymousManager
     password: hikinonymousqwe123!!
   jpa:
