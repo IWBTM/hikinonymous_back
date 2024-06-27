@@ -3,6 +3,7 @@ package org.hikinonymous.back.core.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -46,7 +47,7 @@ public class ManagerDto extends CommonDto {
     private String managerStatus;
 
     @Schema(description = "관리자 상태 SEQ")
-    @NotBlank(message = "관리자 상태 SEQ")
+    @NotNull(message = "관리자 상태 SEQ")
     private Long managerStatusSeq;
 
     @Schema(description = "사용 여부")

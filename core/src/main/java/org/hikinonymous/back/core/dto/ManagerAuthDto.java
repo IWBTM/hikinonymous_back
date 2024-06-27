@@ -2,6 +2,7 @@ package org.hikinonymous.back.core.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hikinonymous.back.core.entity.CmsMenuEntity;
 import org.hikinonymous.back.core.entity.ManagerEntity;
@@ -13,7 +14,7 @@ import org.hikinonymous.back.core.entity.ManagerEntity;
 public class ManagerAuthDto extends CommonDto {
 
     @Schema(description = "관리자 권한 SEQ")
-    @NotBlank(message = "SEQ")
+    @NotNull(message = "SEQ")
     private Long managerAuthSeq;
 
     @Schema(description = "관리자 SEQ")

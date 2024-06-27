@@ -12,20 +12,28 @@ import java.io.Serializable;
 @Data
 public class CommonDto implements Serializable {
 
+    @Schema(hidden = true)
     private ManagerEntity register;
 
+    @Schema(hidden = true)
     private String registerNm;
 
+    @Schema(hidden = true)
     private String registerIp;
 
+    @Schema(hidden = true)
     private String regDate;
 
+    @Schema(hidden = true)
     private ManagerEntity updater;
 
+    @Schema(hidden = true)
     private String updaterNm;
 
+    @Schema(hidden = true)
     private String updaterIp;
 
+    @Schema(hidden = true)
     private String updDate;
 
 }
