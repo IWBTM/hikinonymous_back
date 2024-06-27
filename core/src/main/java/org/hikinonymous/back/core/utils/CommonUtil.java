@@ -7,6 +7,8 @@ import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.modelmapper.ModelMapper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class CommonUtil {
@@ -32,7 +34,7 @@ public class CommonUtil {
     }
 
     /**
-     * 총 14자리의 날짜를 입력받아
+     * 총 14자리의 날짜를 입력 받아
      * 포맷 후 리턴 yyyy.MM.dd HH:mm:ss
      */
     public static String getDayByStrDate(String date) {
@@ -44,7 +46,7 @@ public class CommonUtil {
     }
 
     /**
-     * 총 14자리의 날짜를 입력받아
+     * 총 14자리의 날짜를 입력 받아
      * 포맷 후 리턴 yyyy.MM.dd HH:mm:ss
      */
     public static String getDayWithMinuitByStrDate(String date) {
@@ -59,13 +61,23 @@ public class CommonUtil {
     }
 
     /**
+     * 날짜 형식을 입력 받아
+     * Date 타입 리턴
+     */
+    public static String getFormatDateByDate(String format) {
+        return new SimpleDateFormat(format).format(new Date());
+    }
+
+    /**
      * CommonDto set 등록자 정보
      */
     public static void setClientInfo(HttpServletRequest request, CommonDto commonDto, ManagerDto manager) {
         String ip = getClientIp(request);
 
+        commonDto.setRegDate(CommonUtil.getFormatDateByDate("yyyyMMddHHmmss"));
         commonDto.setRegister(ManagerEntity.builder().managerSeq(manager.getManagerSeq()).build());
         commonDto.setRegisterIp(ip);
+        commonDto.setUpdDate(CommonUtil.getFormatDateByDate("yyyyMMddHHmmss"));
         commonDto.setUpdater(ManagerEntity.builder().managerSeq(manager.getManagerSeq()).build());
         commonDto.setUpdaterIp(ip);
     }

@@ -14,11 +14,15 @@ public class CommonDto implements Serializable {
 
     private ManagerEntity register;
 
+    private String registerNm;
+
     private String registerIp;
 
     private String regDate;
 
     private ManagerEntity updater;
+
+    private String updaterNm;
 
     private String updaterIp;
 
