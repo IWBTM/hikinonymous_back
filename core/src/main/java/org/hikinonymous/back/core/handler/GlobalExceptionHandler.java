@@ -1,5 +1,6 @@
 package org.hikinonymous.back.core.handler;
 
+import jakarta.validation.UnexpectedTypeException;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import javax.naming.AuthenticationException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice
@@ -52,7 +54,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 요청 파라미터 중 필수 값 누락.
+     * 요청 파라미터 중 필수 값 누락. 1
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseDto handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
@@ -74,6 +76,18 @@ public class GlobalExceptionHandler {
         logger.info("========== E MethodArgumentNotValidException ==========");
         return responseDto;
     }
+
+
+    /**
+     * 어노테이션 내 타입 에러 ?
+     */
+    @ExceptionHandler(UnexpectedTypeException.class)
+    public ResponseDto handleUnexpectedTypeException(UnexpectedTypeException e) {
+        logger.info("========== S UnexpectedTypeException ==========");
+        logger.info("========== E UnexpectedTypeException ==========");
+        return ResponseUtil.serverError(new ResponseDto());
+    }
+
 
     /**
      * 요청 바디 누락.
@@ -103,6 +117,16 @@ public class GlobalExceptionHandler {
         logger.info("========== S NoResourceFoundException ==========");
         logger.info("========== E NoResourceFoundException ==========");
         return ResponseUtil.badRequest(new ResponseDto());
+    }
+
+    /**
+     * DB 에러.
+     */
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseDto handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
+        logger.info("========== S SQLIntegrityConstraintViolationException ==========");
+        logger.info("========== E SQLIntegrityConstraintViolationException ==========");
+        return ResponseUtil.serverError(new ResponseDto());
     }
 
 }
