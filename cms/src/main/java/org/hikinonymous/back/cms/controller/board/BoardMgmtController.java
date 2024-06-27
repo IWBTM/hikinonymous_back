@@ -10,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.*;
 import org.hikinonymous.back.core.entity.BoardEntity;
+import org.hikinonymous.back.core.entity.ReplyEntity;
 import org.hikinonymous.back.core.service.BoardService;
 import org.hikinonymous.back.core.service.ManagerLogService;
+import org.hikinonymous.back.core.service.ReplyService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
@@ -34,9 +36,13 @@ public class BoardMgmtController {
 
     private final BoardService boardService;
 
+    private final ReplyService replyService;
+
     private final ManagerLogService managerLogService;
 
     private final String MENU_NAME = "게시글";
+
+    private final String SUB_MENU_NAME = "댓글";
 
     @Operation(
             summary = MENU_NAME + " 리스트 조회",
@@ -116,4 +122,56 @@ public class BoardMgmtController {
         return ResponseUtil.success(responseDto);
     }
 
+    @Operation(
+            summary = SUB_MENU_NAME + " 리스트 조회",
+            description = SUB_MENU_NAME + " 리스트를 조회한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @GetMapping(value = "reply/list/{boardSeq}")
+    public ResponseDto replyList(
+            HttpServletRequest request,
+            @PageableDefault Pageable pageable,
+            @PathVariable(name = "boardSeq") @Parameter(
+                    name = "boardSeq",
+                    description = MENU_NAME + " SEQ"
+            ) Long boardSeq
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, SUB_MENU_NAME + " 리스트", "R",  manager);
+
+        Page<ReplyEntity> replyEntityPages = replyService.findAllByBoardSeq(boardSeq, pageable);
+        responseDto.setData(replyEntityPages.stream().map(replyEntity ->
+                CommonUtil.bindToObjectFromObject(replyEntity, ReplyDto.class)
+        ));
+        return ResponseUtil.success(responseDto);
+    }
+
+    @Operation(
+            summary = SUB_MENU_NAME + " 삭제 여부 수정",
+            description = SUB_MENU_NAME + " 삭제 여부를 수정한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "reply/updateDelYn")
+    public ResponseDto updateDelYn(
+            HttpServletRequest request,
+            @RequestBody @Valid ReplyDto replyDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, SUB_MENU_NAME + " 삭제 여부", "U",  manager);
+
+        if (Objects.isNull(replyDto)) return ResponseUtil.emptyRequestBody(responseDto);
+
+        CommonUtil.setClientInfo(request, replyDto, manager);
+        replyService.updateDelYn(replyDto);
+        return ResponseUtil.success(responseDto);
+    }
 }
