@@ -71,4 +71,12 @@ public class CmsMenuService {
     public Page<CmsMenuEntity> paging(Pageable pageable) {
         return cmsMenuRepository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
     }
+
+    public Page<CmsMenuEntity> pagingByMenuLevel(Pageable pageable, Integer menuLevel) {
+        return cmsMenuRepository.findAllByMenuLevel(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()), menuLevel);
+    }
+
+    public Page<CmsMenuEntity> pagingByMenuLevelAndAuthDir(Pageable pageable, Integer menuLevel, String authDir) {
+        return cmsMenuRepository.findAllByMenuLevelAndAuthDir(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()), menuLevel, authDir);
+    }
 }

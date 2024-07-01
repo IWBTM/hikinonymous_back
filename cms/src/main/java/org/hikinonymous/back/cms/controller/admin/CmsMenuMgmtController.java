@@ -1,5 +1,6 @@
 package org.hikinonymous.back.cms.controller.admin;
 
+import ch.qos.logback.core.util.StringUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,6 +18,7 @@ import org.hikinonymous.back.core.service.CmsMenuService;
 import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
+import org.mariadb.jdbc.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -32,7 +34,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping(value = "/cms/admin/menu/")
 @RequiredArgsConstructor
-public class MenuMgmtController {
+public class CmsMenuMgmtController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -49,10 +51,24 @@ public class MenuMgmtController {
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @GetMapping(value = "list")
+    @GetMapping(value = "list/{menuLevel}")
     public ResponseDto list(
             HttpServletRequest request,
-            @PageableDefault Pageable pageable
+            @PageableDefault(size = 100) Pageable pageable,
+            @PathVariable(
+                    name = "menuLevel",
+                    required = false
+            ) @Parameter(
+                    name = "menuLevel",
+                    description = "관리자 메뉴 레벨"
+            ) Integer menuLevel,
+            @RequestParam(
+                    name = "authDir",
+                    required = false
+            ) @Parameter(
+                    name = "authDir",
+                    description = "관리자 메뉴 AUTH DIR"
+            ) String authDir
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
@@ -60,7 +76,16 @@ public class MenuMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
 
-        Page<CmsMenuEntity> cmsMenuEntityPages = cmsMenuService.paging(pageable);
+        Page<CmsMenuEntity> cmsMenuEntityPages;
+        if (Objects.isNull(menuLevel)) {
+            cmsMenuEntityPages = cmsMenuService.paging(pageable);
+        } else {
+            if (StringUtil.isNullOrEmpty(authDir)) {
+                cmsMenuEntityPages = cmsMenuService.pagingByMenuLevel(pageable, menuLevel);
+            } else {
+                cmsMenuEntityPages = cmsMenuService.pagingByMenuLevelAndAuthDir(pageable, menuLevel, authDir);
+            }
+        }
         Page<CmsMenuSimpleDto> cmsMenuSimpleDtoPages = cmsMenuEntityPages.map(cmsMenuEntity ->
             (CmsMenuSimpleDto) CommonUtil.bindToObjectFromObject(cmsMenuEntity, CmsMenuSimpleDto.class)
         );

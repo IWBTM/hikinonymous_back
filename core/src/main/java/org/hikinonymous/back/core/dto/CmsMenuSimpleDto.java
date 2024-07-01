@@ -15,6 +15,8 @@ public class CmsMenuSimpleDto {
 
     private String authDir;
 
+    private String filePath;
+
     private Long sortOrder;
 
 }
