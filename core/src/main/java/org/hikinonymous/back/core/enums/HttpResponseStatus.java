@@ -11,6 +11,8 @@ public enum HttpResponseStatus {
     TOO_MANY_LOGIN_FAILED_CNT(301, "로그인 실패 횟수가 5회 이상입니다. \n관리자에게 문의해주세요."),
     CAN_NOT_FOUND_MANAGER(302, "관리자 정보를 찾을 수 없습니다."),
     CAN_NOT_FOUND_MEMBER(303, "회원 정보를 찾을 수 없습니다."),
+    CAN_NOT_USE_MANAGER(304, "사용이 제한된 관리자 계정입니다."),
+    UN_ACTIVE_MANAGER(305, "해당 계정은 비활성화된 계정입니다."),
 
     BAD_REQUEST(400, "잘못된 접근입니다."),
     INVALID_REQUEST_PARAMETER_FORM(401, "요청 파라미터 값의 형식이 올바르지 않습니다."),

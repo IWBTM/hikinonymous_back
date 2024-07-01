@@ -6,8 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Schema(
         description = "관리자 DTO"
 )
@@ -30,6 +28,9 @@ public class ManagerDto extends CommonDto {
     @NotBlank(message = "관리자 연락처")
     private String managerHp;
 
+    @Schema(description = "관리자 비밀번호")
+    private String managerPwd;
+
     @Schema(description = "슈퍼 관리자 여부")
     @NotBlank(message = "슈퍼 관리자 여부")
     private String superYn;
@@ -43,7 +44,6 @@ public class ManagerDto extends CommonDto {
     private String loginFailCnt;
 
     @Schema(description = "관리자 상태")
-    @NotBlank(message = "관리자 상태")
     private String managerStatus;
 
     @Schema(description = "관리자 상태 SEQ")

@@ -100,10 +100,10 @@ public class ManagerEntity {
     @Comment("등록자 IP")
     private String registerIp;
 
-    // 수정자
-    @Column
     @Comment("수정자")
-    private Long updater;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "updater")
+    private ManagerEntity updater;
 
     // 수정일
     @Column(length = 14)

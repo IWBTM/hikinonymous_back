@@ -10,6 +10,7 @@ import org.hikinonymous.back.core.dto.LoginDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.service.ManagerService;
+import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.EncUtil;
 import org.hikinonymous.back.core.utils.JwtUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
@@ -48,10 +49,17 @@ public class LoginController {
         logger.info("========== TRY LOGIN EMAIL:: {} ==========", loginDto.getEmail());
         String encEmail = EncUtil.encryptAES256(loginDto.getEmail());
         String encPwd = EncUtil.encryptSHA256(loginDto.getPwd());
-        ManagerEntity managerEntity = managerService.findByManagerId(encEmail);
+        ManagerEntity managerEntity = managerService.findByManagerIdAndDelYn(encEmail, "N");
         if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundManager(responseDto);
         responseDto.setData(managerEntity.getLoginFailCnt());
         if (managerEntity.getLoginFailCnt() > 5) return ResponseUtil.tooManyLoginFailedCnt(responseDto);
+        if (managerEntity.getDelYn().equals("Y")) return ResponseUtil.canNotFoundManager(responseDto);
+        if (managerEntity.getUseYn().equals("N")) return ResponseUtil.canNotUseManager(responseDto);
+        switch (managerEntity.getManagerStatus().getCode()) {
+            case "ACTIVE": break;
+            case "UN_ACTIVE": return ResponseUtil.unActiveManager(responseDto);
+            case "STOP": return ResponseUtil.canNotUseManager(responseDto);
+        }
         if (managerEntity.getManagerPwd().equals(encPwd)) {
             managerService.updateSuccessLoginStatus(managerEntity);
             responseDto.setData(JwtUtil.makeJwt(managerEntity.getManagerSeq()));

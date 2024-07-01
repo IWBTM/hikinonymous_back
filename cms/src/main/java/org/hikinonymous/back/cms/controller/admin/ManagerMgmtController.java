@@ -1,4 +1,4 @@
-package org.hikinonymous.back.cms.controller.adminMgmt;
+package org.hikinonymous.back.cms.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -104,6 +104,7 @@ public class ManagerMgmtController {
 
         managerDto.setManagerId(EncUtil.decryptAES256(managerDto.getManagerId()));
         managerDto.setManagerNm(EncUtil.decryptAES256(managerDto.getManagerNm()));
+        managerDto.setManagerHp(EncUtil.decryptAES256(managerDto.getManagerHp()));
 
         managerDto.setRegDate(CommonUtil.getDayByStrDate(managerDto.getRegDate()));
         managerDto.setLastLoginDate(CommonUtil.getDayByStrDate(managerDto.getLastLoginDate()));

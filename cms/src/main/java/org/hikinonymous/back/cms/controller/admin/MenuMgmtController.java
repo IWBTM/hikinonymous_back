@@ -1,4 +1,4 @@
-package org.hikinonymous.back.cms.controller.adminMgmt;
+package org.hikinonymous.back.cms.controller.admin;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
