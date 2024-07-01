@@ -43,7 +43,6 @@ public class CmsMenuDto extends CommonDto {
     private String displayYn;
 
     @Schema(description = "삭제 여부")
-    @NotBlank(message = "삭제 여부")
     private String delYn;
 
     @Schema(description = "정렬 순서")
