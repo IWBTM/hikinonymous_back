@@ -167,4 +167,16 @@ public class GlobalExceptionHandler {
         return ResponseUtil.serverError(responseDto);
     }
 
+    /**
+     * IllegalArgumentException.
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseDto handleIllegalArgumentException(IllegalArgumentException e) {
+        logger.info("========== S IllegalArgumentException ==========");
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setMessage(e.getMessage());
+        logger.info("========== E IllegalArgumentException ==========");
+        return ResponseUtil.serverError(responseDto);
+    }
+
 }
