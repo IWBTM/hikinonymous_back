@@ -86,10 +86,9 @@ public class CmsMenuMgmtController {
                 cmsMenuEntityPages = cmsMenuService.pagingByMenuLevelAndAuthDir(pageable, menuLevel, authDir);
             }
         }
-        Page<CmsMenuSimpleDto> cmsMenuSimpleDtoPages = cmsMenuEntityPages.map(cmsMenuEntity ->
-            (CmsMenuSimpleDto) CommonUtil.bindToObjectFromObject(cmsMenuEntity, CmsMenuSimpleDto.class)
-        );
-        responseDto.setData(cmsMenuSimpleDtoPages);
+        responseDto.setData(cmsMenuEntityPages.map(cmsMenuEntity ->
+                CommonUtil.bindToObjectFromObject(cmsMenuEntity, CmsMenuDto.class)
+        ));
         return ResponseUtil.success(responseDto);
     }
 
