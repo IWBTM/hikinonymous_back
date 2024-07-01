@@ -56,6 +56,26 @@ public class ResponseUtil {
     }
 
     /**
+     * CAN_NOT_USE_MANAGER
+     * CODE - 304
+     */
+    public static ResponseDto canNotUseManager(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.CAN_NOT_USE_MANAGER.getCode());
+        responseDto.setMessage(HttpResponseStatus.CAN_NOT_USE_MANAGER.getMessage());
+        return responseDto;
+    }
+
+    /**
+     * UN_ACTIVE_MANAGER
+     * CODE - 305
+     */
+    public static ResponseDto unActiveManager(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.UN_ACTIVE_MANAGER.getCode());
+        responseDto.setMessage(HttpResponseStatus.UN_ACTIVE_MANAGER.getMessage());
+        return responseDto;
+    }
+
+    /**
      * BAD_REQUEST
      * CODE - 400
      */

@@ -8,10 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import javax.naming.AuthenticationException;
@@ -127,6 +129,42 @@ public class GlobalExceptionHandler {
         logger.info("========== S SQLIntegrityConstraintViolationException ==========");
         logger.info("========== E SQLIntegrityConstraintViolationException ==========");
         return ResponseUtil.serverError(new ResponseDto());
+    }
+
+    /**
+     * 코드 안 맞음.
+     */
+    @ExceptionHandler(ServerErrorException.class)
+    public ResponseDto handleServerErrorException(ServerErrorException e) {
+        logger.info("========== S ServerErrorException ==========");
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setMessage(e.getMessage());
+        logger.info("========== E ServerErrorException ==========");
+        return ResponseUtil.serverError(responseDto);
+    }
+
+    /**
+     * NullPointerException.
+     */
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseDto handleNullPointerException(NullPointerException e) {
+        logger.info("========== S NullPointerException ==========");
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setMessage(e.getMessage());
+        logger.info("========== E NullPointerException ==========");
+        return ResponseUtil.serverError(responseDto);
+    }
+
+    /**
+     * JpaSystemException.
+     */
+    @ExceptionHandler(JpaSystemException.class)
+    public ResponseDto handleJpaSystemException(JpaSystemException e) {
+        logger.info("========== S JpaSystemException ==========");
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setMessage(e.getMessage());
+        logger.info("========== E JpaSystemException ==========");
+        return ResponseUtil.serverError(responseDto);
     }
 
 }
