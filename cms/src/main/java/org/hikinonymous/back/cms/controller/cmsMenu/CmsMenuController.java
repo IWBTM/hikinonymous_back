@@ -41,7 +41,7 @@ public class CmsMenuController {
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
         if (manager.getSuperYn().equals("Y")) {
-            Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.streamAllByDisplayYnAndDelYn("Y", "N");
+            Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.streamAllByDisplayYnAndDelYnOrderBySortOrder("Y", "N");
             responseDto.setData(cmsMenuEntities.map(userEntity -> (CmsMenuDto) CommonUtil.bindToObjectFromObject(userEntity, CmsMenuDto.class)).collect(Collectors.toList()));
             return ResponseUtil.success(responseDto);
         } else {

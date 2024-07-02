@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 @Repository
 public interface CmsMenuRepository extends JpaRepository<CmsMenuEntity, Long>, CmsMenuRepositoryCustom {
 
-    Stream<CmsMenuEntity> streamAllByDisplayYnAndDelYn(String displayYn, String delYn);
+    Stream<CmsMenuEntity> streamAllByDisplayYnAndDelYnOrderBySortOrder(String displayYn, String delYn);
 
     Stream<CmsMenuEntity> streamAllByDelYn(String delYn);
 

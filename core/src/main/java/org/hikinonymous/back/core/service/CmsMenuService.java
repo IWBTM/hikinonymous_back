@@ -27,8 +27,8 @@ public class CmsMenuService {
     private final CmsMenuRepository cmsMenuRepository;
 
     @Transactional
-    public Stream<CmsMenuEntity> streamAllByDisplayYnAndDelYn(String displayYn, String delYn) {
-        return cmsMenuRepository.streamAllByDisplayYnAndDelYn(displayYn, delYn);
+    public Stream<CmsMenuEntity> streamAllByDisplayYnAndDelYnOrderBySortOrder(String displayYn, String delYn) {
+        return cmsMenuRepository.streamAllByDisplayYnAndDelYnOrderBySortOrder(displayYn, delYn);
     }
 
     public List<CmsMenuDto> findAllByManagerSeq(Long managerSeq) {
