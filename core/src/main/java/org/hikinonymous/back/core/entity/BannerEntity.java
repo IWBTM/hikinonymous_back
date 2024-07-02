@@ -31,8 +31,16 @@ public class BannerEntity {
     private FileInfoEntity moImage;
 
     @Column(nullable = false, length = 255)
+    @Comment("제목")
+    private String title;
+
+    @Column(nullable = false, length = 255)
     @Comment("설명")
     private String etc;
+
+    @Column(nullable = false, length = 255)
+    @Comment("클릭 시 URL")
+    private String url;
 
     @Comment("위치")
     @ManyToOne(fetch = FetchType.EAGER)
