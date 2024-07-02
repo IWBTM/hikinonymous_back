@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -13,7 +14,7 @@ import java.util.stream.Stream;
 @Repository
 public interface CmsMenuRepository extends JpaRepository<CmsMenuEntity, Long>, CmsMenuRepositoryCustom {
 
-    Stream<CmsMenuEntity> streamAllByDisplayYn(String displayYn);
+    Stream<CmsMenuEntity> streamAllByDisplayYnAndDelYn(String displayYn, String delYn);
 
     Stream<CmsMenuEntity> streamAllByDelYn(String delYn);
 
@@ -22,4 +23,7 @@ public interface CmsMenuRepository extends JpaRepository<CmsMenuEntity, Long>, C
     Page<CmsMenuEntity> findAllByMenuLevel(PageRequest of, Integer menuLevel);
 
     Page<CmsMenuEntity> findAllByMenuLevelAndAuthDir(PageRequest of, Integer menuLevel, String authDir);
+
+    List<CmsMenuEntity> findAllByAuthDirAndMenuLevel(String authDir, Integer menuLevel);
+
 }

@@ -25,7 +25,11 @@ public class ManagerAuthRepositoryImpl implements ManagerAuthRepositoryCustom {
                     .select(
                             Projections.constructor(
                                     MenuAuthDto.class,
+                                    managerAuthEntity.managerAuthSeq,
+                                    managerAuthEntity.manager.managerSeq,
+                                    menuEntity.cmsMenuSeq,
                                     menuEntity.menuNm,
+                                    menuEntity.authDir,
                                     managerAuthEntity.authTypes
                             )
                     )
@@ -40,7 +44,10 @@ public class ManagerAuthRepositoryImpl implements ManagerAuthRepositoryCustom {
                                     .and(
                                             StringUtil.isNullOrEmpty(authDir) ?
                                                     menuEntity.menuLevel.eq(1) :
-                                                    menuEntity.authDir.eq(authDir)
+                                                    (
+                                                            menuEntity.authDir.eq(authDir)
+                                                            .and(menuEntity.menuLevel.eq(2))
+                                                    )
                                     )
                     )
                     .fetch();
@@ -49,7 +56,11 @@ public class ManagerAuthRepositoryImpl implements ManagerAuthRepositoryCustom {
                     .select(
                             Projections.constructor(
                                     MenuAuthDto.class,
+                                    managerAuthEntity.managerAuthSeq,
+                                    managerAuthEntity.manager.managerSeq,
+                                    menuEntity.cmsMenuSeq,
                                     menuEntity.menuNm,
+                                    menuEntity.authDir,
                                     managerAuthEntity.authTypes
                             )
                     )
@@ -64,7 +75,10 @@ public class ManagerAuthRepositoryImpl implements ManagerAuthRepositoryCustom {
                                     .and(
                                             StringUtil.isNullOrEmpty(authDir) ?
                                                     menuEntity.menuLevel.eq(1) :
-                                                    menuEntity.authDir.eq(authDir)
+                                                    (
+                                                        menuEntity.authDir.eq(authDir)
+                                                        .and(menuEntity.menuLevel.eq(2))
+                                                    )
                                     )
                                     .and(
                                             managerAuthEntity.authTypes.isNull()

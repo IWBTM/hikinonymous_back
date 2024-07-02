@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -113,13 +114,24 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 요청 컨텐츠 타입 안 맞음.
+     * 리소스를 찾을 수 없음.
      */
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseDto handleNoResourceFoundException(NoResourceFoundException e) {
         logger.info("========== S NoResourceFoundException ==========");
         e.printStackTrace();
         logger.info("========== E NoResourceFoundException ==========");
+        return ResponseUtil.badRequest(new ResponseDto());
+    }
+
+    /**
+     * 요청 컨텐츠 타입 안 맞음.
+     */
+    @ExceptionHandler(HttpMessageConversionException.class)
+    public ResponseDto handleHttpMessageConversionException(HttpMessageConversionException e) {
+        logger.info("========== S HttpMessageConversionException ==========");
+        e.printStackTrace();
+        logger.info("========== E HttpMessageConversionException ==========");
         return ResponseUtil.badRequest(new ResponseDto());
     }
 
@@ -151,11 +163,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     public ResponseDto handleNullPointerException(NullPointerException e) {
         logger.info("========== S NullPointerException ==========");
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setMessage(e.getMessage());
         e.printStackTrace();
         logger.info("========== E NullPointerException ==========");
-        return ResponseUtil.serverError(responseDto);
+        return ResponseUtil.serverError(new ResponseDto());
     }
 
     /**
@@ -164,10 +174,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(JpaSystemException.class)
     public ResponseDto handleJpaSystemException(JpaSystemException e) {
         logger.info("========== S JpaSystemException ==========");
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setMessage(e.getMessage());
         logger.info("========== E JpaSystemException ==========");
-        return ResponseUtil.serverError(responseDto);
+        return ResponseUtil.serverError(new ResponseDto());
     }
 
     /**
@@ -176,10 +184,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseDto handleIllegalArgumentException(IllegalArgumentException e) {
         logger.info("========== S IllegalArgumentException ==========");
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setMessage(e.getMessage());
         logger.info("========== E IllegalArgumentException ==========");
-        return ResponseUtil.serverError(responseDto);
+        return ResponseUtil.serverError(new ResponseDto());
     }
 
     /**
@@ -188,10 +194,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ExpressionException.class)
     public ResponseDto handleExpressionException(ExpressionException e) {
         logger.info("========== S ExpressionException ==========");
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setMessage(e.getMessage());
+        e.printStackTrace();
         logger.info("========== E ExpressionException ==========");
-        return ResponseUtil.serverError(responseDto);
+        return ResponseUtil.serverError(new ResponseDto());
     }
 
 }

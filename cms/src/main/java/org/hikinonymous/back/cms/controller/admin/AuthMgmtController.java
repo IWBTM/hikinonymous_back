@@ -85,31 +85,6 @@ public class AuthMgmtController {
     }
 
     @Operation(
-            summary = MENU_NAME + " 리스트 조회",
-            description = MENU_NAME + " 리스트를 조회한다."
-    )
-    @ApiResponse(
-            description = "응답 에러 코드 DOC 참고"
-    )
-    @GetMapping(value = "list")
-    public ResponseDto list(
-            HttpServletRequest request,
-            @PageableDefault Pageable pageable
-    ) {
-        ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
-
-        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
-
-        Page<ManagerAuthEntity> managerAuthEntityPages = managerAuthService.findAll(pageable);
-        responseDto.setData(managerAuthEntityPages.map(managerAuthEntity ->
-                bindToObjectFromObject(managerAuthEntity, ManagerAuthDto.class)
-        ));
-        return ResponseUtil.success(responseDto);
-    }
-
-    @Operation(
             summary = MENU_NAME + " 저장",
             description = MENU_NAME + " 정보를 저장한다."
     )
@@ -119,20 +94,42 @@ public class AuthMgmtController {
     @PostMapping(value = "proc")
     public ResponseDto proc(
             HttpServletRequest request,
-            @RequestBody @Valid ManagerAuthDto managerAuthDto
+            @RequestBody @Valid MenuAuthDto menuAuthDto
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         String behaviorType;
-        if (Objects.isNull(managerAuthDto.getManagerAuthSeq())) behaviorType = "C";
+        if (Objects.isNull(menuAuthDto.getManagerAuthSeq())) behaviorType = "C";
         else behaviorType = "U";
         managerLogService.proc(request, MENU_NAME + " 정보", behaviorType,  manager);
 
-        if (Objects.isNull(managerAuthDto)) return ResponseUtil.emptyRequestBody(responseDto);
-        setClientInfo(request, managerAuthDto, manager);
-        managerAuthService.proc(managerAuthDto);
+        if (Objects.isNull(menuAuthDto)) return ResponseUtil.emptyRequestBody(responseDto);
+        managerAuthService.proc(menuAuthDto);
+        return ResponseUtil.success(responseDto);
+    }
+
+    @Operation(
+            summary = MENU_NAME + " 삭제",
+            description = MENU_NAME + " 정보를 삭제한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "del")
+    public ResponseDto del(
+            HttpServletRequest request,
+            @RequestBody @Valid MenuAuthDto menuAuthDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+
+        managerLogService.proc(request, MENU_NAME, "D",  manager);
+
+        if (Objects.isNull(menuAuthDto)) return ResponseUtil.emptyRequestBody(responseDto);
+        managerAuthService.del(menuAuthDto);
         return ResponseUtil.success(responseDto);
     }
 

@@ -27,8 +27,8 @@ public class CmsMenuService {
     private final CmsMenuRepository cmsMenuRepository;
 
     @Transactional
-    public Stream<CmsMenuEntity> streamAllByDisplayYn(String displayYn) {
-        return cmsMenuRepository.streamAllByDisplayYn(displayYn);
+    public Stream<CmsMenuEntity> streamAllByDisplayYnAndDelYn(String displayYn, String delYn) {
+        return cmsMenuRepository.streamAllByDisplayYnAndDelYn(displayYn, delYn);
     }
 
     public List<CmsMenuDto> findAllByManagerSeq(Long managerSeq) {
@@ -40,6 +40,7 @@ public class CmsMenuService {
         return cmsMenuRepository.streamAllByDelYn(delYn);
     }
 
+    @Transactional
     public CmsMenuEntity findByCmsMenuSeq(Long seq) {
         return cmsMenuRepository.findByCmsMenuSeq(seq).orElseThrow(() ->
                 new ServerErrorException("Cms Menu Seq: " + seq + " not found", null)
@@ -79,4 +80,9 @@ public class CmsMenuService {
     public Page<CmsMenuEntity> pagingByMenuLevelAndAuthDir(Pageable pageable, Integer menuLevel, String authDir) {
         return cmsMenuRepository.findAllByMenuLevelAndAuthDir(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()), menuLevel, authDir);
     }
+
+    public List<CmsMenuEntity> findAllByAuthDirAndMenuLevel(String authDir, Integer menuLevel) {
+        return cmsMenuRepository.findAllByAuthDirAndMenuLevel(authDir, menuLevel);
+    }
+
 }
