@@ -6,7 +6,8 @@ VALUES
     ('JOIN_TYPE', '가입 경로', 'N'),
     ('CRUD_TYPE', '기능', 'N'),
     ('BOARD_TYPE', '게시글 타입', 'N'),
-    ('SERVICE_BOARD_TYPE', '서비스 게시글 타입', 'N');
+    ('SERVICE_BOARD_TYPE', '서비스 게시글 타입', 'N'),
+    ('BANNER_POSITION', '배너 위치', 'N');
 
 INSERT INTO tb_code
 (codeMaster, code, codeNm, delYn, etc, sortOrder)
@@ -30,7 +31,9 @@ VALUES
     ('BOARD_TYPE', 'BOARD', '게시글', 'N', '', 1),
     ('SERVICE_BOARD_TYPE', 'FAQ', 'FAQ', 'N', '', 1),
     ('SERVICE_BOARD_TYPE', 'NOTICE', '공지사항', 'N', '', 2),
-    ('SERVICE_BOARD_TYPE', 'INQUIRY', '문의', 'N', '', 3);
+    ('SERVICE_BOARD_TYPE', 'INQUIRY', '문의', 'N', '', 3),
+
+    ('BANNER_POSITION', 'MAIN_TOP', '메인 탑', 'N', '', 1);
 
 INSERT INTO tb_manager
 (managerSeq, managerHp, managerId, managerNm, managerPwd, regDate, registerIp, useYn, managerStatus, superYn)
@@ -65,10 +68,3 @@ VALUES
     ('INQUIRY_MANAGEMENT', '문의 관리', 'Y', 2, 1, 'service', '/cms/service/inquiry/list', '문의 관리', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('FAQ_MANAGEMENT', 'FAQ 관리', 'Y', 2, 2, 'service', '/cms/service/faq/list', 'FAQ 관리', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('NOTICE_MANAGEMENT', '공지사항 관리', 'Y', 2, 3, 'service', '/cms/service/notice/list', '공지사항 관리', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S'));
-
-INSERT INTO tb_manager_auth
-(cmsMenu, manager, authTypes)
-VALUES
-    (13, 2, 'R'),
-    (15, 2, 'R'),
-    (17, 2, 'RC');
