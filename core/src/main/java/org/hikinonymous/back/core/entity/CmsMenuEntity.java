@@ -38,7 +38,7 @@ public class CmsMenuEntity {
     // 메뉴 레벨
     @Column(nullable = false)
     @Comment("메뉴 레벨")
-    private Long menuLevel;
+    private Integer menuLevel;
 
     // 폴더
     @Column(nullable = false, length = 50)

@@ -1,5 +1,6 @@
 package org.hikinonymous.back.core.handler;
 
+import com.querydsl.core.types.ExpressionException;
 import jakarta.validation.UnexpectedTypeException;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.utils.ResponseUtil;
@@ -117,6 +118,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseDto handleNoResourceFoundException(NoResourceFoundException e) {
         logger.info("========== S NoResourceFoundException ==========");
+        e.printStackTrace();
         logger.info("========== E NoResourceFoundException ==========");
         return ResponseUtil.badRequest(new ResponseDto());
     }
@@ -151,6 +153,7 @@ public class GlobalExceptionHandler {
         logger.info("========== S NullPointerException ==========");
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(e.getMessage());
+        e.printStackTrace();
         logger.info("========== E NullPointerException ==========");
         return ResponseUtil.serverError(responseDto);
     }
@@ -176,6 +179,18 @@ public class GlobalExceptionHandler {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setMessage(e.getMessage());
         logger.info("========== E IllegalArgumentException ==========");
+        return ResponseUtil.serverError(responseDto);
+    }
+
+    /**
+     * ExpressionException.
+     */
+    @ExceptionHandler(ExpressionException.class)
+    public ResponseDto handleExpressionException(ExpressionException e) {
+        logger.info("========== S ExpressionException ==========");
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setMessage(e.getMessage());
+        logger.info("========== E ExpressionException ==========");
         return ResponseUtil.serverError(responseDto);
     }
 

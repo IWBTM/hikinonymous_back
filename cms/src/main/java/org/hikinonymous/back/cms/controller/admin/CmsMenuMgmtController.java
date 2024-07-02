@@ -67,7 +67,7 @@ public class CmsMenuMgmtController {
                     required = false
             ) @Parameter(
                     name = "authDir",
-                    description = "관리자 메뉴 AUTH DIR"
+                    description = "관리자 메뉴 AUTH DIR\n 하위 메뉴 조회 시 상위 메뉴의 AUTH DIR REQUIRED"
             ) String authDir
     ) {
         ResponseDto responseDto = new ResponseDto();
