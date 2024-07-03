@@ -104,16 +104,6 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 요청 컨텐츠 타입 안 맞음.
-     */
-    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    public ResponseDto handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
-        logger.info("========== S HttpMediaTypeNotSupportedException ==========");
-        logger.info("========== E HttpMediaTypeNotSupportedException ==========");
-        return ResponseUtil.httpMediaTypeNotSupported(new ResponseDto());
-    }
-
-    /**
      * 리소스를 찾을 수 없음.
      */
     @ExceptionHandler(NoResourceFoundException.class)
@@ -127,12 +117,22 @@ public class GlobalExceptionHandler {
     /**
      * 요청 컨텐츠 타입 안 맞음.
      */
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public ResponseDto handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
+        logger.info("========== S HttpMediaTypeNotSupportedException ==========");
+        logger.info("========== E HttpMediaTypeNotSupportedException ==========");
+        return ResponseUtil.httpMediaTypeNotSupported(new ResponseDto());
+    }
+
+    /**
+     * 요청 컨텐츠 타입 안 맞음.
+     */
     @ExceptionHandler(HttpMessageConversionException.class)
     public ResponseDto handleHttpMessageConversionException(HttpMessageConversionException e) {
         logger.info("========== S HttpMessageConversionException ==========");
         e.printStackTrace();
         logger.info("========== E HttpMessageConversionException ==========");
-        return ResponseUtil.badRequest(new ResponseDto());
+        return ResponseUtil.httpMediaTypeNotSupported(new ResponseDto());
     }
 
     /**
@@ -151,10 +151,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ServerErrorException.class)
     public ResponseDto handleServerErrorException(ServerErrorException e) {
         logger.info("========== S ServerErrorException ==========");
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setMessage(e.getMessage());
+        logger.error("========== REASON:: " + e.getMessage() + " ==========");
         logger.info("========== E ServerErrorException ==========");
-        return ResponseUtil.serverError(responseDto);
+        return ResponseUtil.serverError(new ResponseDto());
     }
 
     /**
@@ -163,7 +162,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     public ResponseDto handleNullPointerException(NullPointerException e) {
         logger.info("========== S NullPointerException ==========");
-        e.printStackTrace();
+        logger.error("========== REASON:: " + e.getMessage() + " ==========");
         logger.info("========== E NullPointerException ==========");
         return ResponseUtil.serverError(new ResponseDto());
     }
@@ -174,6 +173,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(JpaSystemException.class)
     public ResponseDto handleJpaSystemException(JpaSystemException e) {
         logger.info("========== S JpaSystemException ==========");
+        logger.error("========== REASON:: " + e.getMessage() + " ==========");
         logger.info("========== E JpaSystemException ==========");
         return ResponseUtil.serverError(new ResponseDto());
     }
@@ -184,6 +184,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseDto handleIllegalArgumentException(IllegalArgumentException e) {
         logger.info("========== S IllegalArgumentException ==========");
+        logger.error("========== REASON:: " + e.getMessage() + " ==========");
         logger.info("========== E IllegalArgumentException ==========");
         return ResponseUtil.serverError(new ResponseDto());
     }
@@ -194,7 +195,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ExpressionException.class)
     public ResponseDto handleExpressionException(ExpressionException e) {
         logger.info("========== S ExpressionException ==========");
-        e.printStackTrace();
+        logger.error("========== REASON:: " + e.getMessage() + " ==========");
         logger.info("========== E ExpressionException ==========");
         return ResponseUtil.serverError(new ResponseDto());
     }
