@@ -7,7 +7,9 @@ VALUES
     ('CRUD_TYPE', '기능', 'N'),
     ('BOARD_TYPE', '게시글 타입', 'N'),
     ('SERVICE_BOARD_TYPE', '서비스 게시글 타입', 'N'),
-    ('BANNER_POSITION', '배너 위치', 'N');
+    ('BANNER_POSITION', '배너 위치', 'N'),
+    ('DEVICE_TYPE', '디바이스 타입', 'N'),
+    ('FILE_REF_TYPE', '파일 참조 타입', 'N');
 
 INSERT INTO tb_code
 (codeMaster, code, codeNm, delYn, etc, sortOrder)
@@ -33,7 +35,11 @@ VALUES
     ('SERVICE_BOARD_TYPE', 'NOTICE', '공지사항', 'N', '', 2),
     ('SERVICE_BOARD_TYPE', 'INQUIRY', '문의', 'N', '', 3),
 
-    ('BANNER_POSITION', 'MAIN_TOP', '메인 탑', 'N', '', 1);
+    ('BANNER_POSITION', 'MAIN_TOP', '메인 탑', 'N', '', 1),
+
+    ('DEVICE_TYPE', 'PC', '컴퓨터', 'N', '', 1),
+    ('DEVICE_TYPE', 'MO', '휴대폰', 'N', '', 2),
+    ('FILE_REF_TYPE', 'BANNER', '배너', 'N', '', 1);
 
 INSERT INTO tb_manager
 (managerSeq, managerHp, managerId, managerNm, managerPwd, regDate, registerIp, useYn, managerStatus, superYn)
