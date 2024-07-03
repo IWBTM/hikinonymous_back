@@ -60,6 +60,8 @@ subprojects {
 
         implementation 'org.modelmapper:modelmapper:3.1.0'
 
+        implementation 'org.hsqldb:hsqldb'
+
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
     }

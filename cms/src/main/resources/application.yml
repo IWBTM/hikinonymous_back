@@ -24,3 +24,7 @@ spring:
       allowed-methods: GET,POST,PUT,DELETE,OPTIONS
       allowed-headers: "*"
       allow-credentials: true
+
+file:
+  upload:
+    path: C:/projects/hikinonymous/back/cms/src/main/upload/
