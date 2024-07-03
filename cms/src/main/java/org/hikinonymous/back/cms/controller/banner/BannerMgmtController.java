@@ -4,11 +4,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hikinonymous.back.core.dto.BannerSimpleDto;
-import org.hikinonymous.back.core.dto.ManagerDto;
-import org.hikinonymous.back.core.dto.ResponseDto;
+import org.hikinonymous.back.core.dto.*;
 import org.hikinonymous.back.core.entity.BannerEntity;
 import org.hikinonymous.back.core.service.BannerService;
 import org.hikinonymous.back.core.service.ManagerLogService;
@@ -63,4 +62,29 @@ public class BannerMgmtController {
         return ResponseUtil.success(responseDto);
     }
 
+    @Operation(
+            summary = MENU_NAME + " 저장",
+            description = MENU_NAME + " 정보를 저장한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "proc")
+    public ResponseDto proc(
+            HttpServletRequest request,
+            @ModelAttribute @Valid BannerDto bannerDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+
+        String behaviorType;
+        if (Objects.isNull(bannerDto.getBannerSeq())) behaviorType = "C";
+        else behaviorType = "U";
+        managerLogService.proc(request, MENU_NAME + " 정보", behaviorType,  manager);
+
+        CommonUtil.setClientInfo(request, bannerDto, manager);
+        bannerService.proc(bannerDto);
+        return ResponseUtil.success(responseDto);
+    }
 }
