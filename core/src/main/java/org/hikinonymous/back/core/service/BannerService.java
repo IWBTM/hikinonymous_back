@@ -1,12 +1,15 @@
 package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.hikinonymous.back.core.dto.BannerDto;
 import org.hikinonymous.back.core.entity.BannerEntity;
 import org.hikinonymous.back.core.repository.banner.BannerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +33,11 @@ public class BannerService {
         bannerDto.setPosition(codeService.findByCodeSeq(bannerDto.getPositionSeq()));
         BannerEntity bannerEntity = bannerDto.bindEntityForProc();
         bannerRepository.save(bannerEntity);
+    }
+
+    public BannerEntity findById(Long bannerSeq) {
+        return bannerRepository.findById(bannerSeq).orElseThrow(() ->
+                new NoSuchElementException("Banner seq: " + bannerSeq + " not found")
+        );
     }
 }

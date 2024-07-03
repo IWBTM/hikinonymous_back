@@ -64,4 +64,5 @@ public class BannerDto extends CommonDto {
         }
         return bannerEntity;
     }
+
 }

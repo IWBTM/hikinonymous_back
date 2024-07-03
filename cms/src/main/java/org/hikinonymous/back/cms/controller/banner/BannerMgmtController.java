@@ -1,6 +1,7 @@
 package org.hikinonymous.back.cms.controller.banner;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -56,9 +57,38 @@ public class BannerMgmtController {
         managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
 
         Page<BannerEntity> bannerEntityPages = bannerService.paging(pageable);
-        responseDto.setData(bannerEntityPages.map(bannerEntity ->
-            CommonUtil.bindToObjectFromObject(bannerEntity, BannerSimpleDto.class)
-        ));
+        responseDto.setData(bannerEntityPages.map(bannerEntity -> {
+            bannerEntity.setRegDate(CommonUtil.getDayByStrDate(bannerEntity.getRegDate()));
+            bannerEntity.setUpdDate(CommonUtil.getDayByStrDate(bannerEntity.getUpdDate()));
+            return CommonUtil.bindToObjectFromObject(bannerEntity, BannerSimpleDto.class);
+        }));
+        return ResponseUtil.success(responseDto);
+    }
+
+    @Operation(
+            summary = MENU_NAME + " 상세를 조회",
+            description = MENU_NAME + " 상세를 조회한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @GetMapping(value = "view/{bannerSeq}")
+    public ResponseDto view(
+            HttpServletRequest request,
+            @PathVariable(
+                    name = "bannerSeq"
+            ) @Parameter(
+                    name = "bannerSeq",
+                    description = "배너 SEQ"
+            ) Long bannerSeq
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
+
+        responseDto.setData(CommonUtil.bindToObjectFromObject(bannerService.findById(bannerSeq), BannerDto.class));
         return ResponseUtil.success(responseDto);
     }
 

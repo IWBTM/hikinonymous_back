@@ -35,7 +35,7 @@ public class CommonUtil {
 
     /**
      * 총 14자리의 날짜를 입력 받아
-     * 포맷 후 리턴 yyyy.MM.dd HH:mm:ss
+     * 포맷 후 리턴 yyyy.MM.dd
      */
     public static String getDayByStrDate(String date) {
         if (StringUtils.isBlank(date) || date.length() < 14) return "-";
