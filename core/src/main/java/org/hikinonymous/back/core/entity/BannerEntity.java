@@ -60,7 +60,7 @@ public class BannerEntity {
     @Comment("등록자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "register", nullable = false)
-    private MemberEntity register;
+    private ManagerEntity register;
 
     // 등록일
     @Column(nullable = false, length = 14)
@@ -76,7 +76,7 @@ public class BannerEntity {
     @Comment("수정자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "updater")
-    private MemberEntity updater;
+    private ManagerEntity updater;
 
     // 수정일
     @Column(length = 14)

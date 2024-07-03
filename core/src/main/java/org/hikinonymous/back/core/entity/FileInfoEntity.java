@@ -27,7 +27,7 @@ public class FileInfoEntity {
     private CodeEntity deviceType;
 
     // 순서
-    @Column(nullable = false)
+    @Column
     @Comment("순서")
     private Integer sort;
 
@@ -60,7 +60,7 @@ public class FileInfoEntity {
     // 파일 크기
     @Column(nullable = false)
     @Comment("파일 크기")
-    private Integer fileSize;
+    private Long fileSize;
 
     // 파일 확장자
     @Column(nullable = false, length = 10)
@@ -83,35 +83,5 @@ public class FileInfoEntity {
     @Comment("다운로드 횟수")
     @ColumnDefault(value = "0")
     private Integer downloadCnt;
-
-    // 등록자
-    @Column(nullable = false)
-    @Comment("등록자")
-    private Long register;
-
-    // 등록일
-    @Column(nullable = false, length = 14)
-    @Comment("등록일")
-    private String regDate;
-
-    // 등록자 IP
-    @Column(nullable = false, length = 50)
-    @Comment("등록자 IP")
-    private String registerIp;
-
-    // 수정자
-    @Column
-    @Comment("수정자")
-    private Long updater;
-
-    // 수정일
-    @Column(length = 14)
-    @Comment("수정일")
-    private String updDate;
-
-    // 수정자 IP
-    @Column(length = 50)
-    @Comment("수정자 IP")
-    private String updaterIp;
 
 }
