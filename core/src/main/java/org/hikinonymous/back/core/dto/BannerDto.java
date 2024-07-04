@@ -43,7 +43,7 @@ public class BannerDto extends CommonDto {
 
     private FileInfoEntity moImage;
 
-    public BannerEntity bindEntityForProc() {
+    public BannerEntity bindToEntityForProc() {
         BannerEntity bannerEntity = new BannerEntity();
         bannerEntity.setBannerSeq(this.getBannerSeq());
         bannerEntity.setTitle(this.getTitle());
@@ -63,6 +63,28 @@ public class BannerDto extends CommonDto {
             bannerEntity.setUpdaterIp(this.getUpdaterIp());
         }
         return bannerEntity;
+    }
+
+    public BannerDto bindToDtoForView(BannerEntity bannerEntity) {
+        BannerDto bannerDto = new BannerDto();
+        bannerDto.setBannerSeq(bannerEntity.getBannerSeq());
+        bannerDto.setTitle(bannerEntity.getTitle());
+        bannerDto.setPosition(bannerEntity.getPosition());
+        bannerDto.setEtc(bannerEntity.getEtc());
+        bannerDto.setUrl(bannerEntity.getUrl());
+        bannerDto.setUseYn(bannerEntity.getUseYn());
+        bannerDto.setPcImage(bannerEntity.getPcImage());
+        bannerDto.setMoImage(bannerEntity.getMoImage());
+        if (Objects.isNull(bannerEntity.getBannerSeq())) {
+            bannerDto.setRegDate(bannerEntity.getRegDate());
+            bannerDto.setRegister(bannerEntity.getRegister());
+            bannerDto.setRegisterIp(bannerEntity.getRegisterIp());
+        } else {
+            bannerDto.setUpdDate(bannerEntity.getUpdDate());
+            bannerDto.setUpdater(bannerEntity.getUpdater());
+            bannerDto.setUpdaterIp(bannerEntity.getUpdaterIp());
+        }
+        return bannerDto;
     }
 
 }

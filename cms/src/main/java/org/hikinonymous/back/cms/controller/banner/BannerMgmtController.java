@@ -13,6 +13,7 @@ import org.hikinonymous.back.core.entity.BannerEntity;
 import org.hikinonymous.back.core.service.BannerService;
 import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.utils.CommonUtil;
+import org.hikinonymous.back.core.utils.EncUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,7 +89,10 @@ public class BannerMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
 
-        responseDto.setData(CommonUtil.bindToObjectFromObject(bannerService.findById(bannerSeq), BannerDto.class));
+        BannerEntity bannerEntity = bannerService.findById(bannerSeq);
+        bannerEntity.getRegister().setManagerNm(EncUtil.decryptAES256(bannerEntity.getRegister().getManagerNm()));
+        bannerEntity.getRegister().setManagerNm(EncUtil.decryptAES256(bannerEntity.getRegister().getManagerNm()));
+//        responseDto.setData;
         return ResponseUtil.success(responseDto);
     }
 
