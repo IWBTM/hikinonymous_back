@@ -1,7 +1,6 @@
 package org.hikinonymous.back.core.dto;
 
 import lombok.Data;
-import org.hikinonymous.back.core.entity.CodeEntity;
 
 @Data
 public class MemberSimpleDto extends CommonDto {
@@ -14,7 +13,7 @@ public class MemberSimpleDto extends CommonDto {
 
     private String memberEmail;
 
-    private CodeEntity memberStatus;
+    private CodeDto memberStatus;
 
     private String gender;
 

@@ -2,7 +2,6 @@ package org.hikinonymous.back.core.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import org.hikinonymous.back.core.entity.CodeEntity;
 
 @Schema(
         description = "회원 DTO"
@@ -23,7 +22,7 @@ public class MemberDto extends CommonDto {
     private String memberEmail;
 
     @Schema(description = "회원 상태")
-    private CodeEntity memberStatus;
+    private CodeDto memberStatus;
 
     @Schema(description = "성별")
     private String gender;
@@ -35,7 +34,7 @@ public class MemberDto extends CommonDto {
     private String lastLoginDate;
 
     @Schema(description = "가입 타입")
-    private CodeEntity joinType;
+    private CodeDto joinType;
 
     @Schema(description = "개인정보보호 동의 여부")
     private String privacyYn;

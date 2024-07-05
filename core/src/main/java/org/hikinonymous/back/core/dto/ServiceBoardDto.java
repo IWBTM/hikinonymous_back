@@ -46,7 +46,7 @@ public class ServiceBoardDto extends CommonDto {
 
     @Schema(description = "서비스 게시글 타입")
     @NotBlank(message = "게시글 타입")
-    private CodeEntity serviceBoardType;
+    private CodeDto serviceBoardType;
 
     @Schema(description = "삭제 여부")
     @NotBlank(message = "삭제 여부")
