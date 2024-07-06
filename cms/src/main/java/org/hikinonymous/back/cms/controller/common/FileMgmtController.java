@@ -7,12 +7,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hikinonymous.back.core.dto.FileDto;
 import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
+import org.hikinonymous.back.core.entity.FileInfoEntity;
 import org.hikinonymous.back.core.service.FileService;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,17 +40,17 @@ public class FileMgmtController {
             description = "응답 에러 코드 DOC 참고"
     )
     @GetMapping(value = "view/{fileInfoSeq}")
-    public ResponseDto view(
+    public ResponseEntity view(
             HttpServletRequest request,
             @PathVariable(name = "fileInfoSeq") @Parameter(
                     name = "fileInfoSeq",
                     description = "파일 SEQ"
-            ) String fileInfoSeq
+            ) Long fileInfoSeq
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        return ResponseUtil.success(responseDto);
+        return fileService.getFileByteById(fileInfoSeq);
     }
 
 }

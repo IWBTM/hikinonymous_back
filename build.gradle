@@ -62,6 +62,9 @@ subprojects {
 
         implementation 'org.hsqldb:hsqldb'
 
+        implementation 'commons-io:commons-io:2.6'
+        implementation 'commons-fileupload:commons-fileupload:1.4'
+
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
     }

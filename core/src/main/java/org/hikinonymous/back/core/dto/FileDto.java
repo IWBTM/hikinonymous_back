@@ -34,6 +34,8 @@ public class FileDto extends CommonDto {
 
     private String filePath;
 
+    private String fileApiPath;
+
     private String fileNm;
 
     private String fileOriNm;
@@ -42,4 +44,18 @@ public class FileDto extends CommonDto {
 
     private String fileExt;
 
+    public static FileDto bindToDtoForView(FileInfoEntity fileInfoEntity) {
+        FileDto fileDto = new FileDto();
+        fileDto.setFileInfoSeq(fileInfoEntity.getFileInfoSeq());
+        fileDto.setDeviceType(CodeDto.bindToDto(fileInfoEntity.getDeviceType()));
+        fileDto.setRefType(CodeDto.bindToDto(fileInfoEntity.getRefType()));
+        fileDto.setSort(fileInfoEntity.getSort());
+        fileDto.setFilePath(fileInfoEntity.getFilePath());
+        fileDto.setFileNm(fileInfoEntity.getFileNm());
+        fileDto.setFileOriNm(fileInfoEntity.getFileOriNm());
+        fileDto.setFileSize(fileInfoEntity.getFileSize());
+        fileDto.setFileExt(fileInfoEntity.getFileExt());
+        fileDto.setFileApiPath("/cms/common/file/view/");
+        return fileDto;
+    }
 }

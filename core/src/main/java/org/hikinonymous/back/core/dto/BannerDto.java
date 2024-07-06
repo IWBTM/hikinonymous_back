@@ -41,9 +41,9 @@ public class BannerDto extends CommonDto {
 
     private MultipartFile moImageFile;
 
-    private FileInfoEntity pcImage;
+    private FileDto pcImage;
 
-    private FileInfoEntity moImage;
+    private FileDto moImage;
 
     public BannerEntity bindToEntityForProc() {
         BannerEntity bannerEntity = new BannerEntity();
@@ -53,8 +53,8 @@ public class BannerDto extends CommonDto {
         bannerEntity.setEtc(this.getEtc());
         bannerEntity.setUrl(this.getUrl());
         bannerEntity.setUseYn(this.getUseYn());
-        bannerEntity.setPcImage(this.getPcImage());
-        bannerEntity.setMoImage(this.getMoImage());
+//        bannerEntity.setPcImage(this.getPcImage());
+//        bannerEntity.setMoImage(this.getMoImage());
         if (Objects.isNull(this.getBannerSeq())) {
             bannerEntity.setRegDate(this.getRegDate());
             bannerEntity.setRegister(this.getRegister());
@@ -67,7 +67,7 @@ public class BannerDto extends CommonDto {
         return bannerEntity;
     }
 
-    public BannerDto bindToDtoForView(BannerEntity bannerEntity) {
+    public static BannerDto bindToDtoForView(BannerEntity bannerEntity) {
         BannerDto bannerDto = new BannerDto();
         bannerDto.setBannerSeq(bannerEntity.getBannerSeq());
         bannerDto.setTitle(bannerEntity.getTitle());
@@ -75,8 +75,8 @@ public class BannerDto extends CommonDto {
         bannerDto.setEtc(bannerEntity.getEtc());
         bannerDto.setUrl(bannerEntity.getUrl());
         bannerDto.setUseYn(bannerEntity.getUseYn());
-        bannerDto.setPcImage(bannerEntity.getPcImage());
-        bannerDto.setMoImage(bannerEntity.getMoImage());
+        bannerDto.setPcImage(FileDto.bindToDtoForView(bannerEntity.getPcImage()));
+        bannerDto.setMoImage(FileDto.bindToDtoForView(bannerEntity.getMoImage()));
         if (!Objects.isNull(bannerEntity.getRegister())) {
             bannerDto.setRegDate(CommonUtil.getDayByStrDate(bannerEntity.getRegDate()));
             bannerDto.setRegisterNm(EncUtil.decryptAES256(bannerEntity.getRegister().getManagerNm()));

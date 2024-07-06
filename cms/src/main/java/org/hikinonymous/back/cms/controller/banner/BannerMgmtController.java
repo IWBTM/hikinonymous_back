@@ -89,7 +89,7 @@ public class BannerMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
 
-        responseDto.setData(new BannerDto().bindToDtoForView(bannerService.findById(bannerSeq)));
+        responseDto.setData(BannerDto.bindToDtoForView(bannerService.findById(bannerSeq)));
         return ResponseUtil.success(responseDto);
     }
 

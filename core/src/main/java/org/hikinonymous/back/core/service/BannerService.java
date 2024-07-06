@@ -29,8 +29,8 @@ public class BannerService {
 
     public void proc(BannerDto bannerDto) {
         String refType = "BANNER";
-        bannerDto.setPcImage(fileService.proc(bannerDto.getPcImageFile(), refType, "PC"));
-        bannerDto.setMoImage(fileService.proc(bannerDto.getMoImageFile(), refType, "MO"));
+//        bannerDto.setPcImage(fileService.proc(bannerDto.getPcImageFile(), refType, "PC"));
+//        bannerDto.setMoImage(fileService.proc(bannerDto.getMoImageFile(), refType, "MO"));
 
         bannerDto.setPosition(codeService.findByCodeSeq(bannerDto.getPositionSeq()));
         BannerEntity bannerEntity = bannerDto.bindToEntityForProc();
