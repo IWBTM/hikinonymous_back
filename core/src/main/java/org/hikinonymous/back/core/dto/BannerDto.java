@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.hikinonymous.back.core.entity.BannerEntity;
 import org.hikinonymous.back.core.entity.CodeEntity;
 import org.hikinonymous.back.core.entity.FileInfoEntity;
+import org.hikinonymous.back.core.utils.CommonUtil;
+import org.hikinonymous.back.core.utils.EncUtil;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Objects;
@@ -75,13 +77,14 @@ public class BannerDto extends CommonDto {
         bannerDto.setUseYn(bannerEntity.getUseYn());
         bannerDto.setPcImage(bannerEntity.getPcImage());
         bannerDto.setMoImage(bannerEntity.getMoImage());
-        if (Objects.isNull(bannerEntity.getBannerSeq())) {
-            bannerDto.setRegDate(bannerEntity.getRegDate());
-            bannerDto.setRegister(bannerEntity.getRegister());
+        if (!Objects.isNull(bannerEntity.getRegister())) {
+            bannerDto.setRegDate(CommonUtil.getDayByStrDate(bannerEntity.getRegDate()));
+            bannerDto.setRegisterNm(EncUtil.decryptAES256(bannerEntity.getRegister().getManagerNm()));
             bannerDto.setRegisterIp(bannerEntity.getRegisterIp());
-        } else {
-            bannerDto.setUpdDate(bannerEntity.getUpdDate());
-            bannerDto.setUpdater(bannerEntity.getUpdater());
+        } else if (!Objects.isNull(bannerEntity.getUpdater())) {
+            bannerDto.setUpdDate(CommonUtil.getDayByStrDate(bannerEntity.getUpdDate()));
+            bannerDto.setUpdaterNm(bannerEntity.getUpdater().getManagerNm());
+            bannerDto.setUpdaterNm(EncUtil.decryptAES256(bannerEntity.getUpdater().getManagerNm()));
             bannerDto.setUpdaterIp(bannerEntity.getUpdaterIp());
         }
         return bannerDto;
