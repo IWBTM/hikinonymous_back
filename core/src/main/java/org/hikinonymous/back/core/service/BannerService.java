@@ -1,6 +1,7 @@
 package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hikinonymous.back.core.dto.BannerDelYnDto;
 import org.hikinonymous.back.core.dto.BannerDto;
 import org.hikinonymous.back.core.entity.BannerEntity;
 import org.hikinonymous.back.core.repository.banner.BannerRepository;
@@ -23,7 +24,7 @@ public class BannerService {
     private final CodeService codeService;
 
     public Page<BannerEntity> paging(Pageable pageable) {
-        return bannerRepository.findAll(pageable);
+        return bannerRepository.findAllByDelYn(pageable, "N");
     }
 
     public void proc(BannerDto bannerDto) {
@@ -50,5 +51,11 @@ public class BannerService {
                 new NoSuchElementException("Banner seq: " + bannerSeq + " not found")
         );
         return bannerEntity;
+    }
+
+    public void updateDelYn(BannerDelYnDto bannerDelYnDto) {
+        BannerEntity bannerEntity = this.findById(bannerDelYnDto.getBannerSeq());
+        bannerEntity.setDelYn(bannerDelYnDto.getDelYn());
+        bannerRepository.save(bannerEntity);
     }
 }

@@ -118,4 +118,27 @@ public class BannerMgmtController {
         bannerService.proc(bannerDto);
         return ResponseUtil.success(responseDto);
     }
+
+    @Operation(
+            summary = MENU_NAME + " 삭제",
+            description = MENU_NAME + " 정보를 삭제한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "updateDelYn")
+    public ResponseDto updateDelYn(
+            HttpServletRequest request,
+            @RequestBody @Valid BannerDelYnDto bannerDelYnDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+
+        managerLogService.proc(request, MENU_NAME + " 정보", "D",  manager);
+
+        CommonUtil.setClientInfo(request, bannerDelYnDto, manager);
+        bannerService.updateDelYn(bannerDelYnDto);
+        return ResponseUtil.success(responseDto);
+    }
 }
