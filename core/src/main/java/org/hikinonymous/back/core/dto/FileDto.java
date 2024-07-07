@@ -60,12 +60,14 @@ public class FileDto extends CommonDto {
     }
 
     public static FileDto bindToDtoForProc(FileInfoEntity fileInfoEntity) {
+        if (Objects.isNull(fileInfoEntity)) return null;
         FileDto fileDto = new FileDto();
         fileDto.setFileInfoSeq(fileInfoEntity.getFileInfoSeq());
         return fileDto;
     }
 
     public static FileInfoEntity bindToEntityForProc(FileDto fileDto) {
+        if (Objects.isNull(fileDto)) return null;
         FileInfoEntity fileInfoEntity = new FileInfoEntity();
         fileInfoEntity.setFileInfoSeq(fileDto.getFileInfoSeq());
         return fileInfoEntity;

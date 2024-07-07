@@ -1,5 +1,6 @@
 package org.hikinonymous.back.core.dto;
 
+import ch.qos.logback.core.util.StringUtil;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,16 +48,16 @@ public class BannerDto extends CommonDto {
 
     private FileDto moImage;
 
-    public BannerEntity bindToEntityForProc() {
-        BannerEntity bannerEntity = new BannerEntity();
+    public BannerEntity bindToEntityForProc(BannerEntity bannerEntity) {
         bannerEntity.setBannerSeq(this.getBannerSeq());
         bannerEntity.setTitle(this.getTitle());
         bannerEntity.setPosition(this.getPosition());
         bannerEntity.setEtc(this.getEtc());
         bannerEntity.setUrl(this.getUrl());
         bannerEntity.setUseYn(this.getUseYn());
-        bannerEntity.setPcImage(FileDto.bindToEntityForProc(this.getPcImage()));
-        bannerEntity.setMoImage(FileDto.bindToEntityForProc(this.getMoImage()));
+        if (!StringUtil.isNullOrEmpty(this.getDelYn())) {
+            bannerEntity.setDelYn(this.getDelYn());
+        }
         if (Objects.isNull(this.getBannerSeq())) {
             bannerEntity.setRegDate(this.getRegDate());
             bannerEntity.setRegister(this.getRegister());
@@ -83,7 +84,8 @@ public class BannerDto extends CommonDto {
             bannerDto.setRegDate(CommonUtil.getDayByStrDate(bannerEntity.getRegDate()));
             bannerDto.setRegisterNm(EncUtil.decryptAES256(bannerEntity.getRegister().getManagerNm()));
             bannerDto.setRegisterIp(bannerEntity.getRegisterIp());
-        } else if (!Objects.isNull(bannerEntity.getUpdater())) {
+        }
+        if (!Objects.isNull(bannerEntity.getUpdater())) {
             bannerDto.setUpdDate(CommonUtil.getDayByStrDate(bannerEntity.getUpdDate()));
             bannerDto.setUpdaterNm(bannerEntity.getUpdater().getManagerNm());
             bannerDto.setUpdaterNm(EncUtil.decryptAES256(bannerEntity.getUpdater().getManagerNm()));

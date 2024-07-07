@@ -2,7 +2,6 @@ package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.BannerDto;
-import org.hikinonymous.back.core.dto.FileDto;
 import org.hikinonymous.back.core.entity.BannerEntity;
 import org.hikinonymous.back.core.repository.banner.BannerRepository;
 import org.springframework.data.domain.Page;
@@ -10,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,12 +27,21 @@ public class BannerService {
     }
 
     public void proc(BannerDto bannerDto) {
+        BannerEntity bannerEntity = Optional
+                .ofNullable(bannerDto.getBannerSeq())
+                .flatMap(bannerRepository::findById)
+                .orElseGet(BannerEntity::new);
+
         String refType = "BANNER";
-        bannerDto.setPcImage(FileDto.bindToDtoForProc(fileService.proc(bannerDto.getPcImageFile(), refType, "PC")));
-        bannerDto.setMoImage(FileDto.bindToDtoForProc(fileService.proc(bannerDto.getMoImageFile(), refType, "MO")));
+        if (!Objects.isNull(bannerDto.getPcImageFile()) && bannerDto.getPcImageFile().getSize() > 0) {
+            bannerEntity.setPcImage(fileService.proc(bannerDto.getPcImageFile(), refType, "PC"));
+        }
+        if (!Objects.isNull(bannerDto.getMoImageFile()) && bannerDto.getMoImageFile().getSize() > 0) {
+            bannerEntity.setMoImage(fileService.proc(bannerDto.getMoImageFile(), refType, "MO"));
+        }
 
         bannerDto.setPosition(codeService.findByCodeSeq(bannerDto.getPositionSeq()));
-        BannerEntity bannerEntity = bannerDto.bindToEntityForProc();
+        bannerEntity = bannerDto.bindToEntityForProc(bannerEntity);
         bannerRepository.save(bannerEntity);
     }
 
