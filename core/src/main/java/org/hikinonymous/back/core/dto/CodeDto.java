@@ -20,4 +20,10 @@ public class CodeDto {
         return codeDto;
     }
 
+    public static CodeEntity bindToEntity(CodeDto codeDto) {
+        CodeEntity codeEntity = new CodeEntity();
+        codeEntity.setCodeSeq(codeDto.getCodeSeq());
+        return codeEntity;
+    }
+
 }

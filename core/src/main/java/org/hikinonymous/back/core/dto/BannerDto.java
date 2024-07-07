@@ -37,6 +37,8 @@ public class BannerDto extends CommonDto {
 
     private String useYn;
 
+    private String delYn;
+
     private MultipartFile pcImageFile;
 
     private MultipartFile moImageFile;
@@ -53,8 +55,8 @@ public class BannerDto extends CommonDto {
         bannerEntity.setEtc(this.getEtc());
         bannerEntity.setUrl(this.getUrl());
         bannerEntity.setUseYn(this.getUseYn());
-//        bannerEntity.setPcImage(this.getPcImage());
-//        bannerEntity.setMoImage(this.getMoImage());
+        bannerEntity.setPcImage(FileDto.bindToEntityForProc(this.getPcImage()));
+        bannerEntity.setMoImage(FileDto.bindToEntityForProc(this.getMoImage()));
         if (Objects.isNull(this.getBannerSeq())) {
             bannerEntity.setRegDate(this.getRegDate());
             bannerEntity.setRegister(this.getRegister());

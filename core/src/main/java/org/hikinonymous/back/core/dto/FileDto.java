@@ -58,4 +58,16 @@ public class FileDto extends CommonDto {
         fileDto.setFileApiPath("/cms/common/file/view/");
         return fileDto;
     }
+
+    public static FileDto bindToDtoForProc(FileInfoEntity fileInfoEntity) {
+        FileDto fileDto = new FileDto();
+        fileDto.setFileInfoSeq(fileInfoEntity.getFileInfoSeq());
+        return fileDto;
+    }
+
+    public static FileInfoEntity bindToEntityForProc(FileDto fileDto) {
+        FileInfoEntity fileInfoEntity = new FileInfoEntity();
+        fileInfoEntity.setFileInfoSeq(fileDto.getFileInfoSeq());
+        return fileInfoEntity;
+    }
 }
