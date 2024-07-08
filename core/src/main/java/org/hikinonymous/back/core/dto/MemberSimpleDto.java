@@ -17,9 +17,9 @@ public class MemberSimpleDto {
 
     private Integer reportCnt;
 
-    private Integer totalBoardCnt;
+    private Long totalBoardCnt;
 
-    private Integer totalReplyCnt;
+    private Long totalReplyCnt;
 
     private String lastLoginDate;
 

@@ -1,6 +1,8 @@
 package org.hikinonymous.back.core.repository.member;
 
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.CodeDto;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+
+import static com.querydsl.core.types.ExpressionUtils.count;
 
 @RequiredArgsConstructor
 public class MemberRepositoryImpl implements MemberRepositoryCustom {
@@ -40,20 +44,24 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                                         qMemberEntity.memberStatus.codeNm
                                 ).as("memberStatus"),
                                 qMemberEntity.reportCnt,
-                                queryFactory
-                                        .select(qBoardEntity.count().intValue().as("totalBoardCnt"))
-                                        .from(qBoardEntity)
-                                        .where(
-                                                qBoardEntity.register.eq(qMemberEntity)
+                                ExpressionUtils.as(
+                                        JPAExpressions
+                                                .select(count(qBoardEntity))
+                                                .from(qBoardEntity)
+                                                .where(
+                                                        qBoardEntity.register.eq(qMemberEntity)
                                                         .and(qBoardEntity.delYn.eq("N"))
-                                        ),
-                                queryFactory
-                                        .select(qReplyEntity.count().intValue().as("totalReplyCnt"))
-                                        .from(qReplyEntity)
-                                        .where(
-                                                qReplyEntity.register.eq(qMemberEntity)
-                                                        .and(qReplyEntity.delYn.eq("N"))
-                                        ),
+                                                ),
+                                        "totalBoardCnt"),
+                                ExpressionUtils.as(
+                                        JPAExpressions
+                                                .select(count(qReplyEntity))
+                                                .from(qReplyEntity)
+                                                .where(
+                                                        qReplyEntity.register.eq(qMemberEntity)
+                                                                .and(qReplyEntity.delYn.eq("N"))
+                                                ),
+                                        "totalReplyCnt"),
                                 qMemberEntity.lastLoginDate,
                                 qMemberEntity.regDate
                         )
