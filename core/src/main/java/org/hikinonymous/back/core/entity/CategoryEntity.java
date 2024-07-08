@@ -32,7 +32,16 @@ public class CategoryEntity {
 
     @Column(nullable = false)
     @Comment("순서")
-    private Integer sort;
+    private Integer sortOrder;
+
+    @Column(nullable = false)
+    @Comment("카테고리 레벨")
+    private Integer categoryLevel;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "topCategory")
+    @Comment("상위 카테고리 SEQ")
+    private CategoryEntity topCategory;
 
     @Column(nullable = false, length = 1)
     @Comment("사용 여부")
@@ -47,7 +56,7 @@ public class CategoryEntity {
     @Comment("등록자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "register", nullable = false)
-    private MemberEntity register;
+    private ManagerEntity register;
 
     // 등록일
     @Column(nullable = false, length = 14)
@@ -63,7 +72,7 @@ public class CategoryEntity {
     @Comment("수정자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "updater")
-    private MemberEntity updater;
+    private ManagerEntity updater;
 
     // 수정일
     @Column(length = 14)
