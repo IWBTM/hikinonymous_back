@@ -33,9 +33,13 @@ public class MemberSimpleDto {
     @Schema(description = "작성한 댓글 수")
     private Long totalReplyCnt;
 
+    @Schema(description = "마지막 로그인일")
     private String lastLoginDate;
 
-    @Schema(description = "마지막 로그인일")
+    @Schema(description = "탈퇴일")
+    private String dropDate;
+
+    @Schema(description = "가입일")
     private String regDate;
 
 }

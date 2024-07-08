@@ -2,6 +2,8 @@ package org.hikinonymous.back.cms.controller.member;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -67,6 +69,7 @@ public class MemberMgmtController {
             memberSimpleDto.setMemberEmail(EncUtil.decryptAES256(memberSimpleDto.getMemberEmail()));
 
             memberSimpleDto.setLastLoginDate(CommonUtil.getDayByStrDate(memberSimpleDto.getLastLoginDate()));
+            memberSimpleDto.setDropDate(CommonUtil.getDayByStrDate(memberSimpleDto.getDropDate()));
             memberSimpleDto.setRegDate(CommonUtil.getDayByStrDate(memberSimpleDto.getRegDate()));
             return memberSimpleDto;
         }));
@@ -100,6 +103,7 @@ public class MemberMgmtController {
         memberDto.setMemberHp(EncUtil.decryptAES256(memberDto.getMemberHp()));
 
         memberDto.setLastLoginDate(CommonUtil.getDayByStrDate(memberDto.getLastLoginDate()));
+        memberDto.setDropDate(CommonUtil.getDayByStrDate(memberDto.getDropDate()));
         memberDto.setRegDate(CommonUtil.getDayByStrDate(memberDto.getRegDate()));
         responseDto.setData(memberDto);
         return ResponseUtil.success(responseDto);
@@ -112,44 +116,41 @@ public class MemberMgmtController {
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @PostMapping(value = "{memberStatus}/updateReportCnt")
+    @PostMapping(value = "{memberStatus}/updateReportCnt/{seq}")
     public ResponseDto updateReportCnt(
             HttpServletRequest request,
-            @RequestBody @Valid MemberDto memberDto
+            @PathVariable(name = "seq") @Parameter(
+                    name = "seq",
+                    description = MENU_NAME + " SEQ"
+            ) Long seq
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        managerLogService.proc(request, MENU_NAME + " 신고 횟수 초기화", "",  manager);
+        managerLogService.proc(request, MENU_NAME + " 신고 횟수", "U",  manager);
 
-        if (Objects.isNull(memberDto)) return ResponseUtil.emptyRequestBody(responseDto);
-
-        CommonUtil.setClientInfo(request, memberDto, manager);
-        memberService.updateReportCnt(memberDto);
+        memberService.updateReportCnt(seq);
         return ResponseUtil.success(responseDto);
     }
 
     @Operation(
-            summary = MENU_NAME + " 상태 저장",
-            description = MENU_NAME + " 상태를 저장한다."
+            summary = MENU_NAME + " 정보 저장",
+            description = MENU_NAME + " 정보를 저장한다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @PostMapping(value = "{memberStatus}/updateMemberStatus")
-    public ResponseDto updateMemberStatus(
+    @PostMapping(value = "{memberStatus}/proc")
+    public ResponseDto proc(
             HttpServletRequest request,
-            @RequestBody @Valid MemberDto memberDto
+            @RequestBody @Valid MemberUpdDto memberUpdDto
     ) {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        managerLogService.proc(request, MENU_NAME + " 상태", "U",  manager);
+        managerLogService.proc(request, MENU_NAME + " 정보", "U",  manager);
 
-        if (Objects.isNull(memberDto)) return ResponseUtil.emptyRequestBody(responseDto);
-
-        CommonUtil.setClientInfo(request, memberDto, manager);
-        memberService.updateMemberStatus(memberDto);
+        memberService.updateMemberStatusAndMemo(memberUpdDto);
         return ResponseUtil.success(responseDto);
     }
 

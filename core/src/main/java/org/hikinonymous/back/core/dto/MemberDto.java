@@ -2,8 +2,6 @@ package org.hikinonymous.back.core.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import org.hikinonymous.back.core.entity.MemberEntity;
-import org.hikinonymous.back.core.utils.CommonUtil;
 
 @Schema(
         description = "회원 DTO"
@@ -40,6 +38,9 @@ public class MemberDto extends CommonDto {
 
     @Schema(description = "마지막 로그인일")
     private String lastLoginDate;
+
+    @Schema(description = "탈퇴일")
+    private String dropDate;
 
     @Schema(description = "가입 타입")
     private CodeDto joinType;

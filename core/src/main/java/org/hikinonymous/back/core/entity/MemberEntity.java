@@ -96,6 +96,10 @@ public class MemberEntity {
     @Comment("마지막 로그인일")
     private String lastLoginDate;
 
+    @Column(nullable = true, length = 14)
+    @Comment("탈퇴일")
+    private String dropDate;
+
     // 등록일
     @Column(nullable = false, length = 50)
     @Comment("등록일")

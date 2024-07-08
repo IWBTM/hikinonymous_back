@@ -3,6 +3,7 @@ package org.hikinonymous.back.core.service;
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.MemberDto;
 import org.hikinonymous.back.core.dto.MemberSimpleDto;
+import org.hikinonymous.back.core.dto.MemberUpdDto;
 import org.hikinonymous.back.core.entity.MemberEntity;
 import org.hikinonymous.back.core.repository.member.MemberRepository;
 import org.springframework.data.domain.Page;
@@ -37,13 +38,18 @@ public class MemberService {
         );
     }
 
-    public void updateMemberStatus(MemberDto memberDto) {
-        MemberEntity memberEntity = this.findById(memberDto.getMemberSeq());
-        memberEntity.setMemberStatus(codeService.findByCodeSeq(memberDto.getMemberSeq()));
+    public void updateReportCnt(Long seq) {
+        MemberEntity memberEntity = this.findById(seq);
+        memberEntity.setReportCnt(0);
+        memberRepository.save(memberEntity);
     }
 
-    public void updateReportCnt(MemberDto memberDto) {
-        MemberEntity memberEntity = this.findById(memberDto.getMemberSeq());
-        memberEntity.setReportCnt(memberDto.getReportCnt());
+    public void updateMemberStatusAndMemo(MemberUpdDto memberUpdDto) {
+        MemberEntity memberEntity = this.findById(memberUpdDto.getMemberSeq());
+        if (!memberEntity.getMemberStatus().getCode().equals("DROP")) {
+            memberEntity.setMemberStatus(codeService.findByCodeSeq(memberUpdDto.getMemberStatusSeq()));
+        }
+        memberEntity.setMemo(memberUpdDto.getMemo());
+        memberRepository.save(memberEntity);
     }
 }

@@ -63,11 +63,12 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                                                 ),
                                         "totalReplyCnt"),
                                 qMemberEntity.lastLoginDate,
+                                qMemberEntity.dropDate,
                                 qMemberEntity.regDate
                         )
                 )
                 .from(qMemberEntity)
-                .where(qMemberEntity.memberStatus.code.eq(memberStatus)
+                .where(memberStatus.equals("DROP") ? qMemberEntity.memberStatus.code.eq(memberStatus) : qMemberEntity.memberStatus.code.ne("DROP")
                         .and(qMemberEntity.memberStatus.codeMasterEntity.codeMaster.eq("MEMBER_STATUS")))
                 .orderBy(qMemberEntity.regDate.desc())
                 .fetch();
@@ -77,7 +78,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                         qMemberEntity.count()
                 )
                 .from(qMemberEntity)
-                .where(qMemberEntity.memberStatus.code.eq(memberStatus)
+                .where(memberStatus.equals("DROP") ? qMemberEntity.memberStatus.code.eq(memberStatus) : qMemberEntity.memberStatus.code.ne("DROP")
                         .and(qMemberEntity.memberStatus.codeMasterEntity.codeMaster.eq("MEMBER_STATUS")))
                 .orderBy(qMemberEntity.regDate.desc())
                 .fetchOne();
@@ -114,6 +115,8 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                                         qMemberEntity.gender,
                                         qMemberEntity.memo,
                                         qMemberEntity.reportCnt,
+                                        qMemberEntity.regDate,
+                                        qMemberEntity.dropDate,
                                         qMemberEntity.lastLoginDate,
                                         ExpressionUtils.as(
                                                 JPAExpressions
