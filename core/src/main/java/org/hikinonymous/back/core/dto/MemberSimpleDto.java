@@ -3,7 +3,7 @@ package org.hikinonymous.back.core.dto;
 import lombok.Data;
 
 @Data
-public class MemberSimpleDto extends CommonDto {
+public class MemberSimpleDto {
 
     private Long memberSeq;
 
@@ -15,10 +15,14 @@ public class MemberSimpleDto extends CommonDto {
 
     private CodeDto memberStatus;
 
-    private String gender;
-
     private Integer reportCnt;
 
+    private Integer totalBoardCnt;
+
+    private Integer totalReplyCnt;
+
     private String lastLoginDate;
+
+    private String regDate;
 
 }

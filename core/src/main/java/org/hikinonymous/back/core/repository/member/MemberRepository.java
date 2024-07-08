@@ -12,6 +12,4 @@ import java.util.List;
 @Repository
 public interface MemberRepository extends JpaRepository<MemberEntity, Long>, MemberRepositoryCustom {
 
-    Page<MemberEntity> findAllByMemberStatus(CodeEntity memberStatus, Pageable pageable);
-
 }

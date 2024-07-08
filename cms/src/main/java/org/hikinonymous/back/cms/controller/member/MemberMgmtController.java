@@ -13,6 +13,7 @@ import org.hikinonymous.back.core.entity.MemberEntity;
 import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.service.MemberService;
 import org.hikinonymous.back.core.utils.CommonUtil;
+import org.hikinonymous.back.core.utils.EncUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,10 +61,15 @@ public class MemberMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
 
-        Page<MemberEntity> memberEntityPages = memberService.findAllByMemberStatus(memberStatus, pageable);
-        responseDto.setData(memberEntityPages.stream().map(memberEntity ->
-            CommonUtil.bindToObjectFromObject(memberEntity, MemberSimpleDto.class)
-        ));
+        Page<MemberSimpleDto> pages = memberService.findAllByMemberStatus(memberStatus.toUpperCase(), pageable);
+        responseDto.setData(pages.stream().map(memberSimpleDto -> {
+            memberSimpleDto.setMemberName(EncUtil.decryptAES256(memberSimpleDto.getMemberName()));
+            memberSimpleDto.setMemberEmail(EncUtil.decryptAES256(memberSimpleDto.getMemberEmail()));
+
+            memberSimpleDto.setLastLoginDate(CommonUtil.getDayByStrDate(memberSimpleDto.getLastLoginDate()));
+            memberSimpleDto.setRegDate(CommonUtil.getDayByStrDate(memberSimpleDto.getRegDate()));
+            return memberSimpleDto;
+        }));
         return ResponseUtil.success(responseDto);
     }
 

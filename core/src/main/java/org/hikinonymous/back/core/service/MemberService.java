@@ -2,6 +2,7 @@ package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.MemberDto;
+import org.hikinonymous.back.core.dto.MemberSimpleDto;
 import org.hikinonymous.back.core.entity.MemberEntity;
 import org.hikinonymous.back.core.repository.member.MemberRepository;
 import org.springframework.data.domain.Page;
@@ -20,8 +21,8 @@ public class MemberService {
 
     private final CodeService codeService;
 
-    public Page<MemberEntity> findAllByMemberStatus(String memberStatus, Pageable pageable) {
-        return memberRepository.findAllByMemberStatus(codeService.findByCodeAndCodeMaster("MEMBER_STATUS", memberStatus), PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
+    public Page<MemberSimpleDto> findAllByMemberStatus(String memberStatus, Pageable pageable) {
+        return memberRepository.findAllByMemberStatus(memberStatus, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
     }
 
     public MemberEntity findById(Long seq) {
