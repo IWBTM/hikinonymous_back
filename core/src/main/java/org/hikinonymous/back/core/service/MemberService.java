@@ -21,8 +21,14 @@ public class MemberService {
 
     private final CodeService codeService;
 
-    public Page<MemberSimpleDto> findAllByMemberStatus(String memberStatus, Pageable pageable) {
+    public Page<MemberSimpleDto> pagingByMemberStatus(String memberStatus, Pageable pageable) {
         return memberRepository.findAllByMemberStatus(memberStatus, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
+    }
+
+    public MemberDto findDtoById(Long seq) {
+        return memberRepository.findDtoById(seq).orElseThrow(() ->
+                new NoSuchElementException("Member Seq: " + seq + " not found")
+        );
     }
 
     public MemberEntity findById(Long seq) {

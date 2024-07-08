@@ -61,7 +61,7 @@ public class MemberMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
 
-        Page<MemberSimpleDto> pages = memberService.findAllByMemberStatus(memberStatus.toUpperCase(), pageable);
+        Page<MemberSimpleDto> pages = memberService.pagingByMemberStatus(memberStatus.toUpperCase(), pageable);
         responseDto.setData(pages.map(memberSimpleDto -> {
             memberSimpleDto.setMemberName(EncUtil.decryptAES256(memberSimpleDto.getMemberName()));
             memberSimpleDto.setMemberEmail(EncUtil.decryptAES256(memberSimpleDto.getMemberEmail()));
@@ -94,9 +94,10 @@ public class MemberMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
 
-        MemberDto memberDto = MemberDto.bindToDtoForView(memberService.findById(seq));
+        MemberDto memberDto = memberService.findDtoById(seq);
         memberDto.setMemberName(EncUtil.decryptAES256(memberDto.getMemberName()));
         memberDto.setMemberEmail(EncUtil.decryptAES256(memberDto.getMemberEmail()));
+        memberDto.setMemberHp(EncUtil.decryptAES256(memberDto.getMemberHp()));
 
         memberDto.setLastLoginDate(CommonUtil.getDayByStrDate(memberDto.getLastLoginDate()));
         memberDto.setRegDate(CommonUtil.getDayByStrDate(memberDto.getRegDate()));

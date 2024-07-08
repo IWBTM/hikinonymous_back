@@ -23,6 +23,9 @@ public class MemberDto extends CommonDto {
     @Schema(description = "회원 이메일")
     private String memberEmail;
 
+    @Schema(description = "회원 연락처")
+    private String memberHp;
+
     @Schema(description = "회원 상태")
     private CodeDto memberStatus;
 
@@ -53,10 +56,4 @@ public class MemberDto extends CommonDto {
     @Schema(description = "이메일 머시기 동의 여부")
     private String receiveAdsEmailYn;
 
-    public static MemberDto bindToDtoForView(MemberEntity memberEntity) {
-        MemberDto memberDto = (MemberDto) CommonUtil.bindToObjectFromObject(memberEntity, MemberDto.class);
-        memberDto.setMemberStatus(CodeDto.bindToDto(memberEntity.getMemberStatus()));
-        memberDto.setJoinType(CodeDto.bindToDto(memberEntity.getJoinType()));
-        return memberDto;
-    }
 }

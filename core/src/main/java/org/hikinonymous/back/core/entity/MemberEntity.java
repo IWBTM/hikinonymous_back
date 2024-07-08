@@ -43,6 +43,11 @@ public class MemberEntity {
     @Comment("회원 비밀번호 (암호화)")
     private String memberPwd;
 
+    // 회원 연락처 (암호화)
+    @Column(nullable = false, length = 255)
+    @Comment("회원 연락처 (암호화)")
+    private String memberHp;
+
     // 회원 상태
     @Comment("회원 상태")
     @ManyToOne(fetch = FetchType.EAGER)
