@@ -2,6 +2,8 @@ package org.hikinonymous.back.core.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.hikinonymous.back.core.entity.MemberEntity;
+import org.hikinonymous.back.core.utils.CommonUtil;
 
 @Schema(
         description = "회원 DTO"
@@ -27,6 +29,9 @@ public class MemberDto extends CommonDto {
     @Schema(description = "성별")
     private String gender;
 
+    @Schema(description = "관리자 메모")
+    private String memo;
+
     @Schema(description = "신고 누적 횟수")
     private Integer reportCnt;
 
@@ -36,10 +41,22 @@ public class MemberDto extends CommonDto {
     @Schema(description = "가입 타입")
     private CodeDto joinType;
 
+    @Schema(description = "작성한 게시글 수")
+    private Long totalBoardCnt;
+
+    @Schema(description = "작성한 댓글 수")
+    private Long totalReplyCnt;
+
     @Schema(description = "개인정보보호 동의 여부")
     private String privacyYn;
 
     @Schema(description = "이메일 머시기 동의 여부")
     private String receiveAdsEmailYn;
 
+    public static MemberDto bindToDtoForView(MemberEntity memberEntity) {
+        MemberDto memberDto = (MemberDto) CommonUtil.bindToObjectFromObject(memberEntity, MemberDto.class);
+        memberDto.setMemberStatus(CodeDto.bindToDto(memberEntity.getMemberStatus()));
+        memberDto.setJoinType(CodeDto.bindToDto(memberEntity.getJoinType()));
+        return memberDto;
+    }
 }

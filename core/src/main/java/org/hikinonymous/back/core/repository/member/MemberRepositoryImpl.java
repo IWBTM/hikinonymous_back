@@ -7,9 +7,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.CodeDto;
 import org.hikinonymous.back.core.dto.MemberSimpleDto;
-import org.hikinonymous.back.core.entity.QBoardEntity;
-import org.hikinonymous.back.core.entity.QMemberEntity;
-import org.hikinonymous.back.core.entity.QReplyEntity;
+import org.hikinonymous.back.core.entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -67,8 +65,8 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                         )
                 )
                 .from(qMemberEntity)
-                .where(qMemberEntity.memberStatus.codeNm.eq(memberStatus)
-                        .and(qMemberEntity.memberStatus.codeMasterEntity.codeMasterNm.eq("MEMBER_STATUS")))
+                .where(qMemberEntity.memberStatus.code.eq(memberStatus)
+                        .and(qMemberEntity.memberStatus.codeMasterEntity.codeMaster.eq("MEMBER_STATUS")))
                 .orderBy(qMemberEntity.regDate.desc())
                 .fetch();
 
@@ -77,8 +75,8 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                         qMemberEntity.count()
                 )
                 .from(qMemberEntity)
-                .where(qMemberEntity.memberStatus.codeNm.eq(memberStatus)
-                        .and(qMemberEntity.memberStatus.codeMasterEntity.codeMasterNm.eq("MEMBER_STATUS")))
+                .where(qMemberEntity.memberStatus.code.eq(memberStatus)
+                        .and(qMemberEntity.memberStatus.codeMasterEntity.codeMaster.eq("MEMBER_STATUS")))
                 .orderBy(qMemberEntity.regDate.desc())
                 .fetchOne();
         return new PageImpl(memberSimpleDtoList, pageable, totalMemberCnt);

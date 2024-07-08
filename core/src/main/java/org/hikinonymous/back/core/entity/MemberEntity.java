@@ -59,6 +59,10 @@ public class MemberEntity {
     @Comment("성별")
     private String gender;
 
+    @Column(nullable = true, length = 255)
+    @Comment("관리자 메모")
+    private String memo;
+
     // 가입 경로
     @Comment("가입 경로")
     @ManyToOne(fetch = FetchType.EAGER)
@@ -83,7 +87,7 @@ public class MemberEntity {
     private String receiveAdsEmailYn;
 
     // 마지막 로그인일
-    @Column(nullable = false, length = 14)
+    @Column(nullable = true, length = 14)
     @Comment("마지막 로그인일")
     private String lastLoginDate;
 
