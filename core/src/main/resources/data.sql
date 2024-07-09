@@ -34,6 +34,8 @@ VALUES
     ('SERVICE_BOARD_TYPE', 'FAQ', 'FAQ', 'N', '', 1),
     ('SERVICE_BOARD_TYPE', 'NOTICE', '공지사항', 'N', '', 2),
     ('SERVICE_BOARD_TYPE', 'INQUIRY', '문의', 'N', '', 3),
+    ('SERVICE_BOARD_TYPE', 'TERM', '이용 약관', 'N', '', 4),
+    ('SERVICE_BOARD_TYPE', 'PRIVACY', '개인 정보 보호', 'N', '', 5),
 
     ('BANNER_POSITION', 'MAIN_TOP', '메인 탑', 'N', '', 1),
 

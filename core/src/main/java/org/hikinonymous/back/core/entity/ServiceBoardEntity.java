@@ -30,28 +30,28 @@ public class ServiceBoardEntity {
     @Comment("내용")
     private String content;
 
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "LONGTEXT")
     @Comment("요약")
     private String summary;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "pcThumbImage", nullable = false)
+    @JoinColumn(name = "pcThumbImage")
     private FileInfoEntity pcThumbImage;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "moThumbImage", nullable = false)
+    @JoinColumn(name = "moThumbImage")
     private FileInfoEntity moThumbImage;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "pcMainImage", nullable = false)
+    @JoinColumn(name = "pcMainImage")
     private FileInfoEntity pcMainImage;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "moMainImage", nullable = false)
+    @JoinColumn(name = "moMainImage")
     private FileInfoEntity moMainImage;
 
     @Comment("서비스 게시글 타입")
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "serviceBoardType", nullable = false)
     private CodeEntity serviceBoardType;
 
@@ -69,7 +69,7 @@ public class ServiceBoardEntity {
     @Comment("등록자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "register", nullable = false)
-    private MemberEntity register;
+    private ManagerEntity register;
 
     // 등록일
     @Column(nullable = false, length = 14)
@@ -85,7 +85,7 @@ public class ServiceBoardEntity {
     @Comment("수정자")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "updater")
-    private MemberEntity updater;
+    private ManagerEntity updater;
 
     // 수정일
     @Column(length = 14)

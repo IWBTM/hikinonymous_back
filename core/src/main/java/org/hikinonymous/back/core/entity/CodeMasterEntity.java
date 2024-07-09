@@ -29,7 +29,7 @@ public class CodeMasterEntity {
     private String codeMasterNm;
 
     // 설명
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     @Comment("설명")
     private String etc;
 

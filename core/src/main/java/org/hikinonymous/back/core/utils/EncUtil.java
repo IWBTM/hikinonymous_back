@@ -1,5 +1,8 @@
 package org.hikinonymous.back.core.utils;
 
+import ch.qos.logback.core.util.StringUtil;
+import org.mariadb.jdbc.util.StringUtils;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -20,7 +23,6 @@ public class EncUtil {
      * AES256 암호화
      */
     public static String encryptAES256(String text) {
-        String enc;
         try {
             Cipher cipher = Cipher.getInstance(AES_ALGORITHMS);
             SecretKeySpec keySpec = new SecretKeySpec(PRIVATE_KEY.getBytes(), "AES");
@@ -28,7 +30,7 @@ public class EncUtil {
 
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivParamSpec);
             byte[] encrypted = cipher.doFinal(text.getBytes(StandardCharsets.UTF_8));
-            return enc = Base64.getEncoder().encodeToString(encrypted);
+            return Base64.getEncoder().encodeToString(encrypted);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -39,6 +41,7 @@ public class EncUtil {
      */
     public static String decryptAES256(String enc) {
         try {
+            if (StringUtil.isNullOrEmpty(enc)) return "-";
             Cipher cipher = Cipher.getInstance(AES_ALGORITHMS);
             SecretKeySpec keySpec = new SecretKeySpec(PRIVATE_KEY.getBytes(), "AES");
             IvParameterSpec ivParamSpec = new IvParameterSpec(IV.getBytes());
