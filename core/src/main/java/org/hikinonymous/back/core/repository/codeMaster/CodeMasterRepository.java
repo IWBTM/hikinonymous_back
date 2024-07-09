@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CodeMasterRepository extends JpaRepository<CodeMasterEntity, Long>, CodeMasterRepositoryCustom {
+public interface CodeMasterRepository extends JpaRepository<CodeMasterEntity, String>, CodeMasterRepositoryCustom {
 
     Optional<CodeMasterEntity> findByCodeMaster(String codeMaster);
 

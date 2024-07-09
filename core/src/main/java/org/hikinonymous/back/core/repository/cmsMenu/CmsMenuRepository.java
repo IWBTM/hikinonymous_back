@@ -16,8 +16,6 @@ public interface CmsMenuRepository extends JpaRepository<CmsMenuEntity, Long>, C
 
     Stream<CmsMenuEntity> streamAllByDisplayYnAndDelYnOrderBySortOrder(String displayYn, String delYn);
 
-    Stream<CmsMenuEntity> streamAllByDelYn(String delYn);
-
     Optional<CmsMenuEntity> findByCmsMenuSeq(Long seq);
 
     Page<CmsMenuEntity> findAllByMenuLevel(PageRequest of, Integer menuLevel);

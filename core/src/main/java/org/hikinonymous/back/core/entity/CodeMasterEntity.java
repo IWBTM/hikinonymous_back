@@ -28,6 +28,11 @@ public class CodeMasterEntity {
     @Comment("코드 이름")
     private String codeMasterNm;
 
+    // 설명
+    @Column(nullable = false, length = 50)
+    @Comment("설명")
+    private String etc;
+
     // 삭제 여부
     @Column(nullable = false, length = 1)
     @Comment("삭제 여부")

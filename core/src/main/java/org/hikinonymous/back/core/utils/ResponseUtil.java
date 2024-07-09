@@ -125,7 +125,6 @@ public class ResponseUtil {
         return responseDto;
     }
 
-
     /**
      * SERVER_ERROR
      * CODE - 500

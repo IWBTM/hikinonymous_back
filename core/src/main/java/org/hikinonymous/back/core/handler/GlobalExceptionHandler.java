@@ -1,6 +1,7 @@
 package org.hikinonymous.back.core.handler;
 
 import com.querydsl.core.types.ExpressionException;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.validation.UnexpectedTypeException;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.utils.ResponseUtil;
@@ -198,6 +199,16 @@ public class GlobalExceptionHandler {
         logger.error("========== REASON:: " + e.getMessage() + " ==========");
         logger.info("========== E ExpressionException ==========");
         return ResponseUtil.serverError(new ResponseDto());
+    }
+
+    /**
+     * ExpiredJwtException.
+     */
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseDto handleExpiredJwtException(ExpiredJwtException e) {
+        logger.info("========== S ExpiredJwtException ==========");
+        logger.info("========== E ExpiredJwtException ==========");
+        return ResponseUtil.failedAuthentication(new ResponseDto());
     }
 
 }

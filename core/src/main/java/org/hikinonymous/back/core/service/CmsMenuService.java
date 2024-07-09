@@ -16,7 +16,6 @@ import org.springframework.web.server.ServerErrorException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 
@@ -33,11 +32,6 @@ public class CmsMenuService {
 
     public List<CmsMenuDto> findAllByManagerSeq(Long managerSeq) {
         return cmsMenuRepository.findAllByManagerSeq(managerSeq);
-    }
-
-    @Transactional
-    public Stream<CmsMenuEntity> streamAllByDelYn(String delYn) {
-        return cmsMenuRepository.streamAllByDelYn(delYn);
     }
 
     @Transactional
