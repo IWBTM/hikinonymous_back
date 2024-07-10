@@ -19,6 +19,9 @@ public class CommonMemberDto implements Serializable {
     private String registerNm;
 
     @Schema(hidden = true)
+    private String registerNickName;
+
+    @Schema(hidden = true)
     private String registerIp;
 
     @Schema(hidden = true)

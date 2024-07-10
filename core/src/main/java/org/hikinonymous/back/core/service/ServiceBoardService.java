@@ -28,7 +28,6 @@ public class ServiceBoardService {
     private final CodeService codeService;
 
     public Page<ServiceBoardEntity> findAllByServiceBoardType(String serviceBoardType, Pageable pageable) {
-        serviceBoardType = serviceBoardType.toUpperCase();
         return serviceBoardRepository.findAllByServiceBoardTypeAndDelYn(codeService.findByCodeAndCodeMaster(serviceBoardType, "SERVICE_BOARD_TYPE"), PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()), "N");
     }
 

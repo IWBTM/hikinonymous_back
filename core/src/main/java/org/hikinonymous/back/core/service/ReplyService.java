@@ -2,6 +2,7 @@ package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.ReplyDto;
+import org.hikinonymous.back.core.entity.BoardEntity;
 import org.hikinonymous.back.core.entity.ReplyEntity;
 import org.hikinonymous.back.core.repository.reply.ReplyRepository;
 import org.springframework.data.domain.Page;
@@ -22,7 +23,7 @@ public class ReplyService {
     private final CodeService codeService;
 
     public Page<ReplyEntity> findAllByBoardSeq(Long boardSeq, Pageable pageable) {
-        return replyRepository.findAllByBoardEntity(boardService.findById(boardSeq), PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
+        return replyRepository.findAllByBoardAndDelYn(boardService.findById(boardSeq), PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()), "N");
     }
 
     public ReplyEntity findById(Long seq) {
@@ -38,4 +39,5 @@ public class ReplyService {
 
         replyRepository.save(replyEntity);
     }
+
 }

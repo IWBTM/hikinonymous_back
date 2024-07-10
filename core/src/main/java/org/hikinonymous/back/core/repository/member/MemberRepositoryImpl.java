@@ -2,6 +2,7 @@ package org.hikinonymous.back.core.repository.member;
 
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -68,8 +69,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                         )
                 )
                 .from(qMemberEntity)
-                .where(memberStatus.equals("DROP") ? qMemberEntity.memberStatus.code.eq(memberStatus) : qMemberEntity.memberStatus.code.ne("DROP")
-                        .and(qMemberEntity.memberStatus.codeMasterEntity.codeMaster.eq("MEMBER_STATUS")))
+                .where(getMemberListWhere(memberStatus, qMemberEntity))
                 .orderBy(qMemberEntity.regDate.desc())
                 .fetch();
 
@@ -78,11 +78,14 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                         qMemberEntity.count()
                 )
                 .from(qMemberEntity)
-                .where(memberStatus.equals("DROP") ? qMemberEntity.memberStatus.code.eq(memberStatus) : qMemberEntity.memberStatus.code.ne("DROP")
-                        .and(qMemberEntity.memberStatus.codeMasterEntity.codeMaster.eq("MEMBER_STATUS")))
-                .orderBy(qMemberEntity.regDate.desc())
+                .where(getMemberListWhere(memberStatus, qMemberEntity))
                 .fetchOne();
         return new PageImpl(memberSimpleDtoList, pageable, totalMemberCnt);
+    }
+    
+    private BooleanExpression getMemberListWhere(String memberStatus, QMemberEntity qMemberEntity) {
+        return memberStatus.equals("DROP") ? qMemberEntity.memberStatus.code.eq(memberStatus) : qMemberEntity.memberStatus.code.ne("DROP")
+                .and(qMemberEntity.memberStatus.codeMasterEntity.codeMaster.eq("MEMBER_STATUS"));
     }
 
     @Override

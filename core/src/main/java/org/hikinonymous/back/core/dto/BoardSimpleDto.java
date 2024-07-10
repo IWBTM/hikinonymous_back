@@ -1,16 +1,25 @@
 package org.hikinonymous.back.core.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import org.hikinonymous.back.core.entity.*;
+import lombok.NoArgsConstructor;
 
 @Data
-public class BoardSimpleDto extends CommonManagerDto {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class BoardSimpleDto extends CommonMemberDto {
 
     private Long boardSeq;
 
     private String title;
 
-    private CategoryEntity category;
+    private CategoryDto category;
+
+    private Long viewCnt;
+
+    private Long replyCnt;
 
     private String delYn;
 

@@ -26,7 +26,7 @@ public class InquiryEntity {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "inquiry")
-    private List<InquiryFileEntity> inquiryFile;
+    private List<InquiryFileEntity> inquiryFiles;
 
     @Column(nullable = false, length = 255)
     @Comment("제목")
@@ -50,7 +50,6 @@ public class InquiryEntity {
     @Comment("확인 여부")
     @ColumnDefault(value = "'N'")
     private String readYn;
-
 
     @Column(nullable = false, length = 1)
     @Comment("답장 여부")

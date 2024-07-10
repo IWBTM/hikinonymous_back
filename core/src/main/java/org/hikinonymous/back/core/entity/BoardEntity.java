@@ -9,6 +9,8 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,6 +41,18 @@ public class BoardEntity {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "boardType", nullable = false)
     private CodeEntity boardType;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "board")
+    private List<ReplyEntity> replies;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "board")
+    private List<BoardFileEntity> boardFiles;
+
+    @Column(nullable = false)
+    @Comment("조회수")
+    private Long viewCnt;
 
     @Column(nullable = false, length = 1)
     @Comment("삭제 여부")

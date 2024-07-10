@@ -26,7 +26,7 @@ public class CodeService {
     private final CodeMasterService codeMasterService;
 
     public CodeEntity findByCodeAndCodeMaster(String code, String codeMaster) {
-        return codeRepository.findByCodeAndCodeMasterEntity(code, codeMasterService.findByCodeMaster(codeMaster)).orElseThrow(() ->
+        return codeRepository.findByCodeAndCodeMasterEntity(code.toUpperCase(), codeMasterService.findByCodeMaster(codeMaster)).orElseThrow(() ->
                 new ServerErrorException("Code: " + code + " not found", null)
         );
     }

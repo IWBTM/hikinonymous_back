@@ -2,6 +2,7 @@ package org.hikinonymous.back.core.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hikinonymous.back.core.dto.BoardDto;
+import org.hikinonymous.back.core.dto.BoardSimpleDto;
 import org.hikinonymous.back.core.entity.BoardEntity;
 import org.hikinonymous.back.core.repository.board.BoardRepository;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,7 @@ public class BoardService {
 
     private final CodeService codeService;
 
-    public Page<BoardEntity> findAllByBoardType(String boardType, Pageable pageable) {
+    public Page<BoardSimpleDto> findAllByBoardType(String boardType, Pageable pageable) {
         return boardRepository.findAllByBoardType(codeService.findByCodeAndCodeMaster(boardType, "BOARD_TYPE"), PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()));
     }
 

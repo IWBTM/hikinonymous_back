@@ -29,7 +29,7 @@ public class ReplyEntity {
     @Comment("게시글")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "board", nullable = false)
-    private BoardEntity boardEntity;
+    private BoardEntity board;
 
     @Column(nullable = false, length = 1)
     @Comment("삭제 여부")

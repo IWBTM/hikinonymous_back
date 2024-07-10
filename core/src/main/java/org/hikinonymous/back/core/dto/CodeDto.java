@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hikinonymous.back.core.entity.CodeEntity;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -23,8 +21,6 @@ public class CodeDto {
     private String codeNm;
 
     private String etc;
-
-    private List<FileDto> inquiryFiles;
 
     private Integer sortOrder;
 

@@ -86,10 +86,10 @@ public class ResponseUtil {
     }
 
     /**
-     * VALID_REQUEST_PARAMETER_FORM
+     * INVALID_REQUEST_PARAMETER_FORM
      * CODE - 401
      */
-    public static ResponseDto validRequestParameterForm(ResponseDto responseDto) {
+    public static ResponseDto inValidRequestParameterForm(ResponseDto responseDto) {
         responseDto.setCode(HttpResponseStatus.INVALID_REQUEST_PARAMETER_FORM.getCode());
         responseDto.setMessage(HttpResponseStatus.INVALID_REQUEST_PARAMETER_FORM.getMessage());
         return responseDto;
@@ -112,6 +112,16 @@ public class ResponseUtil {
     public static ResponseDto emptyRequestBody(ResponseDto responseDto) {
         responseDto.setCode(HttpResponseStatus.EMPTY_REQUEST_BODY.getCode());
         responseDto.setMessage(HttpResponseStatus.EMPTY_REQUEST_BODY.getMessage());
+        return responseDto;
+    }
+
+    /**
+     * EMPTY_PROPERTY_IN_REQUEST_BODY
+     * CODE - 404
+     */
+    public static ResponseDto emptyPropertyInRequestBody(ResponseDto responseDto) {
+        responseDto.setCode(HttpResponseStatus.EMPTY_PROPERTY_IN_REQUEST_BODY.getCode());
+        responseDto.setMessage(HttpResponseStatus.EMPTY_PROPERTY_IN_REQUEST_BODY.getMessage());
         return responseDto;
     }
 

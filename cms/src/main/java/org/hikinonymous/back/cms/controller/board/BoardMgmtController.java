@@ -15,6 +15,7 @@ import org.hikinonymous.back.core.service.BoardService;
 import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.service.ReplyService;
 import org.hikinonymous.back.core.utils.CommonUtil;
+import org.hikinonymous.back.core.utils.EncUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,10 +67,11 @@ public class BoardMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
 
-        Page<BoardEntity> boardEntityPages = boardService.findAllByBoardType(boardType, pageable);
-        responseDto.setData(boardEntityPages.stream().map(boardEntity ->
-            CommonUtil.bindToObjectFromObject(boardEntity, BoardSimpleDto.class)
-        ));
+        responseDto.setData(boardService.findAllByBoardType(boardType, pageable).map(boardSimpleDto -> {
+            boardSimpleDto.setRegisterNm(EncUtil.decryptAES256(boardSimpleDto.getRegisterNm()));
+            boardSimpleDto.setRegDate(CommonUtil.getDayByStrDate(boardSimpleDto.getRegDate()));
+            return boardSimpleDto;
+        }));
         return ResponseUtil.success(responseDto);
     }
 
@@ -94,7 +96,7 @@ public class BoardMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
 
-        responseDto.setData(CommonUtil.bindToObjectFromObject(boardService.findById(seq), BoardDto.class));
+        responseDto.setData(BoardDto.bindToDtoForView(boardService.findById(seq)));
         return ResponseUtil.success(responseDto);
     }
 
@@ -117,7 +119,6 @@ public class BoardMgmtController {
 
         if (Objects.isNull(boardDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
-        CommonUtil.setManagerInfo(request, boardDto, manager);
         boardService.updateDelYn(boardDto);
         return ResponseUtil.success(responseDto);
     }
@@ -145,9 +146,12 @@ public class BoardMgmtController {
         managerLogService.proc(request, SUB_MENU_NAME + " 리스트", "R",  manager);
 
         Page<ReplyEntity> replyEntityPages = replyService.findAllByBoardSeq(boardSeq, pageable);
-        responseDto.setData(replyEntityPages.stream().map(replyEntity ->
-                CommonUtil.bindToObjectFromObject(replyEntity, ReplyDto.class)
-        ));
+        responseDto.setData(replyEntityPages.map(replyEntity -> {
+            ReplyDto replyDto = (ReplyDto) CommonUtil.bindToObjectFromObject(replyEntity, ReplyDto.class);
+            replyDto.setRegisterNm(EncUtil.decryptAES256(replyEntity.getRegister().getMemberName()));
+            replyDto.setRegDate(CommonUtil.getDayByStrDate(replyEntity.getRegDate()));
+            return replyDto;
+        }));
         return ResponseUtil.success(responseDto);
     }
 
@@ -170,7 +174,6 @@ public class BoardMgmtController {
 
         if (Objects.isNull(replyDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
-        CommonUtil.setManagerInfo(request, replyDto, manager);
         replyService.updateDelYn(replyDto);
         return ResponseUtil.success(responseDto);
     }

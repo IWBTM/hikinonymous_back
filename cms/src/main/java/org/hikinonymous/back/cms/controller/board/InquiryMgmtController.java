@@ -9,19 +9,16 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.*;
-import org.hikinonymous.back.core.entity.InquiryEntity;
 import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.service.InquiryService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @Tag(name = "INQUIRY MANAGEMENT MENU", description = "INQUIRY MANAGEMENT MENU API DOC")

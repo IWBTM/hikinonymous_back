@@ -23,7 +23,6 @@ public class InquiryService {
     private final CodeService codeService;
 
     public Page<InquiryEntity> findAllByInquiryType(String inquiryType, Pageable pageable) {
-        inquiryType = inquiryType.toUpperCase();
         return inquiryRepository.findAllByInquiryTypeAndDelYn(codeService.findByCodeAndCodeMaster(inquiryType, "INQUIRY_TYPE"), PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()), "N");
     }
 

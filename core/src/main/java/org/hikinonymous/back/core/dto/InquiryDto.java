@@ -66,7 +66,7 @@ public class InquiryDto extends CommonMemberDto {
         inquiryDto.setReadYn(inquiryEntity.getReadYn());
         inquiryDto.setInquiryType(CodeDto.bindToDto(inquiryEntity.getInquiryType()));
         inquiryDto.setReadYn(inquiryEntity.getReadYn());
-        inquiryDto.setInquiryFileDtoList(InquiryFileDto.bindToDtoList(inquiryEntity.getInquiryFile()));
+        inquiryDto.setInquiryFileDtoList(InquiryFileDto.bindToDtoList(inquiryEntity.getInquiryFiles()));
         inquiryDto.setRegisterNm(EncUtil.decryptAES256(inquiryEntity.getRegister().getMemberName()));
         inquiryDto.setRegDate(CommonUtil.getDayByStrDate(inquiryEntity.getRegDate()));
 

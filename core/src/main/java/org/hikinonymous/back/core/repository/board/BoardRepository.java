@@ -10,6 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Long>, BoardRepositoryCustom {
 
-    Page<BoardEntity> findAllByBoardType(CodeEntity boardType, Pageable pageable);
-
 }

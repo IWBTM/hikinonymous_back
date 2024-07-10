@@ -18,6 +18,7 @@ public enum HttpResponseStatus {
     INVALID_REQUEST_PARAMETER_FORM(401, "요청 파라미터 값의 형식이 올바르지 않습니다."),
     EMPTY_REQUEST_PARAMETER(402, "필수 값인 요청 파라미터가 비어 있습니다."),
     EMPTY_REQUEST_BODY(403, "요청 바디가 비어 있습니다."),
+    EMPTY_PROPERTY_IN_REQUEST_BODY(404, "요청 바디 내 데이터가 비어 있습니다."),
 
     HTTP_MEDIA_TYPE_NOT_SUPPORTED(490, "서버에서 요구하는 Content-Type이 아닙니다."),
 

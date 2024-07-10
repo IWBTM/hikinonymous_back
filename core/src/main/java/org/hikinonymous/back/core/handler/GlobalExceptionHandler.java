@@ -7,6 +7,7 @@ import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
@@ -72,7 +73,7 @@ public class GlobalExceptionHandler {
         messageTemp = messageTemp.substring(0, messageTemp.indexOf("]"));
         
         if (message.contains("NotBlank")) {
-            ResponseUtil.validRequestParameterForm(responseDto);
+            ResponseUtil.inValidRequestParameterForm(responseDto);
             responseDto.setMessage(messageTemp + "(은)는 필수값입니다.");
         } else {
             ResponseUtil.emptyRequestParameter(responseDto);
@@ -210,6 +211,16 @@ public class GlobalExceptionHandler {
         logger.info("========== S ExpiredJwtException ==========");
         logger.info("========== E ExpiredJwtException ==========");
         return ResponseUtil.failedAuthentication(new ResponseDto());
+    }
+
+    /**
+     * InvalidDataAccessApiUsageException.
+     */
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    public ResponseDto handleInvalidDataAccessApiUsageException(InvalidDataAccessApiUsageException e) {
+        logger.info("========== S InvalidDataAccessApiUsageException ==========");
+        logger.info("========== E InvalidDataAccessApiUsageException ==========");
+        return ResponseUtil.emptyPropertyInRequestBody(new ResponseDto());
     }
 
 }
