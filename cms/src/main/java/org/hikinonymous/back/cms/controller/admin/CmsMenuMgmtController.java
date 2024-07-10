@@ -142,7 +142,7 @@ public class CmsMenuMgmtController {
 
         if (Objects.isNull(cmsMenuDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
-        CommonUtil.setClientInfo(request, cmsMenuDto, manager);
+        CommonUtil.setManagerInfo(request, cmsMenuDto, manager);
         cmsMenuService.proc(cmsMenuDto);
         return ResponseUtil.success(responseDto);
     }

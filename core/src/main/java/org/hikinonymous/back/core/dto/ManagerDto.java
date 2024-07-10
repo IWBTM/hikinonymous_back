@@ -10,7 +10,7 @@ import lombok.Data;
         description = "관리자 DTO"
 )
 @Data
-public class ManagerDto extends CommonDto {
+public class ManagerDto extends CommonManagerDto {
 
     @Schema(description = "관리자 SEQ")
     private Long managerSeq;

@@ -4,7 +4,7 @@ import lombok.Data;
 import org.hikinonymous.back.core.entity.*;
 
 @Data
-public class BoardSimpleDto extends CommonDto {
+public class BoardSimpleDto extends CommonManagerDto {
 
     private Long boardSeq;
 

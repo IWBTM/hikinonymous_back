@@ -25,7 +25,7 @@ public class ManagerLogService {
         ManagerLogDto managerLogDto = new ManagerLogDto();
         managerLogDto.setContent(content);
         managerLogDto.setBehaviorType(behaviorType);
-        CommonUtil.setClientInfo(request, managerLogDto, managerDto);
+        CommonUtil.setManagerInfo(request, managerLogDto, managerDto);
         managerLogRepository.save((ManagerLogEntity) CommonUtil.bindToObjectFromObject(managerLogDto, ManagerLogEntity.class));
     }
 

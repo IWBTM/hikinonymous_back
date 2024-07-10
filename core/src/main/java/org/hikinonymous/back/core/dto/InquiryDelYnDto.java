@@ -7,20 +7,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Schema(
-        name = "배너 리스트용 DTO"
+        description = "문의 삭제 DTO"
 )
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BannerSimpleDto extends CommonManagerDto {
+public class InquiryDelYnDto extends CommonMemberDto {
 
-    private Long bannerSeq;
+    @Schema(description = "문의 SEQ")
+    private Long inquirySeq;
 
-    private String title;
-
-    private CodeDto position;
-
-    private String useYn;
+    @Schema(description = "삭제 여부")
+    private String delYn;
 
 }

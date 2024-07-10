@@ -2,6 +2,7 @@ package org.hikinonymous.back.core.service;
 
 import ch.qos.logback.core.util.StringUtil;
 import lombok.RequiredArgsConstructor;
+import org.hikinonymous.back.core.dto.CodeMasterDelYnDto;
 import org.hikinonymous.back.core.dto.CodeMasterDto;
 import org.hikinonymous.back.core.entity.CodeEntity;
 import org.hikinonymous.back.core.entity.CodeMasterEntity;
@@ -27,7 +28,7 @@ public class CodeMasterService {
     }
 
     public Page<CodeMasterEntity> paging(Pageable pageable) {
-        return codeMasterRepository.findAll(pageable);
+        return codeMasterRepository.findAllByDelYn(pageable, "N");
     }
 
     public void proc(CodeMasterDto codeMasterDto) {
@@ -41,6 +42,12 @@ public class CodeMasterService {
             codeMasterEntity.setCodeMasterNm(codeMasterDto.getCodeMasterNm());
             codeMasterEntity.setEtc(codeMasterDto.getEtc());
         }
+        codeMasterRepository.save(codeMasterEntity);
+    }
+
+    public void updateDelYn(CodeMasterDelYnDto codeMasterDelYnDto) {
+        CodeMasterEntity codeMasterEntity = this.findByCodeMaster(codeMasterDelYnDto.getCodeMaster());
+        codeMasterEntity.setDelYn(codeMasterDelYnDto.getDelYn());
         codeMasterRepository.save(codeMasterEntity);
     }
 }

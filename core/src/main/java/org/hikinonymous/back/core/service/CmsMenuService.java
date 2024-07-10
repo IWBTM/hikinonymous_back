@@ -53,7 +53,7 @@ public class CmsMenuService {
     @Transactional
     public void updateOrderSort(HttpServletRequest request, List<CmsMenuDto> cmsMenuDtoList, ManagerDto manager) {
         for (CmsMenuDto cmsMenuDto: cmsMenuDtoList) {
-            CommonUtil.setClientInfo(request, cmsMenuDto, manager);
+            CommonUtil.setManagerInfo(request, cmsMenuDto, manager);
             CmsMenuEntity cmsMenuEntity = cmsMenuRepository.findByCmsMenuSeq(cmsMenuDto.getCmsMenuSeq()).orElseThrow(() ->
                     new NoSuchElementException("Cms Menu Seq: " + cmsMenuDto.getCmsMenuSeq() + " not found")
             );

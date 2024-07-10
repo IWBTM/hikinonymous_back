@@ -40,7 +40,7 @@ public class CategoryService {
     @Transactional
     public void updateOrderSort(HttpServletRequest request, List<CategoryDto> categoryDtoList, ManagerDto manager) {
         for (CategoryDto categoryDto : categoryDtoList) {
-            CommonUtil.setClientInfo(request, categoryDto, manager);
+            CommonUtil.setManagerInfo(request, categoryDto, manager);
             CategoryEntity categoryEntity = this.findById(categoryDto.getCategorySeq());
             categoryEntity.setSortOrder(categoryDto.getSortOrder());
             categoryRepository.save(categoryEntity);

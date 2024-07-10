@@ -102,7 +102,7 @@ public class CategoryMgmtController {
         else behaviorType = "U";
         managerLogService.proc(request, MENU_NAME + " 정보", behaviorType,  manager);
 
-        CommonUtil.setClientInfo(request, categoryDto, manager);
+        CommonUtil.setManagerInfo(request, categoryDto, manager);
         categoryService.proc(categoryDto);
         return ResponseUtil.success(responseDto);
     }

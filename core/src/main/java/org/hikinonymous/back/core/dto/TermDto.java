@@ -5,7 +5,7 @@ import org.hikinonymous.back.core.entity.CodeEntity;
 import org.hikinonymous.back.core.entity.ServiceBoardEntity;
 
 @Data
-public class TermDto extends CommonDto {
+public class TermDto extends CommonManagerDto {
 
     private Long serviceBoardSeq;
     

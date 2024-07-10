@@ -7,7 +7,7 @@ import lombok.Data;
         description = "회원 DTO"
 )
 @Data
-public class MemberUpdDto extends CommonDto {
+public class MemberUpdDto extends CommonManagerDto {
 
     @Schema(description = "회원 SEQ")
     private Long memberSeq;

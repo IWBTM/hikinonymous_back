@@ -20,4 +20,6 @@ public interface CodeRepository extends JpaRepository<CodeEntity, Long>, CodeRep
     List<CodeEntity> findByCodeMasterEntity(CodeMasterEntity codeMaster);
 
     Page<CodeEntity> findByCodeMasterEntity(Pageable pageable, CodeMasterEntity codeMaster);
+
+    Page<CodeEntity> findByCodeMasterEntityAndDelYn(Pageable pageable, CodeMasterEntity byCodeMaster, String delYn);
 }

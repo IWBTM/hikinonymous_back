@@ -106,10 +106,36 @@ public class TermMgmtController {
         else behaviorType = "U";
         managerLogService.proc(request, MENU_NAME + " 정보", behaviorType,  manager);
 
-        CommonUtil.setClientInfo(request, serviceBoardDto, manager);
+        CommonUtil.setManagerInfo(request, serviceBoardDto, manager);
         serviceBoardDto.setServiceBoardType(CodeDto.builder().code(serviceBoardType.toUpperCase()).build());
         serviceBoardService.proc(serviceBoardDto);
         return ResponseUtil.success(responseDto);
     }
 
+    @Operation(
+            summary = MENU_NAME + " 삭제 여부 수정",
+            description = MENU_NAME + " 삭제 여부를 수정한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "{serviceBoardType}/updateDelYn")
+    public ResponseDto updateDelYn(
+            HttpServletRequest request,
+            @PathVariable(name = "serviceBoardType") @Parameter(
+                    name = "serviceBoardType",
+                    description = MENU_NAME + " 타입"
+            ) String serviceBoardType,
+            @RequestBody @Valid ServiceBoardDelYnDto serviceBoardDelYnDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+
+        managerLogService.proc(request, MENU_NAME + " " + serviceBoardType + " 삭제 여부", "U",  manager);
+
+        CommonUtil.setManagerInfo(request, serviceBoardDelYnDto, manager);
+        serviceBoardService.updateDelYn(serviceBoardDelYnDto);
+        return ResponseUtil.success(responseDto);
+    }
 }

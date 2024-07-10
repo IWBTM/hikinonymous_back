@@ -41,8 +41,8 @@ public class BannerService {
             bannerEntity.setMoImage(fileService.proc(bannerDto.getMoImageFile(), refType, "MO"));
         }
 
-        bannerDto.setPosition(codeService.findByCodeSeq(bannerDto.getPositionSeq()));
         bannerEntity = bannerDto.bindToEntityForProc(bannerEntity);
+        bannerEntity.setPosition(codeService.findByCodeSeq(bannerDto.getPositionSeq()));
         bannerRepository.save(bannerEntity);
     }
 

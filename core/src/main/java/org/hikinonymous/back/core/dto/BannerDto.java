@@ -1,14 +1,11 @@
 package org.hikinonymous.back.core.dto;
 
-import ch.qos.logback.core.util.StringUtil;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hikinonymous.back.core.entity.BannerEntity;
-import org.hikinonymous.back.core.entity.CodeEntity;
-import org.hikinonymous.back.core.entity.FileInfoEntity;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.EncUtil;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,19 +13,19 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Objects;
 
 @Schema(
-        name = "배너 리스트용 DTO"
+        name = "배너 DTO"
 )
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BannerDto extends CommonDto {
+public class BannerDto extends CommonManagerDto {
 
     private Long bannerSeq;
 
     private String title;
 
-    private CodeEntity position;
+    private CodeDto position;
 
     private Long positionSeq;
 
@@ -49,7 +46,6 @@ public class BannerDto extends CommonDto {
     public BannerEntity bindToEntityForProc(BannerEntity bannerEntity) {
         bannerEntity.setBannerSeq(this.getBannerSeq());
         bannerEntity.setTitle(this.getTitle());
-        bannerEntity.setPosition(this.getPosition());
         bannerEntity.setEtc(this.getEtc());
         bannerEntity.setUrl(this.getUrl());
         bannerEntity.setUseYn(this.getUseYn());
@@ -69,7 +65,7 @@ public class BannerDto extends CommonDto {
         BannerDto bannerDto = new BannerDto();
         bannerDto.setBannerSeq(bannerEntity.getBannerSeq());
         bannerDto.setTitle(bannerEntity.getTitle());
-        bannerDto.setPosition(bannerEntity.getPosition());
+        bannerDto.setPosition(CodeDto.bindToDto(bannerEntity.getPosition()));
         bannerDto.setEtc(bannerEntity.getEtc());
         bannerDto.setUrl(bannerEntity.getUrl());
         bannerDto.setUseYn(bannerEntity.getUseYn());

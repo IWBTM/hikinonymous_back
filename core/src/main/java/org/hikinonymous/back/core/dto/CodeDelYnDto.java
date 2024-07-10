@@ -4,15 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hikinonymous.back.core.entity.CodeEntity;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class ManagerLogDto extends CommonManagerDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class CodeDelYnDto {
 
-    private String content;
+    private Long codeSeq;
 
-    private String behaviorType;
+    private String delYn;
 
 }

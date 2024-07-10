@@ -7,6 +7,7 @@ VALUES
     ('CRUD_TYPE', '기능', 'N'),
     ('BOARD_TYPE', '게시글 타입', 'N'),
     ('SERVICE_BOARD_TYPE', '서비스 게시글 타입', 'N'),
+    ('INQUIRY_TYPE', '문의 타입', 'N'),
     ('BANNER_POSITION', '배너 위치', 'N'),
     ('DEVICE_TYPE', '디바이스 타입', 'N'),
     ('FILE_REF_TYPE', '파일 참조 타입', 'N');
@@ -33,15 +34,21 @@ VALUES
     ('BOARD_TYPE', 'BOARD', '게시글', 'N', '', 1),
     ('SERVICE_BOARD_TYPE', 'FAQ', 'FAQ', 'N', '', 1),
     ('SERVICE_BOARD_TYPE', 'NOTICE', '공지사항', 'N', '', 2),
-    ('SERVICE_BOARD_TYPE', 'INQUIRY', '문의', 'N', '', 3),
     ('SERVICE_BOARD_TYPE', 'TERM', '이용 약관', 'N', '', 4),
     ('SERVICE_BOARD_TYPE', 'PRIVACY', '개인 정보 보호', 'N', '', 5),
+
+    ('INQUIRY_TYPE', 'ONE', '1:1 문의', 'N', '', 1),
+    ('INQUIRY_TYPE', 'REPORT', '신고', 'N', '', 2),
+    ('INQUIRY_TYPE', 'DELETE', '삭제 요청', 'N', '', 3),
+    ('INQUIRY_TYPE', 'ERROR', '오류/제안', 'N', '', 4),
+
 
     ('BANNER_POSITION', 'MAIN_TOP', '메인 탑', 'N', '', 1),
 
     ('DEVICE_TYPE', 'PC', '컴퓨터', 'N', '', 1),
     ('DEVICE_TYPE', 'MO', '휴대폰', 'N', '', 2),
-    ('FILE_REF_TYPE', 'BANNER', '배너', 'N', '', 1);
+    ('FILE_REF_TYPE', 'BANNER', '배너', 'N', '', 1),
+    ('FILE_REF_TYPE', 'FAQ', 'FAQ', 'N', '', 2);
 
 INSERT INTO tb_manager
 (managerSeq, managerHp, managerId, managerNm, managerPwd, regDate, registerIp, useYn, managerStatus, superYn)
@@ -73,6 +80,24 @@ VALUES
     ('TERM_MANAGEMENT', '이용 약관 관리', 'Y', 2, 1, 'term', '/cms/term/term/list', '약관 관리 메뉴', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('PRIVACY_MANAGEMENT', '개인 정보 보호 관리', 'Y', 2, 2, 'term', '/cms/term/privacy/list', '개인 정보 보호 관리 메뉴', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('SERVICE_MANAGEMENT', '서비스 관리', 'Y', 1, 8, 'service', '', '서비스 관리 메뉴', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
-    ('INQUIRY_MANAGEMENT', '문의 관리', 'Y', 2, 1, 'service', '/cms/service/inquiry/list', '문의 관리', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
     ('FAQ_MANAGEMENT', 'FAQ 관리', 'Y', 2, 2, 'service', '/cms/service/faq/list', 'FAQ 관리', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
-    ('NOTICE_MANAGEMENT', '공지사항 관리', 'Y', 2, 3, 'service', '/cms/service/notice/list', '공지사항 관리', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S'));
+    ('NOTICE_MANAGEMENT', '공지사항 관리', 'Y', 2, 3, 'service', '/cms/service/notice/list', '공지사항 관리', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
+    ('INQUIRY_MANAGEMENT', '문의 관리', 'Y', 1, 9, 'inquiry', '', '문의 관리 메뉴', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
+    ('INQUIRY_MANAGEMENT', '1:1 문의 관리', 'Y', 2, 1, 'inquiry', '/cms/inquiry/inquiry/list', '문의 관리', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
+    ('REPORT_MANAGEMENT', '신고 관리', 'Y', 2, 1, 'inquiry', '/cms/inquiry/report/list', '신고 관리', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
+    ('DELETE_MANAGEMENT', '삭제 요청 관리', 'Y', 2, 2, 'inquiry', '/cms/inquiry/delete/list', '삭제 요청 관리', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S')),
+    ('ERROR_MANAGEMENT', '오류/제안 관리', 'Y', 2, 3, 'inquiry', '/cms/inquiry/error/list', '오류/제안 관리', 'N', '127.0.0.1', 1, DATE_FORMAT(NOW(), '%Y%m%d%H%i%S'));
+
+-- gang.dev0nly@gmail.com
+-- qwe123!!
+insert into tb_member
+(gender, memberDi, memberEmail, memberHp, memberName, memberNickName, memberPwd, privacyYn, receiveAdsEmailYn, regDate, registerIp, joinType, memberStatus, reportCnt)
+values ('M', 'VIOSDJweoi', 'VIeAmKaUOjQC+NluiKfNFNs4rLriXzxhoVo+acyj7hI=', 'R719IgEWymmC1fvTQhL9sQ==', '/343Z6ndRGyuiCfFsxJeIg==', '갱', 'ae91e71b28f1a443e2310875e54e5c6495a9af5dd9a827da933b3a66c9368a3e', 'Y', 'Y', DATE_FORMAT(NOW(), '%Y%m%d%H%i%S'), '127.0.0.1', 7, 4, 0);
+
+insert into tb_inquiry
+(content, delYn, readYn, regDate, registerIp, title, inquiryType, register)
+values
+    ('내용 테스트 2', 'N', 'N', DATE_FORMAT(NOW(), '%Y%m%d%H%i%S'), '127.0.0.1', '제목 테스트 2', 21, 1),
+    ('내용 테스트 1', 'N', 'N', DATE_FORMAT(NOW(), '%Y%m%d%H%i%S'), '127.0.0.1', '제목 테스트 1', 22, 1),
+    ('내용 테스트 1', 'N', 'N', DATE_FORMAT(NOW(), '%Y%m%d%H%i%S'), '127.0.0.1', '제목 테스트 1', 23, 1),
+    ('내용 테스트 1', 'N', 'N', DATE_FORMAT(NOW(), '%Y%m%d%H%i%S'), '127.0.0.1', '제목 테스트 1', 24, 1);

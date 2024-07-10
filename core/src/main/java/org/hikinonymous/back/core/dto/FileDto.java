@@ -1,17 +1,11 @@
 package org.hikinonymous.back.core.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.Comment;
-import org.hikinonymous.back.core.entity.BannerEntity;
-import org.hikinonymous.back.core.entity.CodeEntity;
 import org.hikinonymous.back.core.entity.FileInfoEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Objects;
 
@@ -22,7 +16,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FileDto extends CommonDto {
+public class FileDto extends CommonManagerDto {
 
     private Long fileInfoSeq;
 
@@ -34,7 +28,9 @@ public class FileDto extends CommonDto {
 
     private String filePath;
 
-    private String fileApiPath;
+    private String fileApiViewPath;
+
+    private String fileApiDownPath;
 
     private String fileNm;
 
@@ -45,6 +41,7 @@ public class FileDto extends CommonDto {
     private String fileExt;
 
     public static FileDto bindToDtoForView(FileInfoEntity fileInfoEntity) {
+        if (Objects.isNull(fileInfoEntity)) return null;
         FileDto fileDto = new FileDto();
         fileDto.setFileInfoSeq(fileInfoEntity.getFileInfoSeq());
         fileDto.setDeviceType(CodeDto.bindToDto(fileInfoEntity.getDeviceType()));
@@ -55,7 +52,8 @@ public class FileDto extends CommonDto {
         fileDto.setFileOriNm(fileInfoEntity.getFileOriNm());
         fileDto.setFileSize(fileInfoEntity.getFileSize());
         fileDto.setFileExt(fileInfoEntity.getFileExt());
-        fileDto.setFileApiPath("/cms/common/file/view/");
+        fileDto.setFileApiViewPath("/cms/common/file/view/");
+        fileDto.setFileApiDownPath("/cms/common/file/down/");
         return fileDto;
     }
 

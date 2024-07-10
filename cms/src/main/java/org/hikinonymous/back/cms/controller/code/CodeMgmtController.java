@@ -56,7 +56,7 @@ public class CodeMgmtController {
     @GetMapping(value = "list")
     public ResponseDto list(
             HttpServletRequest request,
-            @PageableDefault Pageable pageable,
+            @PageableDefault(size = 100) Pageable pageable,
             @RequestParam(
                     name = "codeMaster",
                     required = false
@@ -135,6 +135,50 @@ public class CodeMgmtController {
         managerLogService.proc(request, MENU_NAME + " 마스터 정보", behaviorType,  manager);
 
         codeMasterService.proc(codeMasterDto);
+        return ResponseUtil.success(responseDto);
+    }
+
+    @Operation(
+            summary = MENU_NAME + " 삭제 여부 수정",
+            description = MENU_NAME + " 삭제 여부를 수정한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "code/updateDelYn")
+    public ResponseDto codeUpdateDelYn(
+            HttpServletRequest request,
+            @RequestBody @Valid CodeDelYnDto codeDelYnDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+
+        managerLogService.proc(request, MENU_NAME + " 삭제 여부", "U",  manager);
+
+        codeService.updateDelYn(codeDelYnDto);
+        return ResponseUtil.success(responseDto);
+    }
+
+    @Operation(
+            summary = MENU_NAME + " 마스터 삭제 여부 수정",
+            description = MENU_NAME + " 마스터 삭제 여부를 수정한다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @PostMapping(value = "codeMaster/updateDelYn")
+    public ResponseDto codeMasterUpdateDelYn(
+            HttpServletRequest request,
+            @RequestBody @Valid CodeMasterDelYnDto codeMasterDelYnDto
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+
+        managerLogService.proc(request, MENU_NAME + " 마스터 삭제 여부", "U",  manager);
+
+        codeMasterService.updateDelYn(codeMasterDelYnDto);
         return ResponseUtil.success(responseDto);
     }
 

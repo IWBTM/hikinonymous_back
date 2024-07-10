@@ -135,7 +135,7 @@ public class ManagerMgmtController {
         else behaviorType = "U";
         managerLogService.proc(request, MENU_NAME + " 정보", behaviorType,  manager);
 
-        CommonUtil.setClientInfo(request, managerDto, manager);
+        CommonUtil.setManagerInfo(request, managerDto, manager);
         managerService.proc(managerDto);
         return ResponseUtil.success(responseDto);
     }
@@ -159,7 +159,7 @@ public class ManagerMgmtController {
 
         managerLogService.proc(request, MENU_NAME + " 비밀번호", "U",  manager);
 
-        CommonUtil.setClientInfo(request, managerDto, manager);
+        CommonUtil.setManagerInfo(request, managerDto, manager);
         managerService.updatePwd(managerDto);
         return ResponseUtil.success(responseDto);
     }
@@ -183,7 +183,7 @@ public class ManagerMgmtController {
 
         managerLogService.proc(request, MENU_NAME + " 삭제 여부", "U",  manager);
 
-        CommonUtil.setClientInfo(request, managerDto, manager);
+        CommonUtil.setManagerInfo(request, managerDto, manager);
         managerService.updateDelYn(managerDto);
         return ResponseUtil.success(responseDto);
     }

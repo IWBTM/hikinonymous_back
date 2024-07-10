@@ -2,9 +2,12 @@ package org.hikinonymous.back.core.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
-import org.hikinonymous.back.core.dto.CommonDto;
+import org.hikinonymous.back.core.dto.CommonManagerDto;
+import org.hikinonymous.back.core.dto.CommonMemberDto;
+import org.hikinonymous.back.core.dto.InquiryDto;
 import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.entity.ManagerEntity;
+import org.hikinonymous.back.core.entity.MemberEntity;
 import org.modelmapper.ModelMapper;
 
 import java.text.SimpleDateFormat;
@@ -69,18 +72,43 @@ public class CommonUtil {
     }
 
     /**
-     * CommonDto set 등록자 정보
+     * CommonManagerDto set 등록자 정보
      */
-    public static void setClientInfo(HttpServletRequest request, CommonDto commonDto, ManagerDto manager) {
+    public static void setManagerInfo(HttpServletRequest request, CommonManagerDto commonManagerDto, ManagerDto manager) {
         String ip = getClientIp(request);
 
-        commonDto.setRegDate(CommonUtil.getFormatDateByDate("yyyyMMddHHmmss"));
-        commonDto.setRegister(ManagerEntity.builder().managerSeq(manager.getManagerSeq()).build());
-        commonDto.setRegisterIp(ip);
-        commonDto.setUpdDate(CommonUtil.getFormatDateByDate("yyyyMMddHHmmss"));
-        commonDto.setUpdater(ManagerEntity.builder().managerSeq(manager.getManagerSeq()).build());
-        commonDto.setUpdaterIp(ip);
+        commonManagerDto.setRegDate(CommonUtil.getFormatDateByDate("yyyyMMddHHmmss"));
+        commonManagerDto.setRegister(ManagerEntity.builder().managerSeq(manager.getManagerSeq()).build());
+        commonManagerDto.setRegisterIp(ip);
+        commonManagerDto.setUpdDate(CommonUtil.getFormatDateByDate("yyyyMMddHHmmss"));
+        commonManagerDto.setUpdater(ManagerEntity.builder().managerSeq(manager.getManagerSeq()).build());
+        commonManagerDto.setUpdaterIp(ip);
     }
+
+    /**
+     * set 문의 답장자 정보
+     */
+    public static void setInquiryAnswererInfo(HttpServletRequest request, InquiryDto inquiryDto, ManagerDto manager) {
+        String ip = getClientIp(request);
+
+        inquiryDto.setAnswerDate(CommonUtil.getFormatDateByDate("yyyyMMddHHmmss"));
+        inquiryDto.setAnswerer(ManagerEntity.builder().managerSeq(manager.getManagerSeq()).build());
+        inquiryDto.setAnswererIp(ip);
+    }
+
+//    /**
+//     * CommonMemberDto set 등록자 정보
+//     */
+//    public static void setMemberInfo(HttpServletRequest request, CommonMemberDto commonMemberDto, ManagerDto manager) {
+//        String ip = getClientIp(request);
+//
+//        commonMemberDto.setRegDate(CommonUtil.getFormatDateByDate("yyyyMMddHHmmss"));
+//        commonMemberDto.setRegister(MemberEntity.builder().memberSeq(manager.getManagerSeq()).build());
+//        commonMemberDto.setRegisterIp(ip);
+//        commonMemberDto.setUpdDate(CommonUtil.getFormatDateByDate("yyyyMMddHHmmss"));
+//        commonMemberDto.setUpdater(MemberEntity.builder().memberSeq(manager.getManagerSeq()).build());
+//        commonMemberDto.setUpdaterIp(ip);
+//    }
 
     /**
      * Servlet Request Get IP

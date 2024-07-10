@@ -117,7 +117,7 @@ public class BoardMgmtController {
 
         if (Objects.isNull(boardDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
-        CommonUtil.setClientInfo(request, boardDto, manager);
+        CommonUtil.setManagerInfo(request, boardDto, manager);
         boardService.updateDelYn(boardDto);
         return ResponseUtil.success(responseDto);
     }
@@ -170,7 +170,7 @@ public class BoardMgmtController {
 
         if (Objects.isNull(replyDto)) return ResponseUtil.emptyRequestBody(responseDto);
 
-        CommonUtil.setClientInfo(request, replyDto, manager);
+        CommonUtil.setManagerInfo(request, replyDto, manager);
         replyService.updateDelYn(replyDto);
         return ResponseUtil.success(responseDto);
     }

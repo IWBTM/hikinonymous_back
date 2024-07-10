@@ -44,6 +44,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthenticationException.class)
     public ResponseDto handleAuthenticationException(AuthenticationException e) {
         logger.info("========== S AuthenticationException ==========");
+        e.printStackTrace();
         logger.info("========== E AuthenticationException ==========");
         return ResponseUtil.failedAuthentication(new ResponseDto());
     }

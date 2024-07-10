@@ -16,10 +16,7 @@ import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "FILE", description = "FILE API DOC")
 @Slf4j
@@ -39,9 +36,14 @@ public class FileMgmtController {
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"
     )
-    @GetMapping(value = "view/{fileInfoSeq}")
-    public ResponseEntity view(
+    @GetMapping(value = "{type}/{fileInfoSeq}")
+    public ResponseEntity handle(
             HttpServletRequest request,
+            @PathVariable(name = "type") @Parameter(
+                    name = "type",
+                    description = "view / down"
+            )
+            String type,
             @PathVariable(name = "fileInfoSeq") @Parameter(
                     name = "fileInfoSeq",
                     description = "파일 SEQ"
@@ -50,7 +52,12 @@ public class FileMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = (ManagerDto) request.getAttribute("manager");
 
-        return fileService.getFileByteById(fileInfoSeq);
+        if (type.equals("view")) {
+            return fileService.getFileForViewById(fileInfoSeq);
+        } else if (type.equals("down")) {
+            return fileService.getFileForDownById(fileInfoSeq);
+        }
+        return ResponseEntity.internalServerError().body(ResponseUtil.badRequest(responseDto));
     }
 
 }

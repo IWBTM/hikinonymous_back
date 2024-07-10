@@ -4,7 +4,7 @@ import lombok.Data;
 import org.hikinonymous.back.core.entity.FileInfoEntity;
 
 @Data
-public class ServiceBoardSimpleDto extends CommonDto {
+public class ServiceBoardSimpleDto extends CommonManagerDto {
 
     private Long serviceBoardSeq;
 

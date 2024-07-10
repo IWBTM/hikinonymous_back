@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BannerDelYnDto extends CommonDto {
+public class BannerDelYnDto extends CommonManagerDto {
 
     private Long bannerSeq;
 

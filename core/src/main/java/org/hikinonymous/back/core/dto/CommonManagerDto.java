@@ -10,7 +10,7 @@ import java.io.Serializable;
         description = "공통 DTO"
 )
 @Data
-public class CommonDto implements Serializable {
+public class CommonManagerDto implements Serializable {
 
     @Schema(hidden = true)
     private ManagerEntity register;

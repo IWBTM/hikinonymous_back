@@ -16,14 +16,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
 
-    private final JPAQueryFactory jpaQueryFactory;
+    private final JPAQueryFactory queryFactory;
 
     @Override
     public List<CmsMenuDto> findAllByManagerSeq(long managerSeq) {
         QCmsMenuEntity qCmsMenuEntity = QCmsMenuEntity.cmsMenuEntity;
         QManagerAuthEntity qManagerAuthEntity = QManagerAuthEntity.managerAuthEntity;
 
-        List<Tuple> tuples = jpaQueryFactory
+        List<Tuple> tuples = queryFactory
                 .select(qCmsMenuEntity, qManagerAuthEntity.authTypes)
                 .from(qCmsMenuEntity)
                 .join(qManagerAuthEntity).on(qManagerAuthEntity.cmsMenu.eq(qCmsMenuEntity))
