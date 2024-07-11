@@ -24,6 +24,10 @@ public class ManagerAuthService {
 
     private final CmsMenuService cmsMenuService;
 
+    public Page<MenuAuthDto> pagingByManagerSeqAndAuthDir(Long managerSeq, String authDir, boolean isExist, Pageable pageable) {
+        return managerAuthRepository.pagingByManagerSeqAndAuthDir(managerSeq, authDir, isExist, pageable);
+    }
+
     public List<MenuAuthDto> findAllByManagerSeqAndAuthDir(Long managerSeq, String authDir, boolean isExist) {
         return managerAuthRepository.findAllByManagerSeqAndAuthDir(managerSeq, authDir, isExist);
     }

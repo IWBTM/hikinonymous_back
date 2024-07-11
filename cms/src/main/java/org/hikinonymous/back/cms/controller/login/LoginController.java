@@ -3,10 +3,12 @@ package org.hikinonymous.back.cms.controller.login;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.LoginDto;
+import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.service.ManagerService;
@@ -16,10 +18,7 @@ import org.hikinonymous.back.core.utils.JwtUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
@@ -69,5 +68,22 @@ public class LoginController {
             responseDto.setData(managerEntity.getLoginFailCnt());
             return ResponseUtil.canNotFoundManager(responseDto);
         }
+    }
+
+    @Operation(
+            summary = "관리자 토큰 체크",
+            description = "Authorization으로 토큰 정상 여부를 응답 받는다."
+    )
+    @ApiResponse(
+            description = "응답 에러 코드 DOC 참고"
+    )
+    @GetMapping(value = "validToken")
+    public ResponseDto validToken(
+            HttpServletRequest request
+    ) {
+        ResponseDto responseDto = new ResponseDto();
+        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
+        return ResponseUtil.success(responseDto);
     }
 }

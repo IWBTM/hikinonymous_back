@@ -52,6 +52,7 @@ public class AuthMgmtController {
     )
     @GetMapping(value = "menu/list/{managerSeq}")
     public ResponseDto menuList(
+            @PageableDefault Pageable pageable,
             HttpServletRequest request,
             @PathVariable(
                     name = "managerSeq"
@@ -79,8 +80,7 @@ public class AuthMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + "와 메뉴 리스트", "R",  manager);
 
-        List<MenuAuthDto> menuAuthDtoList = managerAuthService.findAllByManagerSeqAndAuthDir(managerSeq, authDir, isExist);
-        responseDto.setData(menuAuthDtoList);
+        responseDto.setData(managerAuthService.pagingByManagerSeqAndAuthDir(managerSeq, authDir, isExist, pageable));
         return ResponseUtil.success(responseDto);
     }
 
