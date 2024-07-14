@@ -50,6 +50,11 @@ public class CmsMenuEntity {
     @Comment("파일 경로")
     private String filePath;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "iconType")
+    @Comment("아이콘")
+    private CodeEntity iconType;
+
     // 순서
     @Column(nullable = false)
     @Comment("순서")

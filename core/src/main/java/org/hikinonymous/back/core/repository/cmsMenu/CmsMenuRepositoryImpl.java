@@ -24,7 +24,7 @@ public class CmsMenuRepositoryImpl implements CmsMenuRepositoryCustom {
                 .select(qCmsMenuEntity, qManagerAuthEntity.authTypes)
                 .from(qCmsMenuEntity)
                 .join(qManagerAuthEntity).on(qManagerAuthEntity.cmsMenu.eq(qCmsMenuEntity))
-                .where(qManagerAuthEntity.manager.eq(ManagerEntity.builder().managerSeq(managerSeq).build()))
+                .where(qManagerAuthEntity.manager.managerSeq.eq(managerSeq))
                 .orderBy(qCmsMenuEntity.menuLevel.asc(), qCmsMenuEntity.sortOrder.asc())
                 .fetch();
 

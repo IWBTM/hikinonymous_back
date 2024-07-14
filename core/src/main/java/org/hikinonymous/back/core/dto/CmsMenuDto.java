@@ -44,10 +44,11 @@ public class CmsMenuDto extends CommonManagerDto {
     @Schema(description = "삭제 여부")
     private String delYn;
 
+    @Schema(description = "권한 (CRUD)")
+    private String authTypes;;
+
     @Schema(description = "정렬 순서")
     @NotNull(message = "정렬 순서")
     private Long sortOrder;
-
-    private String authTypes;
 
 }
