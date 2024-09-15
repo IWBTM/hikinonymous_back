@@ -12,6 +12,7 @@ import org.hikinonymous.back.core.entity.CodeEntity;
 import org.hikinonymous.back.core.service.*;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
+import org.hikinonymous.back.core.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public class CommonMgmtController {
             ) String codeMaster
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
 
         List<CodeEntity> codeEntities = codeService.findByCodeMaster(codeMaster);
         responseDto.setData(codeEntities.stream().map(codeEntity -> CommonUtil.bindToObjectFromObject(codeEntity, CodeDto.class)));

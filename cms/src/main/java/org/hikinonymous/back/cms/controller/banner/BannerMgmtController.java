@@ -15,6 +15,7 @@ import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.EncUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
+import org.hikinonymous.back.core.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -52,7 +53,7 @@ public class BannerMgmtController {
             @PageableDefault Pageable pageable
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
 
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
@@ -84,7 +85,7 @@ public class BannerMgmtController {
             ) Long bannerSeq
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
 
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
@@ -106,7 +107,7 @@ public class BannerMgmtController {
             @ModelAttribute @Valid BannerDto bannerDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         String behaviorType;
@@ -132,7 +133,7 @@ public class BannerMgmtController {
             @RequestBody @Valid BannerDelYnDto bannerDelYnDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         managerLogService.proc(request, MENU_NAME + " 정보", "D",  manager);

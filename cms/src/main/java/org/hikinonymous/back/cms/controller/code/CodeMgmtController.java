@@ -19,6 +19,7 @@ import org.hikinonymous.back.core.service.CodeService;
 import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
+import org.hikinonymous.back.core.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -66,7 +67,7 @@ public class CodeMgmtController {
             ) String codeMaster
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
 
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
@@ -101,7 +102,7 @@ public class CodeMgmtController {
             @RequestBody(required = false) @Valid CodeDto codeDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         String behaviorType;
@@ -126,7 +127,7 @@ public class CodeMgmtController {
             @RequestBody(required = false) @Valid CodeMasterDto codeMasterDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         String behaviorType;
@@ -151,7 +152,7 @@ public class CodeMgmtController {
             @RequestBody @Valid CodeDelYnDto codeDelYnDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         managerLogService.proc(request, MENU_NAME + " 삭제 여부", "U",  manager);
@@ -173,7 +174,7 @@ public class CodeMgmtController {
             @RequestBody @Valid CodeMasterDelYnDto codeMasterDelYnDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         managerLogService.proc(request, MENU_NAME + " 마스터 삭제 여부", "U",  manager);

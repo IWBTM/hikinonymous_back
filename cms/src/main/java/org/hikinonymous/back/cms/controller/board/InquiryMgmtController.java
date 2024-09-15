@@ -13,6 +13,7 @@ import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.service.InquiryService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
+import org.hikinonymous.back.core.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
@@ -58,7 +59,7 @@ public class InquiryMgmtController {
             ) String type
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
 
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 리스트", "R", manager);
@@ -92,7 +93,7 @@ public class InquiryMgmtController {
             ) Long seq
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
 
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 상세", "R", manager);
@@ -115,7 +116,7 @@ public class InquiryMgmtController {
             @RequestBody @Valid InquiryDto inquiryDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         managerLogService.proc(request, MENU_NAME + " 답장", "U", manager);
@@ -138,7 +139,7 @@ public class InquiryMgmtController {
             @RequestBody @Valid InquiryDelYnDto inquiryDelYnDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         managerLogService.proc(request, MENU_NAME + " 삭제 여부", "U", manager);

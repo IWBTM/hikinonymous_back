@@ -18,6 +18,7 @@ import org.hikinonymous.back.core.service.CmsMenuService;
 import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
+import org.hikinonymous.back.core.utils.SecurityUtil;
 import org.mariadb.jdbc.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,7 +73,7 @@ public class CmsMenuMgmtController {
             ) String authDir
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
 
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 리스트", "R",  manager);
@@ -109,7 +110,7 @@ public class CmsMenuMgmtController {
             ) Long seq
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
 
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 상세", "R",  manager);
@@ -133,7 +134,7 @@ public class CmsMenuMgmtController {
             @RequestBody @Valid CmsMenuDto cmsMenuDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         String behaviorType;
@@ -161,7 +162,7 @@ public class CmsMenuMgmtController {
             @RequestBody @Valid List<CmsMenuDto> cmsMenuDtoList
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         managerLogService.proc(request, MENU_NAME + "정렬 순서", "U",  manager);

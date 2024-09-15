@@ -13,6 +13,7 @@ import org.hikinonymous.back.core.entity.CmsMenuEntity;
 import org.hikinonymous.back.core.service.CmsMenuService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
+import org.hikinonymous.back.core.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,7 @@ public class CmsMenuController {
     @GetMapping(value = "list")
     public ResponseDto list(HttpServletRequest request) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
 
         if (manager.getSuperYn().equals("Y")) {
             Stream<CmsMenuEntity> cmsMenuEntities = cmsMenuService.streamAllByDisplayYnAndDelYnOrderBySortOrder("Y", "N");

@@ -17,6 +17,7 @@ import org.hikinonymous.back.core.service.ServiceBoardService;
 import org.hikinonymous.back.core.utils.CommonUtil;
 import org.hikinonymous.back.core.utils.EncUtil;
 import org.hikinonymous.back.core.utils.ResponseUtil;
+import org.hikinonymous.back.core.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -60,7 +61,7 @@ public class ServiceBoardMgmtController {
             ) String boardType
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
 
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " " + boardType + " 리스트", "R",  manager);
@@ -95,7 +96,7 @@ public class ServiceBoardMgmtController {
             ) String boardType
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
 
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " " + boardType + " 상세", "R",  manager);
@@ -121,7 +122,7 @@ public class ServiceBoardMgmtController {
             @ModelAttribute @Valid ServiceBoardDto serviceBoardDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         String behaviorType;
@@ -152,7 +153,7 @@ public class ServiceBoardMgmtController {
             @RequestBody @Valid ServiceBoardDelYnDto serviceBoardDelYnDto
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
 
         managerLogService.proc(request, MENU_NAME + " " + boardType + " 삭제 여부", "U",  manager);

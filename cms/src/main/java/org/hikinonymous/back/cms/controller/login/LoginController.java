@@ -12,10 +12,7 @@ import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.ManagerEntity;
 import org.hikinonymous.back.core.service.ManagerService;
-import org.hikinonymous.back.core.utils.CommonUtil;
-import org.hikinonymous.back.core.utils.EncUtil;
-import org.hikinonymous.back.core.utils.JwtUtil;
-import org.hikinonymous.back.core.utils.ResponseUtil;
+import org.hikinonymous.back.core.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -82,7 +79,7 @@ public class LoginController {
             HttpServletRequest request
     ) {
         ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = (ManagerDto) request.getAttribute("manager");
+        ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         return ResponseUtil.success(responseDto);
     }
