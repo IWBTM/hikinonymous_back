@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.*;
 import org.hikinonymous.back.core.entity.ManagerEntity;
+import org.hikinonymous.back.core.exception.EmptyBodyException;
 import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.service.ManagerService;
 import org.hikinonymous.back.core.utils.CommonUtil;
@@ -100,7 +101,7 @@ public class ManagerMgmtController {
 
         ManagerEntity managerEntity = managerService.findByManagerSeq(seq);
         if (Objects.isNull(managerEntity)) return ResponseUtil.canNotFoundManager(responseDto);
-        ManagerDto managerDto = (ManagerDto) CommonUtil.bindToObjectFromObject(managerEntity, ManagerDto.class);
+        ManagerDto managerDto = CommonUtil.bindToObjectFromObject(managerEntity, ManagerDto.class);
         managerDto.setManagerStatus(managerEntity.getManagerStatus().getCodeNm());
 
         managerDto.setManagerId(EncUtil.decryptAES256(managerDto.getManagerId()));
@@ -129,7 +130,7 @@ public class ManagerMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestBody(responseDto);
+        if (Objects.isNull(managerDto)) throw new EmptyBodyException();
 
         String behaviorType;
         if (Objects.isNull(managerDto.getManagerSeq())) behaviorType = "C";
@@ -156,7 +157,7 @@ public class ManagerMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestBody(responseDto);
+        if (Objects.isNull(managerDto)) throw new EmptyBodyException();
 
         managerLogService.proc(request, MENU_NAME + " 비밀번호", "U",  manager);
 
@@ -180,7 +181,7 @@ public class ManagerMgmtController {
         ResponseDto responseDto = new ResponseDto();
         ManagerDto manager = SecurityUtil.getCurrentManager(request);
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
-        if (Objects.isNull(managerDto)) return ResponseUtil.emptyRequestBody(responseDto);
+        if (Objects.isNull(managerDto)) throw new EmptyBodyException();
 
         managerLogService.proc(request, MENU_NAME + " 삭제 여부", "U",  manager);
 

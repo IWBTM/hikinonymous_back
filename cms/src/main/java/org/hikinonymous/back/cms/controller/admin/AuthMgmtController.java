@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.*;
 import org.hikinonymous.back.core.entity.ManagerAuthEntity;
+import org.hikinonymous.back.core.exception.EmptyBodyException;
 import org.hikinonymous.back.core.service.CmsMenuService;
 import org.hikinonymous.back.core.service.ManagerAuthService;
 import org.hikinonymous.back.core.service.ManagerLogService;
@@ -106,7 +107,6 @@ public class AuthMgmtController {
         else behaviorType = "U";
         managerLogService.proc(request, MENU_NAME + " 정보", behaviorType,  manager);
 
-        if (Objects.isNull(menuAuthDto)) return ResponseUtil.emptyRequestBody(responseDto);
         managerAuthService.proc(menuAuthDto);
         return ResponseUtil.success(responseDto);
     }
@@ -129,7 +129,7 @@ public class AuthMgmtController {
 
         managerLogService.proc(request, MENU_NAME, "D",  manager);
 
-        if (Objects.isNull(menuAuthDto)) return ResponseUtil.emptyRequestBody(responseDto);
+        if (Objects.isNull(menuAuthDto)) throw new EmptyBodyException();
         managerAuthService.del(menuAuthDto);
         return ResponseUtil.success(responseDto);
     }

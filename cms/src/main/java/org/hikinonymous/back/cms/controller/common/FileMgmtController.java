@@ -11,6 +11,7 @@ import org.hikinonymous.back.core.dto.FileDto;
 import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.FileInfoEntity;
+import org.hikinonymous.back.core.exception.BadRequestException;
 import org.hikinonymous.back.core.service.FileService;
 import org.hikinonymous.back.core.utils.ResponseUtil;
 import org.hikinonymous.back.core.utils.SecurityUtil;
@@ -50,15 +51,13 @@ public class FileMgmtController {
                     description = "파일 SEQ"
             ) Long fileInfoSeq
     ) {
-        ResponseDto responseDto = new ResponseDto();
-        ManagerDto manager = SecurityUtil.getCurrentManager(request);
-
         if (type.equals("view")) {
             return fileService.getFileForViewById(fileInfoSeq);
         } else if (type.equals("down")) {
             return fileService.getFileForDownById(fileInfoSeq);
+        } else {
+            throw new BadRequestException();
         }
-        return ResponseEntity.internalServerError().body(ResponseUtil.badRequest(responseDto));
     }
 
 }

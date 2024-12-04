@@ -15,6 +15,7 @@ import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.CategoryEntity;
 import org.hikinonymous.back.core.entity.CmsMenuEntity;
+import org.hikinonymous.back.core.exception.EmptyBodyException;
 import org.hikinonymous.back.core.service.CategoryService;
 import org.hikinonymous.back.core.service.CmsMenuService;
 import org.hikinonymous.back.core.service.ManagerLogService;
@@ -126,7 +127,7 @@ public class CategoryMgmtController {
 
         managerLogService.proc(request, MENU_NAME + "정렬 순서", "U",  manager);
 
-        if (Objects.isNull(categoryDtoList) || categoryDtoList.isEmpty()) return ResponseUtil.emptyRequestBody(responseDto);
+        if (Objects.isNull(categoryDtoList) || categoryDtoList.isEmpty()) throw new EmptyBodyException();
 
         categoryService.updateOrderSort(request, categoryDtoList, manager);
         return ResponseUtil.success(responseDto);

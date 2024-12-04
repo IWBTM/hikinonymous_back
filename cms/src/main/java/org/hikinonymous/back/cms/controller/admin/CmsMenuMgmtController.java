@@ -14,6 +14,7 @@ import org.hikinonymous.back.core.dto.CmsMenuSimpleDto;
 import org.hikinonymous.back.core.dto.ManagerDto;
 import org.hikinonymous.back.core.dto.ResponseDto;
 import org.hikinonymous.back.core.entity.CmsMenuEntity;
+import org.hikinonymous.back.core.exception.EmptyBodyException;
 import org.hikinonymous.back.core.service.CmsMenuService;
 import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.utils.CommonUtil;
@@ -142,8 +143,6 @@ public class CmsMenuMgmtController {
         else behaviorType = "U";
         managerLogService.proc(request, MENU_NAME + " 정보", behaviorType,  manager);
 
-        if (Objects.isNull(cmsMenuDto)) return ResponseUtil.emptyRequestBody(responseDto);
-
         CommonUtil.setManagerInfo(request, cmsMenuDto, manager);
         cmsMenuService.proc(cmsMenuDto);
         return ResponseUtil.success(responseDto);
@@ -167,7 +166,7 @@ public class CmsMenuMgmtController {
 
         managerLogService.proc(request, MENU_NAME + "정렬 순서", "U",  manager);
 
-        if (Objects.isNull(cmsMenuDtoList) || cmsMenuDtoList.isEmpty()) return ResponseUtil.emptyRequestBody(responseDto);
+        if (Objects.isNull(cmsMenuDtoList) || cmsMenuDtoList.isEmpty()) throw new EmptyBodyException();
 
         cmsMenuService.updateOrderSort(request, cmsMenuDtoList, manager);
         return ResponseUtil.success(responseDto);

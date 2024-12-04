@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum HttpResponseStatus {
     
-    SUCCESS(200, "성공  하였습니다."),
+    SUCCESS(200, "성공 하였습니다."),
 
     FAILED_AUTHENTICATION(300, "올바르지 않은 토큰입니다."),
     TOO_MANY_LOGIN_FAILED_CNT(301, "로그인 실패 횟수가 5회 이상입니다. \n관리자에게 문의해주세요."),

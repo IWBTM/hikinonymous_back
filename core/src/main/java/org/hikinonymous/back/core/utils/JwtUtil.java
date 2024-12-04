@@ -1,6 +1,9 @@
 package org.hikinonymous.back.core.utils;
 
 import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerErrorException;
 
 import java.nio.ByteBuffer;
@@ -8,11 +11,14 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.Objects;
 
+@Component
 public class JwtUtil {
 
     private static String secretKey = "HIKINONYMOUS_SECRET_KEY";
 
-    private static long tokenValidMillisecond = 1000L * 60 * 60 * 24 * 7; // 7일
+    private static final long TOKEN_VALID_MILLISECOND = 1000L * 60 * 60 * 24 * 7; // 7일
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * JWT 생성
@@ -36,11 +42,10 @@ public class JwtUtil {
      */
     public static String createToken(String key) {
         Date date = new Date();
-        return Jwts
-                .builder()
+        return Jwts.builder()
                 .setClaims(Jwts.claims().setId(key))
                 .setIssuedAt(date)
-                .setExpiration(new Date(date.getTime() + tokenValidMillisecond))
+                .setExpiration(new Date(date.getTime() + TOKEN_VALID_MILLISECOND))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
@@ -49,12 +54,13 @@ public class JwtUtil {
      * JWT 복호화
      */
     public static long decJwt(String jwt) {
+        long pk = 0L;
         Jws<Claims> claimsJwt = getClaims(jwt);
         if (!Objects.isNull(claimsJwt) && validateToken(claimsJwt)) {
             String id = getId(claimsJwt);
-            return convertData(id.substring(1));
+            pk = convertData(id.substring(1));
         }
-        return 0;
+        return pk;
     }
 
     /**
@@ -67,7 +73,7 @@ public class JwtUtil {
                     .setSigningKey(secretKey)
                     .parseClaimsJws(jwt);
         } catch (SignatureException e) {
-            throw new ServerErrorException("복호화 실패", null);
+            throw new ServerErrorException("유효하지 않는 JWT 토큰입니다.", null);
         }
     }
 
@@ -97,4 +103,32 @@ public class JwtUtil {
         return byteBuffer.getLong();
     }
 
+    /**
+     * 토큰 valid
+     */
+    public boolean isTokenValid(String token) {
+        try {
+            decJwt(token);
+            return true;
+        } catch (SignatureException e) {
+            logger.error("잘못된 JWT 서명입니다.");
+
+        } catch (MalformedJwtException e) {
+            logger.error("잘못된 JWT 토큰입니다.");
+
+        } catch (ExpiredJwtException e) {
+            logger.error("만료된 JWT 토큰입니다.");
+
+        } catch (UnsupportedJwtException e) {
+            logger.error("지원되지 않는 JWT 토큰입니다.");
+
+        } catch (IllegalArgumentException e) {
+            logger.error("유효하지 않는 JWT 토큰입니다.");
+        }
+        return false;
+    }
+
+    public long getPkFromToken(String token) {
+        return decJwt(token);
+    }
 }

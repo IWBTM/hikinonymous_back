@@ -76,36 +76,6 @@ public class ResponseUtil {
     }
 
     /**
-     * BAD_REQUEST
-     * CODE - 400
-     */
-    public static ResponseDto badRequest(ResponseDto responseDto) {
-        responseDto.setCode(HttpResponseStatus.BAD_REQUEST.getCode());
-        responseDto.setMessage(HttpResponseStatus.BAD_REQUEST.getMessage());
-        return responseDto;
-    }
-
-    /**
-     * INVALID_REQUEST_PARAMETER_FORM
-     * CODE - 401
-     */
-    public static ResponseDto inValidRequestParameterForm(ResponseDto responseDto) {
-        responseDto.setCode(HttpResponseStatus.INVALID_REQUEST_PARAMETER_FORM.getCode());
-        responseDto.setMessage(HttpResponseStatus.INVALID_REQUEST_PARAMETER_FORM.getMessage());
-        return responseDto;
-    }
-
-    /**
-     * EMPTY_REQUEST_PARAMETER
-     * CODE - 402
-     */
-    public static ResponseDto emptyRequestParameter(ResponseDto responseDto) {
-        responseDto.setCode(HttpResponseStatus.EMPTY_REQUEST_PARAMETER.getCode());
-        responseDto.setMessage(HttpResponseStatus.EMPTY_REQUEST_PARAMETER.getMessage());
-        return responseDto;
-    }
-
-    /**
      * EMPTY_REQUEST_BODY
      * CODE - 403
      */
@@ -115,33 +85,4 @@ public class ResponseUtil {
         return responseDto;
     }
 
-    /**
-     * EMPTY_PROPERTY_IN_REQUEST_BODY
-     * CODE - 404
-     */
-    public static ResponseDto emptyPropertyInRequestBody(ResponseDto responseDto) {
-        responseDto.setCode(HttpResponseStatus.EMPTY_PROPERTY_IN_REQUEST_BODY.getCode());
-        responseDto.setMessage(HttpResponseStatus.EMPTY_PROPERTY_IN_REQUEST_BODY.getMessage());
-        return responseDto;
-    }
-
-    /**
-     * HTTP_MEDIA_TYPE_NOT_SUPPORTED
-     * CODE - 490
-     */
-    public static ResponseDto httpMediaTypeNotSupported(ResponseDto responseDto) {
-        responseDto.setCode(HttpResponseStatus.HTTP_MEDIA_TYPE_NOT_SUPPORTED.getCode());
-        responseDto.setMessage(HttpResponseStatus.HTTP_MEDIA_TYPE_NOT_SUPPORTED.getMessage());
-        return responseDto;
-    }
-
-    /**
-     * SERVER_ERROR
-     * CODE - 500
-     */
-    public static ResponseDto serverError(ResponseDto responseDto) {
-        responseDto.setCode(HttpResponseStatus.SERVER_ERROR.getCode());
-        responseDto.setMessage(HttpResponseStatus.SERVER_ERROR.getMessage());
-        return responseDto;
-    }
 }

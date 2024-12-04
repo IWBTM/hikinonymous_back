@@ -69,7 +69,7 @@ public class LoginController {
 
     @Operation(
             summary = "관리자 토큰 체크",
-            description = "Authorization으로 토큰 정상 여부를 응답 받는다."
+            description = "Authorization 으로 토큰 정상 여부를 응답 받는다."
     )
     @ApiResponse(
             description = "응답 에러 코드 DOC 참고"

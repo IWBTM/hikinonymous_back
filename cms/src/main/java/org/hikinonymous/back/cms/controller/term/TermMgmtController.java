@@ -68,7 +68,7 @@ public class TermMgmtController {
 
         Page<ServiceBoardEntity> serviceBoardEntityPages = serviceBoardService.findAllByServiceBoardType(serviceBoardType, pageable);
         responseDto.setData(serviceBoardEntityPages.map(boardEntity -> {
-                ServiceBoardDto serviceBoardDto = (ServiceBoardDto) CommonUtil.bindToObjectFromObject(boardEntity, ServiceBoardDto.class);
+                ServiceBoardDto serviceBoardDto = CommonUtil.bindToObjectFromObject(boardEntity, ServiceBoardDto.class);
 
                 serviceBoardDto.setRegDate(CommonUtil.getDayByStrDate(serviceBoardDto.getRegDate()));
                 serviceBoardDto.setRegisterNm(EncUtil.decryptAES256(serviceBoardDto.getRegisterNm()));

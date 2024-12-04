@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hikinonymous.back.core.dto.*;
 import org.hikinonymous.back.core.entity.BoardEntity;
 import org.hikinonymous.back.core.entity.ReplyEntity;
+import org.hikinonymous.back.core.exception.EmptyBodyException;
 import org.hikinonymous.back.core.service.BoardService;
 import org.hikinonymous.back.core.service.ManagerLogService;
 import org.hikinonymous.back.core.service.ReplyService;
@@ -119,7 +120,7 @@ public class BoardMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, MENU_NAME + " 삭제 여부", "U",  manager);
 
-        if (Objects.isNull(boardDto)) return ResponseUtil.emptyRequestBody(responseDto);
+        if (Objects.isNull(boardDto)) throw new EmptyBodyException();
 
         boardService.updateDelYn(boardDto);
         return ResponseUtil.success(responseDto);
@@ -174,7 +175,7 @@ public class BoardMgmtController {
         if (Objects.isNull(manager)) return ResponseUtil.canNotFoundManager(responseDto);
         managerLogService.proc(request, SUB_MENU_NAME + " 삭제 여부", "U",  manager);
 
-        if (Objects.isNull(replyDto)) return ResponseUtil.emptyRequestBody(responseDto);
+        if (Objects.isNull(replyDto)) throw new EmptyBodyException();
 
         replyService.updateDelYn(replyDto);
         return ResponseUtil.success(responseDto);
